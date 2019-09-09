@@ -1,0 +1,2 @@
+# bridget-bot
+Discord Secretary
