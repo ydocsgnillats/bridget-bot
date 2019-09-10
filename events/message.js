@@ -6,10 +6,3 @@ module.exports = (client, message) => {
 	}
 }
     
-const score = require('../commands/score')
-
-module.exports = (client, message) => {
-	if (message.content.startWith('!score')) {
-		return score(message)
-	}
-}
