@@ -3,6 +3,7 @@ const note = require('../commands/note')
 const log = require('../commands/log')
 const pin = require('../commands/pin')
 
+
 module.exports = (client, message) => {
 
 	if (message.content.startsWith('!kick')) {
@@ -10,7 +11,20 @@ module.exports = (client, message) => {
 	}
 
 	if (message.content.startsWith('Bridget!')) {
-		log(message)
+		//log(message)
+		var msgCollect = message.channel.messages;
+		var msgArray = Array.from(msgCollect.values());
+		var prevMsg = msgArray[msgArray.length -2];
+		const fs = require('fs');
+		
+		client.ideas = require('../ideas.json');
+		client.ideas[message.author.username] = {
+			idea: prevMsg.content
+		}
+		fs.writeFile ('./ideas.json', JSON.stringify (client.ideas, null, 4), err => {
+			if (err) throw err;
+			message.channel.send ("Written");
+		});
 		return note(message)
 	}
 	if (message.content.startsWith('bridget!')) {
