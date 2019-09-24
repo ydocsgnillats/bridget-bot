@@ -36,7 +36,7 @@ module.exports = (client, message) => {
 	if (message.content.startsWith('Pin that')) {
 		return pin(message)
 	}
-	if (message.content.startsWith('69')) {
+	if (message.content.includes('69')) {
 		return nice(message)
 	}
 }
