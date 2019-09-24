@@ -2,6 +2,7 @@ const kick = require('../commands/kick')
 const note = require('../commands/note')
 const log = require('../commands/log')
 const pin = require('../commands/pin')
+const nice = require('../commands/nice')
 
 module.exports = (client, message) => {
 
@@ -34,5 +35,8 @@ module.exports = (client, message) => {
 	}
 	if (message.content.startsWith('Pin that')) {
 		return pin(message)
+	}
+	if (message.content.startsWith('69')) {
+		return nice(message)
 	}
 }
