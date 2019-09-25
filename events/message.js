@@ -1,4 +1,3 @@
-const kick = require('../commands/kick')
 const note = require('../commands/note')
 const log = require('../commands/log')
 const pin = require('../commands/pin')
