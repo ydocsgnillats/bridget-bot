@@ -4,16 +4,15 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const activities_list = [
     "Ram Ranch", 
-    "Gamers to Rise Up",
+    "Gamers Rise Up",
     "your stupid ideas over in her head", 
     "goat simulator",
 	"the BYAND",
 	"planetary annihalation",
 	"HE-MAN HEYEAYEA SONG FOR 10 HOURS",
 	"OWO what's this???",
-	"oh look, IT'S A SINGLE PIECE OF PAPER THAT SAYS",
 	"My Little Pony: Friendship is Magic",
-	"the role of the secretary friend we never had"
+	"the role of the secretary we never had"
     ]; // creates an arraylist containing phrases you want your bot to switch through.
 
 fs.readdir('./events/', (err, files) => {
@@ -31,7 +30,5 @@ client.on('ready', () => {
 	client.user.setActivity(activities_list[index]); // sets bot's activities to one of the phrases in the arraylist.
   }, 300000); // Runs this every 20 minutes.
 })
-
-
 
 client.login(process.env.TOKEN)
