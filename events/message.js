@@ -11,29 +11,15 @@ module.exports = (client, message) => {
 	}
 
 	if (message.content.startsWith('Bridget!')) {
-		log(message)
 		return note(message)
 	}
 	if (message.content.startsWith('bridget!')) {
-		log(message)
 		return note(message)
 	}
-	if (message.content.startsWith('Bridget')) {
-		log(message)
-		return note(message)
-	}
-	if (message.content.startsWith('bridget write that down')) {
-		log(message)
-		return note(message)
-	}
-	if (message.content.startsWith('Bridget write that down')) {
-		log(message)
-		return note(message)
-	}
-	if (message.content.startsWith('pin that')) {
+	if (message.content.includes('pin that')) {
 		return pin(message)
 	}
-	if (message.content.startsWith('Pin that')) {
+	if (message.content.includes('Pin that')) {
 		return pin(message)
 	}
 	if (message.content.includes('69')) {
