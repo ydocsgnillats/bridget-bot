@@ -1,6 +1,7 @@
 const note = require('../commands/note')
 const pin = require('../commands/pin')
 const nice = require('../commands/nice')
+const welcome = require('../commands/welcome')
 
 module.exports = (client, message) => {
 
@@ -18,5 +19,14 @@ module.exports = (client, message) => {
 	}
 	if (message.content.includes('69')) {
 		return nice(message)
+	}
+	if (message.content.includes('thanks bridget')) {
+		return welcome(message)
+	}
+	if (message.content.includes('Thanks Bridget')) {
+		return welcome(message)
+	}
+	if (message.content.includes('Thanks bridget')) {
+		return welcome(message)
 	}
 }
