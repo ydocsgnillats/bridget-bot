@@ -6,10 +6,6 @@ const nice = require('../commands/nice')
 
 module.exports = (client, message) => {
 
-	if (message.content.startsWith('!kick')) {
-		return kick(message)
-	}
-
 	if (message.content.startsWith('Bridget!')) {
 		return note(message)
 	}
