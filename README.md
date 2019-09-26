@@ -11,6 +11,5 @@ Requirements:
   npm
 
 Commands:
-  'bridget!', 'Bridget!', 'Bridget', 'bridget write that down', 'Bridget write that down' - Take note of the previous message.
-  '!kick' - Kick specified user, if she has the necessary permissions in the server.
+  'bridget!', 'Bridget!' - Take note of the previous message.
   'pin that', 'Pin that' - Pins the previous message in the channel.
