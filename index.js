@@ -1,4 +1,7 @@
 require('dotenv').config()
+
+var start = 0;
+
 const fs = require('fs')
 const Discord = require('discord.js')
 const client = new Discord.Client()
@@ -33,7 +36,7 @@ fs.readdir('./events/', (err, files) => {
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity("Startup");
+  client.user.setActivity("Startup " + start);
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list (in this case 5).
 	client.user.setActivity(activities_list[index]); // sets bot's activities to one of the phrases in the arraylist.
