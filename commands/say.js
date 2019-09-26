@@ -1,4 +1,4 @@
 module.exports = message => {
-    message.reply('bridget!')	
+    message.reply('thanks bridget')	
   // trying to get bridget to speak
   }
