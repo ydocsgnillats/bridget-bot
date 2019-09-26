@@ -1,6 +1,7 @@
 const note = require('../commands/note')
 const pin = require('../commands/pin')
 const welcome = require('../commands/welcome')
+const say = require('../commands/say')
 
 module.exports = (client, message) => {
 		if(message.author.bot) return;
@@ -28,5 +29,11 @@ module.exports = (client, message) => {
 		}
 		if (message.content.includes('thanks Bridget')) {
 			return welcome(message)
+		}
+		if (message.content.startsWith('btest')) {
+			return say(message)
+		}
+		if (message.content.startsWith('btest')) {
+			return say(message)
 		}
 	}
