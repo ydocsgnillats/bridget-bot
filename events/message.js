@@ -33,4 +33,4 @@ module.exports = (client, message) => {
 		if (message.content.startsWith('btest')) {
 			return say(message)
 		}
-	}
+}
