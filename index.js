@@ -1,12 +1,13 @@
 require('dotenv').config()
+
 const fs = require('fs')
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const activities_list = [
-    	"Ram Ranch", 
-    	"Gamers Rise Up",
-    	"your stupid ideas over in her head", 
-    	"goat simulator",
+    "Ram Ranch", 
+    "Gamers Rise Up",
+    "your stupid ideas over in her head", 
+    "goat simulator",
 	"the BYAND",
 	"planetary annihalation",
 	"HE-MAN HEYEAYEA SONG FOR 10 HOURS",
@@ -33,7 +34,7 @@ fs.readdir('./events/', (err, files) => {
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity("Startup");
+  client.user.setActivity("Startup " + Date.now());
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list (in this case 5).
 	client.user.setActivity(activities_list[index]); // sets bot's activities to one of the phrases in the arraylist.
