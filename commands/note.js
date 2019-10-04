@@ -1,6 +1,6 @@
-var fs = require("fs");
+var fs = require('fs');
 var stream;
-stream = fs.createWriteStream("../ideas/idea.txt");
+stream = fs.createWriteStream('./ideas/idea.txt');
 
 module.exports = message => {
   var msgCollect = message.channel.messages;
