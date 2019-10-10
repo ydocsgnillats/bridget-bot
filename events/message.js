@@ -8,11 +8,11 @@ module.exports = (client, message) => {
 		if(message.author.bot) return;
 
 		if (message.content.startsWith('Bridget!')) {
-			//log(message)
+			log(message)
 			return note(message)
 		}
 		if (message.content.startsWith('bridget!')) {
-			//log(message)
+			log(message)
 			return note(message)
 		}
 		if (message.content.includes('pin that')) {
