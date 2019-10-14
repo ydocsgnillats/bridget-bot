@@ -6,7 +6,7 @@ module.exports = message => {
 	var fs = require("fs");
 
 	
-    fs.writeFile("../ideas/idea.txt", prevMsg, function (err) {
+    fs.writeFile("../idea.txt", prevMsg, function (err) {
 		if (err) return console.log(err);
 	});
 }
