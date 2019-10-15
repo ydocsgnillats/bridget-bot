@@ -35,30 +35,32 @@ client.on('ready', () => {
 client.on('message', async message => {
 	if(message.author.bot || message.channel.type === 'dm') return;
 
+	let messageArray = message.content.split(" ")
 	let cmd = messageArray[0];
-	let messageArray = message.content.startsWith(cmd)
 
 	if(cmd === 'btest'){
 		return message.channel.send("**BRIDGET**")
 	}
 
-	if(cmd === 'thanks bridget'){
+	if(cmd === 'thanks'){
 		return message.channel.send("*UwU*")
 	}
-	if(cmd === 'Thanks bridget'){
+	if(cmd === 'Thanks'){
 		return message.channel.send("*UwU*")
 	}
-	if(cmd === 'thanks Bridget'){
-		return message.channel.send("*UwU*")
+	if(cmd === 'pin'){
+		var msgCollect = message.channel.messages;
+		var msgArray = Array.from(msgCollect.values());
+		var prevMsg = msgArray[msgArray.length -2];
+		prevMsg.pin();
+		return;
 	}
-	if(cmd === 'Thanks Bridget'){
-		return message.channel.send("*UwU*")
-	}
-	if(cmd === 'pin that'){
-		return message.channel.send("pin")
-	}
-	if(cmd === 'Pin that'){
-		return message.channel.send("pin")
+	if(cmd === 'Pin'){
+		var msgCollect = message.channel.messages;
+		var msgArray = Array.from(msgCollect.values());
+		var prevMsg = msgArray[msgArray.length -2];
+		prevMsg.pin();
+		return;
 	}
 	if(cmd === 'bridget!'){
 		return message.channel.send("writing that down...")
