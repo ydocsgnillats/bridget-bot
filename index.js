@@ -42,7 +42,7 @@ client.on('message', async message => {
 		return message.channel.send("**BRIDGET**")
 	}
 
-	if(cmd === 'thanks bridget' || cmd === 'Thanks bridget' || cmd === 'thanks Bridget' || cmd === 'Thanks Bridget'){
+	if(cmd === ('thanks bridget' || 'Thanks bridget' ||'thanks Bridget' ||'Thanks Bridget')){
 		return message.channel.send("*UwU*")
 	}
 })
