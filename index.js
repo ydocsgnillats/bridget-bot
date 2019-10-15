@@ -23,7 +23,7 @@ const activities_list = [
 	
     ]; // creates an arraylist containing phrases you want your bot to switch through.
 
-client.on('ready', () => {
+client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   client.user.setActivity("Startup " + Date.now(), {type: "WATCHING"});
   setInterval(() => {
@@ -68,6 +68,25 @@ client.on('message', async message => {
 	if(cmd === 'Bridget!'){
 		return message.channel.send("writing that down...")
 	}
-})
+	if(cmd === 'mute!'){
+		return message.channel.send("mute")
+	}
+	if(cmd === 'bclear!'){
+		if (message.author.bot) {
+			message.channel.fetchMessages()
+			  .then(messages => {
+				message.channel.delete
+				messagesDeleted = messages.array().length; // number of messages deleted
+	
+				// Logging the number of messages deleted on both the channel and console.
+				message.channel.sendMessage("Bridget messages deleted: "+messagesDeleted);
+				console.log('Deletion of messages successful. Total messages deleted: '+messagesDeleted)
+			  })
+			  .catch(err => {
+				console.log('Error while doing Bulk Delete');
+				console.log(err);
+			  });
+	}
+}
 
 client.login(process.env.TOKEN)
