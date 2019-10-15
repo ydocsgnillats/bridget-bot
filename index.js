@@ -72,22 +72,22 @@ client.on('message', async message => {
 		return message.channel.send("mute")
 	}
 	if(cmd === 'bclear!'){
-		if (message.author.bot) {
-			message.channel.fetchMessages()
+		message.channel.fetchMessages()
 			  .then(messages => {
-				message.channel.delete
-				messagesDeleted = messages.array().length; // number of messages deleted
-	
-				// Logging the number of messages deleted on both the channel and console.
-				message.channel.sendMessage("Bridget messages deleted: "+messagesDeleted);
-				console.log('Deletion of messages successful. Total messages deleted: '+messagesDeleted)
+				if(message.author.bot){
+					message.channel.delete
+					messagesDeleted = messages.array().length; // number of messages deleted
+					// Logging the number of messages deleted on both the channel and console.
+					message.channel.sendMessage("Bridget messages deleted: "+messagesDeleted);
+					console.log('Deletion of messages successful. Total messages deleted: '+messagesDeleted)
+				}
 			  })
 			  .catch(err => {
 				console.log('Error while doing Bulk Delete');
 				console.log(err);
 			  });
-	}
-}
-})
+			}
+
+	})
 
 client.login(process.env.TOKEN)
