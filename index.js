@@ -25,7 +25,7 @@ const activities_list = [
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity("Startup " + Date.now());
+  client.user.setActivity("Startup " + Date.now(), {type: "WATCHING"});
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list (in this case 5).
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}); // sets bot's activities to one of the phrases in the arraylist.
@@ -38,8 +38,12 @@ client.on('message', async message => {
 	let messageArray = message.content.split(" ")
 	let cmd = messageArray[0];
 
-	if(cmd === 'hello'){
-		return message.channel.send("hello there")
+	if(cmd === 'btest'){
+		return message.channel.send("**BRIDGET**")
+	}
+
+	if(cmd === 'thanks bridget' || cmd === 'Thanks bridget' || cmd === 'thanks Bridget' || cmd === 'Thanks Bridget'){
+		return message.channel.send("*UwU*")
 	}
 })
 
