@@ -1,11 +1,11 @@
 require('dotenv').config()
 
+const botconfig = require("./botconfig.json")
 const fs = require('fs')
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const activities_list = [
     "Ram Ranch", 
-    "Gamers Rise Up",
     "your stupid ideas over in her head", 
     "goat simulator",
 	"the BYAND",
@@ -24,21 +24,24 @@ const activities_list = [
 	
     ]; // creates an arraylist containing phrases you want your bot to switch through.
 
-fs.readdir('./events/', (err, files) => {
-    files.forEach(file => {
-		const eventHandler = require(`./events/${file}`)
-		const eventName = file.split('.')[0]
-		client.on(eventName, (...args) => eventHandler(client, ...args))
-	})
-})
-
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
   client.user.setActivity("Startup " + Date.now());
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list (in this case 5).
-	client.user.setActivity(activities_list[index]); // sets bot's activities to one of the phrases in the arraylist.
+	client.user.setActivity(activities_list[index], {type: "STREAMING"}); // sets bot's activities to one of the phrases in the arraylist.
   }, 300000); // Runs this every 20 minutes.
+})
+
+client.on('message', async message => {
+	if(message.author.bot || message.channel.type === 'dm') return;
+
+	let messageArray = message.content.split(" ")
+	let cmd = messageArray[0];
+
+	if(cmd === 'hello'){
+		return message.channel.send("hello there")
+	}
 })
 
 client.login(process.env.TOKEN)
