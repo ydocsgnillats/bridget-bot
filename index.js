@@ -42,8 +42,29 @@ client.on('message', async message => {
 		return message.channel.send("**BRIDGET**")
 	}
 
-	if(cmd === ('thanks bridget' || 'Thanks bridget' ||'thanks Bridget' ||'Thanks Bridget')){
+	if(cmd === 'thanks bridget'){
 		return message.channel.send("*UwU*")
+	}
+	if(cmd === 'Thanks bridget'){
+		return message.channel.send("*UwU*")
+	}
+	if(cmd === 'thanks Bridget'){
+		return message.channel.send("*UwU*")
+	}
+	if(cmd === 'Thanks Bridget'){
+		return message.channel.send("*UwU*")
+	}
+	if(cmd === 'pin that'){
+		return message.channel.send("pin")
+	}
+	if(cmd === 'Pin that'){
+		return message.channel.send("pin")
+	}
+	if(cmd === 'bridget!'){
+		return message.channel.send("writing that down...")
+	}
+	if(cmd === 'Bridget!'){
+		return message.channel.send("writing that down...")
 	}
 })
 
