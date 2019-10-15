@@ -35,7 +35,7 @@ client.on('ready', () => {
 client.on('message', async message => {
 	if(message.author.bot || message.channel.type === 'dm') return;
 
-	let messageArray = message.content.includes()
+	let messageArray = message.content()
 	let cmd = messageArray[0];
 
 	if(cmd === 'btest'){
