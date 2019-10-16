@@ -71,6 +71,15 @@ client.on('message', async message => {
 	if(cmd === 'mute!'){
 		return message.channel.send("mute")
 	}
+	if(cmd === 'bridgetrespect'){
+		return message.channel.send("F.")
+	}
+	if(cmd === 'roll!'){
+		var low = 1
+		var high = 100
+		function randomInt(low, high) {
+  		return Math.floor(Math.random() * (high - low) + low)
+	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
 			  .then(messages => {
