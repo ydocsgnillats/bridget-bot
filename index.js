@@ -79,6 +79,8 @@ client.on('message', async message => {
 		var high = 100
 		function randomInt(low, high) {
   		return Math.floor(Math.random() * (high - low) + low)
+		}
+		return randomInt(low,high)
 	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
