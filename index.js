@@ -7,25 +7,26 @@ const activities_list = [
     "Ram Ranch", 
     "your stupid ideas over in her head", 
     "goat simulator",
-	"the BYAND",
-	"planetary annihalation",
-	"HE-MAN HEYEAYEA SONG FOR 10 HOURS",
-	"OWO what's this???",
-	"My Little Pony: Friendship is Magic",
-	"the role of the secretary we never had",
-	"Halo MCCPC",
-	"Destiny",
-	"KFC dating simulator",
-	"Warcraft: Reforged",
-	"Battletoads 2",
-	"Nightmares of a forgotten past",
-	"Nightcrawlers"
+    "the BYAND",
+    "planetary annihalation",
+    "HE-MAN HEYEAYEA SONG FOR 10 HOURS",
+    "OWO what's this???",
+    "My Little Pony: Friendship is Magic",
+    "the role of the secretary we never had",
+    "Halo MCCPC",
+    "Destiny",
+    "KFC dating simulator",
+    "Warcraft: Reforged",
+    "Battletoads 2",
+    "Nightmares of a forgotten past",
+    "Nightcrawlers"
 	
     ]; // creates an arraylist containing phrases you want your bot to switch through.
 
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity("Startup " + Date.now(), {type: "WATCHING"});
+  let date = new Date();
+  client.user.setActivity("Initialization: " + (date.getSeconds()), {type: "PLAYING"});
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list (in this case 5).
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}); // sets bot's activities to one of the phrases in the arraylist.
@@ -73,6 +74,13 @@ client.on('message', async message => {
 	}
 	if(cmd === 'mute!'){
 		return message.channel.send("mute")
+	}
+	if(cmd === 'bridgetrespect'){
+		return message.channel.send("F.")
+	}
+	if(cmd === 'roll!'){
+		let num = (Math.random() * (101-1) + 1)
+		return message.channel.send(parseInt(num))
 	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
