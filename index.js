@@ -7,19 +7,19 @@ const activities_list = [
     "Ram Ranch", 
     "your stupid ideas over in her head", 
     "goat simulator",
-	"the BYAND",
-	"planetary annihalation",
-	"HE-MAN HEYEAYEA SONG FOR 10 HOURS",
-	"OWO what's this???",
-	"My Little Pony: Friendship is Magic",
-	"the role of the secretary we never had",
-	"Halo MCCPC",
-	"Destiny",
-	"KFC dating simulator",
-	"Warcraft: Reforged",
-	"Battletoads 2",
-	"Nightmares of a forgotten past",
-	"Nightcrawlers"
+    "the BYAND",
+    "planetary annihalation",
+    "HE-MAN HEYEAYEA SONG FOR 10 HOURS",
+    "OWO what's this???",
+    "My Little Pony: Friendship is Magic",
+    "the role of the secretary we never had",
+    "Halo MCCPC",
+    "Destiny",
+    "KFC dating simulator",
+    "Warcraft: Reforged",
+    "Battletoads 2",
+    "Nightmares of a forgotten past",
+    "Nightcrawlers"
 	
     ]; // creates an arraylist containing phrases you want your bot to switch through.
 
@@ -75,10 +75,7 @@ client.on('message', async message => {
 		return message.channel.send("F.")
 	}
 	if(cmd === 'roll!'){
-		function randomInt(low, high) {
-  			return Math.floor(Math.random() * (high - low) + low)
-		}
-		return randomInt(1, 100)
+		return Math.random() * (100-1) + 1
 	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
