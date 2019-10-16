@@ -25,7 +25,7 @@ const activities_list = [
 
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  client.user.setActivity("Startup " + Date.now(), {type: "WATCHING"});
+  client.user.setActivity("Initialization: " + Date.prototype.getSeconds(), {type: "PLAYING"});
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list (in this case 5).
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}); // sets bot's activities to one of the phrases in the arraylist.
