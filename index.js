@@ -75,12 +75,10 @@ client.on('message', async message => {
 		return message.channel.send("F.")
 	}
 	if(cmd === 'roll!'){
-		var low = 1
-		var high = 100
 		function randomInt(low, high) {
-  		return Math.floor(Math.random() * (high - low) + low)
+  			return Math.floor(Math.random() * (high - low) + low)
 		}
-		return randomInt(low,high)
+		return randomInt(1, 100)
 	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
