@@ -26,7 +26,7 @@ const activities_list = [
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date();
-  client.user.setActivity("Initialization: " + (date.getSeconds()), {type: "STREAMING"});
+  client.user.setActivity("Initialization: " + (date.getSeconds()), {type: "PLAYING"});
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list (in this case 5).
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}); // sets bot's activities to one of the phrases in the arraylist.
@@ -76,7 +76,7 @@ client.on('message', async message => {
 		return message.channel.send("F.")
 	}
 	if(cmd === 'roll!'){
-		let num = (Math.random() * (100-1) + 1)
+		let num = (Math.random() * (101-1) + 1)
 		return message.channel.send(parseInt(num))
 	}
 	if(cmd === 'bclear!'){
