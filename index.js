@@ -55,6 +55,9 @@ client.on('message', async message => {
 		prevMsg.pin();
 		return;
 	}
+	if(cmd === 'bridgetrespect'){
+		return message.channel.send("F.")
+	}
 	if(cmd === 'Pin'){
 		var msgCollect = message.channel.messages;
 		var msgArray = Array.from(msgCollect.values());
