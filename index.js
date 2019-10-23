@@ -84,7 +84,7 @@ client.on('message', async message => {
 		.setColor('#c481fb')
 		.setTitle("Bridget Help:")
 		.setDescription("A secretary Bot")
-		.setAuthor(Bridget, message.guild.iconURL)
+		.setAuthor("*Bridget*", message.guild.iconURL)
 		.addField("**bridget!**", "writes things down", true)
 		.addField("**Pin!**", "pins the last message", true)
 		.addField("**Thanks**", "you're welcome", true)
@@ -93,7 +93,7 @@ client.on('message', async message => {
 		.addField("**help!**", "sends this message", true)
 		.setFooter('BridgetBot2019 | Footer', client.user.displayAvatarURL);
 		message.channel.send({embed: sEmbed});
-		message.channel.send(sEmbed);
+		//message.channel.send(sEmbed);
 	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
