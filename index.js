@@ -81,7 +81,7 @@ client.on('message', async message => {
 	}
 	if(cmd === 'help!'){
 		let sEmbed = new Discord.RichEmbed()
-		.setColor('#c481fb')
+		.setColor('#ffcba4')
 		.setTitle("Bridget:")
 		.setDescription("A secretary Bot")
 		.addField("**bridget!**", "writes things down", true)
