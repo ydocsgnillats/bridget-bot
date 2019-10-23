@@ -92,6 +92,7 @@ client.on('message', async message => {
 		.addField("**roll!**", "random roll between 1 and 100", true)
 		.addField("**help!**", "sends this message", true)
 		.setFooter('BridgetBot2019 | Footer', client.user.displayAvatarURL);
+		message.channel.send({embed: sEmbed});
 		message.channel.send(sEmbed);
 	}
 	if(cmd === 'bclear!'){
