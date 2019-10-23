@@ -49,14 +49,14 @@ client.on('message', async message => {
 	if(cmd === 'Thanks'){
 		return message.channel.send("*UwU*")
 	}
-	if(cmd === 'pin'){
+	if(cmd === 'pin!'){
 		var msgCollect = message.channel.messages;
 		var msgArray = Array.from(msgCollect.values());
 		var prevMsg = msgArray[msgArray.length -2];
 		prevMsg.pin();
 		return;
 	}
-	if(cmd === 'Pin'){
+	if(cmd === 'Pin!'){
 		var msgCollect = message.channel.messages;
 		var msgArray = Array.from(msgCollect.values());
 		var prevMsg = msgArray[msgArray.length -2];
@@ -82,16 +82,17 @@ client.on('message', async message => {
 	if(cmd === 'help!'){
 		let sEmbed = new Discord.RichEmbed()
 		.setColor('#c481fb')
-		.setTitle("ServerInfo")
+		.setTitle("Bridget Help:")
 		.setDescription("A secretary Bot")
-		.setAuthor('${message.guild.name} Info', message.guild.iconURL)
-		.addField("**Guild Name: **", '${message.guild.name}', true)
-		.addField("**Guild Owner: **", '${message.guild.owner}', true)
-		.addField("**Member Count: **", '${message.guild.memberCount}', true)
-		.addField("**Role Count: **", '${message.guild.roles.size}', true)
-		.setFooter('BridgetBot | Footer', client.user.displayAvatarURL);
+		.setAuthor(Bridget, message.guild.iconURL)
+		.addField("**bridget!**", "writes things down", true)
+		.addField("**Pin!**", "pins the last message", true)
+		.addField("**Thanks**", "you're welcome", true)
+		.addField("**bridgetrespect**", "to get an F in the chat", true)
+		.addField("**roll!**", "random roll between 1 and 100", true)
+		.addField("**help!**", "sends this message", true)
+		.setFooter('BridgetBot2019 | Footer', client.user.displayAvatarURL);
 		message.channel.send({embed: sEmbed});
-		message.channel.send(sEmbed);
 	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
