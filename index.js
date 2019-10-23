@@ -89,30 +89,25 @@ client.on('message', async message => {
 		.addField("**Guild Owner: **", '${message.guild.owner}', true)
 		.addField("**Member Count: **", '${message.guild.memberCount}', true)
 		.addField("**Role Count: **", '${message.guild.roles.size}', true)
-		.setFooter('BridgetBot | Footer', bot.user.displayAvatarURL);
+		.setFooter('BridgetBot | Footer', client.user.displayAvatarURL);
 		message.channel.send({embed: sEmbed});
 		message.channel.send(sEmbed);
 	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
 			  .then(messages => {
-				if(message.author.bot) {
 					messagesDeleted = messages.array().length; // number of messages deleted
 					// Logging the number of messages deleted on both the channel and console.
 					message.array().bulkDelete(messagesDeleted)
-					message.channel.sendMessage("Bot messages deleted: "+messagesDeleted);
+					message.channel.send("Bot messages deleted: "+messagesDeleted);
 					console.log('Deletion of messages successful. Total messages deleted: '+messagesDeleted)
-				}
-				else{
-					return message.channel.sendMessage("failed to clear messages");
-				}
 			  })
 			  .catch(err => {
 				console.log('Error while doing Bulk Delete');
 				console.log(err);
+				message.channel.send("Message Delete Failed")				
 			  });
 			}
-
 	})
 
 client.login(process.env.TOKEN)
