@@ -2,7 +2,6 @@ require('dotenv').config()
 
 const fs = require('fs')
 const Discord = require('discord.js')
-const botcolors = ("./colors.json")
 const client = new Discord.Client()
 const activities_list = [
     "Ram Ranch", 
@@ -82,7 +81,7 @@ client.on('message', async message => {
 	}
 	if(cmd === 'help!'){
 		let sEmbed = new Discord.RichEmbed()
-		.setColor(colors.cyan)
+		.setColor('#c481fb')
 		.setTitle("ServerInfo")
 		.setDescription("A secretary Bot")
 		.setAuthor('${message.guild.name} Info', message.guild.iconURL)
@@ -96,14 +95,14 @@ client.on('message', async message => {
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
 			  .then(messages => {
-				if(message.author.bot){
+				try {
 					message.channel.bulkDelete(10)
 					messagesDeleted = messages.array().length; // number of messages deleted
 					// Logging the number of messages deleted on both the channel and console.
 					message.channel.sendMessage("Bridget messages deleted: "+messagesDeleted);
 					console.log('Deletion of messages successful. Total messages deleted: '+messagesDeleted)
 				}
-				else{
+				catch{
 					return message.channel.sendMessage("failed to clear messages");
 				}
 			  })
