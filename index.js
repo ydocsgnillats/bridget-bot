@@ -91,18 +91,19 @@ client.on('message', async message => {
 		.addField("**Role Count: **", '${message.guild.roles.size}', true)
 		.setFooter('BridgetBot | Footer', bot.user.displayAvatarURL);
 		message.channel.send({embed: sEmbed});
+		message.channel.send(sEmbed);
 	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
 			  .then(messages => {
-				try {
-					message.channel.bulkDelete(10)
+				if(message.author.bot) {
 					messagesDeleted = messages.array().length; // number of messages deleted
 					// Logging the number of messages deleted on both the channel and console.
-					message.channel.sendMessage("Bridget messages deleted: "+messagesDeleted);
+					message.array().bulkDelete(messagesDeleted)
+					message.channel.sendMessage("Bot messages deleted: "+messagesDeleted);
 					console.log('Deletion of messages successful. Total messages deleted: '+messagesDeleted)
 				}
-				catch{
+				else{
 					return message.channel.sendMessage("failed to clear messages");
 				}
 			  })
