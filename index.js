@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const fs = require('fs')
 const Discord = require('discord.js')
+const botcolors = ("./colors.json")
 const client = new Discord.Client()
 const activities_list = [
     "Ram Ranch", 
@@ -78,6 +79,19 @@ client.on('message', async message => {
 	if(cmd === 'roll!'){
 		let num = (Math.random() * (101-1) + 1)
 		return message.channel.send(parseInt(num))
+	}
+	if(cmd === 'help!'){
+		let sEmbed = new Discord.RichEmbed()
+		.setColor(colors.cyan)
+		.setTitle("ServerInfo")
+		.setDescription("A secretary Bot")
+		.setAuthor('${message.guild.name} Info', message.guild.iconURL)
+		.addField("**Guild Name: **", '${message.guild.name}', true)
+		.addField("**Guild Owner: **", '${message.guild.owner}', true)
+		.addField("**Member Count: **", '${message.guild.memberCount}', true)
+		.addField("**Role Count: **", '${message.guild.roles.size}', true)
+		.setFooter('BridgetBot | Footer', bot.user.displayAvatarURL);
+		message.channel.send({embed: sEmbed});
 	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
