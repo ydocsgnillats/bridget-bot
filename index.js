@@ -36,55 +36,41 @@ client.on('ready', async () => {
 client.on('message', async message => {
 	if(message.author.bot || message.channel.type === 'dm') return;
 
-	let cmd = message.content.includes();
-
-	if(cmd === 'btest'){
+	if(message.content.includes('btest')){
 		return message.channel.send("**BRIDGET**")
 	}
 
-	if(cmd === 'thanks'){
+	if(message.content.includes('thanks')){
 		return message.channel.send("*UwU*")
 	}
-	if(cmd === 'Thanks'){
-		return message.channel.send("*UwU*")
-	}
-	if(cmd === 'pin'){
+
+	if(message.content.includes('pin')){
 		var msgCollect = message.channel.messages;
 		var msgArray = Array.from(msgCollect.values());
 		var prevMsg = msgArray[msgArray.length -2];
 		prevMsg.pin();
 		return;
 	}
-	if(cmd === 'bridgetrespect'){
+	if(message.content.includes('bridgetrespect')){
 		return message.channel.send("F.")
 	}
-	if(cmd === 'Pin'){
-		var msgCollect = message.channel.messages;
-		var msgArray = Array.from(msgCollect.values());
-		var prevMsg = msgArray[msgArray.length -2];
-		prevMsg.pin();
-		return;
-	}
-	if(cmd === 'bridget!'){
+	if(message.content.includes('bridget!')){
 		return message.channel.send("writing that down...")
 	}
-	if(cmd === 'Bridget!'){
-		return message.channel.send("writing that down...")
-	}
-	if(cmd === 'mute!'){
+	if(message.content.includes('mute!')){
 		return message.channel.send("mute")
 	}
-	if(cmd === 'bridgetrespect'){
+	if(message.content.includes('bridgetrespect')){
 		return message.channel.send("F.")
 	}
-	if(cmd === 'roll!'){
+	ifmessage.content.includes('roll!')){
 		let num = (Math.random() * (101-1) + 1)
 		return message.channel.send(parseInt(num))
 	}
-	if(cmd === 'how long has dick cheney been alive?'){
+	if(message.content.includes('how long has dick cheney been alive?')){
 		return message.channel.send("||**Far Too Long**||")
 	}
-	if(cmd === 'bclear!'){
+	if(message.content.includes('bclear!')){
 		message.channel.fetchMessages()
 			  .then(messages => {
 				if(message.author.bot){
