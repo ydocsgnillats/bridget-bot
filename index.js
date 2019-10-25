@@ -70,6 +70,21 @@ client.on('message', async message => {
 	if(message.content.includes('how long has dick cheney been alive?')){
 		return message.channel.send("||**Far Too Long**||")
 	}
+	if(message.content.includes('help!')){
+		let sEmbed = new Discord.RichEmbed()
+		.setColor('#ffcba4')
+		.setTitle("Bridget:")
+		.setDescription("A secretary Bot")
+		.addField("**bridget!**", "writes things down", true)
+		.addField("**Pin!**", "pins the last message", true)
+		.addField("**Thanks**", "you're welcome", true)
+		.addField("**bridgetrespect**", "to get an F in the chat", true)
+		.addField("**roll!**", "random roll between 1 and 100", true)
+		.addField("**help!**", "sends this message", true)
+		.setFooter('BridgetBot2019', client.user.displayAvatarURL);
+		message.channel.send({embed: sEmbed});
+		//message.channel.send(sEmbed);
+	}
 	if(message.content.includes('bclear!')){
 		message.channel.fetchMessages()
 			  .then(messages => {
