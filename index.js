@@ -36,7 +36,7 @@ client.on('ready', async () => {
 client.on('message', async message => {
 	if(message.author.bot || message.channel.type === 'dm') return;
 
-	let cmd = message.content.contains();
+	let cmd = message.content.contains;
 
 	if(cmd === 'btest'){
 		return message.channel.send("**BRIDGET**")
