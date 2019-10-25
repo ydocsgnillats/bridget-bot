@@ -82,6 +82,9 @@ client.on('message', async message => {
 		let num = (Math.random() * (101-1) + 1)
 		return message.channel.send(parseInt(num))
 	}
+	if(cmd === 'how long has dick cheney been alive?'){
+		return message.channel.send("||**Far Too Long**||")
+	}
 	if(cmd === 'bclear!'){
 		message.channel.fetchMessages()
 			  .then(messages => {
