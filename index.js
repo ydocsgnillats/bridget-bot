@@ -63,7 +63,7 @@ client.on('message', async message => {
 	if(message.content.includes('bridgetrespect')){
 		return message.channel.send("F.")
 	}
-	ifmessage.content.includes('roll!')){
+	if(message.content.includes('roll!')){
 		let num = (Math.random() * (101-1) + 1)
 		return message.channel.send(parseInt(num))
 	}
