@@ -44,7 +44,7 @@ client.on('message', async message => {
 		return message.channel.send("*UwU*")
 	}
 
-	if(message.content.startsWith('pin')){
+	if(message.content.includes('pin ')){
 		var msgCollect = message.channel.messages;
 		var msgArray = Array.from(msgCollect.values());
 		var prevMsg = msgArray[msgArray.length -2];
