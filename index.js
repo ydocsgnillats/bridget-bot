@@ -4,7 +4,6 @@ const fs = require('fs')
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const activities_list = [
-    "Ram Ranch", 
     "your stupid ideas over in her head", 
     "goat simulator",
     "the BYAND",
@@ -51,7 +50,10 @@ client.on('message', async message => {
 		prevMsg.pin();
 		return;
 	}
-	if(message.content.includes('bridgetrespect')){
+	if(message.content.includes('pay respect')){
+		return message.channel.send("F.")
+	}
+	if(message.content.includes('in the chat')){
 		return message.channel.send("F.")
 	}
 	if(message.content.includes('bridget!')){
@@ -60,15 +62,9 @@ client.on('message', async message => {
 	if(message.content.includes('mute!')){
 		return message.channel.send("mute")
 	}
-	if(message.content.includes('bridgetrespect')){
-		return message.channel.send("F.")
-	}
 	if(message.content.includes('roll!')){
 		let num = (Math.random() * (101-1) + 1)
 		return message.channel.send(parseInt(num))
-	}
-	if(message.content.includes('how long has dick cheney been alive?')){
-		return message.channel.send("||**Far Too Long**||")
 	}
 	if(message.content.includes('help!')){
 		let sEmbed = new Discord.RichEmbed()
@@ -78,7 +74,7 @@ client.on('message', async message => {
 		.addField("**bridget!**", "writes things down", true)
 		.addField("**Pin!**", "pins the last message", true)
 		.addField("**Thanks**", "you're welcome", true)
-		.addField("**bridgetrespect**", "to get an F in the chat", true)
+		.addField("**pay respect**", "to get an F in the chat", true)
 		.addField("**roll!**", "random roll between 1 and 100", true)
 		.addField("**help!**", "sends this message", true)
 		.setFooter('BridgetBot2019', client.user.displayAvatarURL);
