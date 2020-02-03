@@ -3,6 +3,7 @@ require('dotenv').config()
 const fs = require('fs')
 const Discord = require('discord.js')
 const client = new Discord.Client()
+const schedule = require('scheduler.js')
 const activities_list = [
     "your stupid ideas over in her head", 
     "goat simulator",
@@ -81,6 +82,10 @@ client.on('message', async message => {
 		message.channel.send({embed: sEmbed});
 		//message.channel.send(sEmbed);
 	}
+	if (message.content.startsWith('schedule!')) {
+		return scheduler(message)
+	}
+
 	if(message.content.includes('bclear!')){
 		message.channel.fetchMessages()
 			  .then(messages => {
