@@ -1,6 +1,11 @@
 module.exports = message => {
-	var msgCollect = message.channel.messages;
-	var msgArray = Array.from(msgCollect.values());
-	var prevMsg = msgArray[msgArray.length -2];
-	return message.channel.send("When should I remind you about " + "*" + prevMsg + "?*")
+	var msgarray = message.content.split(" ").slice(1).join(" ");
+	message.channel.fetchMessages({ 
+		limit: 3 // Fetch last 50 messages.
+	}).then((msgCollection) => { // Resolve promise
+	msgCollection.forEach((msg) => { // forEach on message collection
+		msg.delete(); // Delete each message
+	}));
+	return message.channel.send("When should I remind you about " + "*" + msgarray + "?*").catch(e => console.log(e));
+	}
 }
