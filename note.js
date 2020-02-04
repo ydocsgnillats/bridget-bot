@@ -4,12 +4,21 @@ module.exports = message => {
     
     typeof ideas
     var msg = message.content.split(" ").slice(1).join(" ");
-    if(!ideas[message.author.tag]){
-        ideas[message.author.tag] = {
+    if(!ideas[message.author]){
+        ideas[message.author] = {
             idea: " "
         };
     }
-    ideas[message.author.tag].idea += "\n" + msg;
-    fs.writeFileSync("./ideas.json", JSON.stringify(ideas))
-    return message.channel.send("*writing *" + msg + "* down...*")
+    function logFile(auth, idea){
+        var author = auth;
+        var idea = msg + '\r\n';
+        fs.appendFile(ideas, author, idea, function (err) {
+            if (err) return console.log(err);
+        })
+    }
+
+    //ideas[message.author].idea += msg + "\n" ;
+    //fs.writeFileSync("./ideas.json", JSON.stringify(ideas))
+    logFile(message.author, msg)
+    return message.channel.send("writing *" + msg + " down...*")
 }

@@ -59,6 +59,9 @@ client.on('message', async message => {
 	if(message.content.includes('bridget!')){
 		return note(message)
 	}
+	if(message.content.includes('Bridget!')){
+		return note(message)
+	}
 	if(message.content.startsWith('ideas!')){
 		return read(message);
 	}
