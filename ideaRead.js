@@ -3,7 +3,6 @@ module.exports = message => {
     const fs = require('fs')
     typeof ideas
     ideas[message.author].idea += message;
-    var authLength = message.author.length()
     var jsonText = fs.readFileSync("./ideas.json")
     var text = JSON.parse(ideas)
     var result = " "
