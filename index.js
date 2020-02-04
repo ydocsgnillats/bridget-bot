@@ -3,7 +3,7 @@ require('dotenv').config()
 const fs = require('fs')
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const schedule = require('./scheduler')
+const scheduler = require('./scheduler')
 const activities_list = [
     "your stupid ideas over in her head", 
     "goat simulator",
