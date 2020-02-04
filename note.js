@@ -9,16 +9,14 @@ module.exports = message => {
             idea: " "
         };
     }
-    function logFile(auth, idea){
-        var author = auth;
-        var idea = msg + '\r\n';
-        fs.appendFile(ideas, author, idea, function (err) {
-            if (err) return console.log(err);
-        })
-    }
+    //function logFile(auth, idea){
+    //    var author = auth;
+     //   var idea = msg + '\r\n';
+     //   fs.appendFile(ideas, author, idea)
+    //}
 
-    //ideas[message.author].idea += msg + "\n" ;
-    //fs.writeFileSync("./ideas.json", JSON.stringify(ideas))
-    logFile(message.author, msg)
+    ideas[message.author].idea += msg + "\r\n" ;
+    fs.writeFileSync("./ideas.json", JSON.stringify(ideas))
+    //logFile(message.author, msg)
     return message.channel.send("writing *" + msg + " down...*")
 }
