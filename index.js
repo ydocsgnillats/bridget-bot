@@ -4,6 +4,7 @@ const fs = require('fs')
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const scheduler = require('./scheduler.js')
+const note = require('./note.js')
 const activities_list = [
     "your stupid ideas over in her head", 
     "goat simulator",
@@ -58,7 +59,7 @@ client.on('message', async message => {
 		return message.channel.send("F.")
 	}
 	if(message.content.includes('bridget!')){
-		return message.channel.send("writing that down...")
+		return note(message)
 	}
 	if(message.content.includes('mute!')){
 		return message.channel.send("mute")
