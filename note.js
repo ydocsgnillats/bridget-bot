@@ -1,5 +1,4 @@
 module.exports = message => {
-    const fs = require('fs')
     const ideas = require('./ideas.json')
     typeof ideas
     var msg = message.content.split(" ").slice(1).join(" ");
@@ -10,5 +9,5 @@ module.exports = message => {
     }
     ideas[message.author.tag].idea += "\n" + msg;
     fs.writeFileSync("./ideas.json", JSON.stringify(ideas))
-    return message.channel.send("*writing *" + msg + " *down...*")
+    return message.channel.send("*writing *" + msg + "*down...*")
 }

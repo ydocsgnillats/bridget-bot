@@ -5,6 +5,7 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const scheduler = require('./scheduler.js')
 const note = require('./note.js')
+const read = require('./ideaRead.js')
 const activities_list = [
     "your stupid ideas over in her head", 
     "goat simulator",
@@ -36,15 +37,12 @@ client.on('ready', async () => {
 
 client.on('message', async message => {
 	if(message.author.bot || message.channel.type === 'dm') return;
-
 	if(message.content.includes('btest')){
 		return message.channel.send("**BRIDGET**")
 	}
-
 	if(message.content.includes('thanks')){
 		return message.channel.send("*UwU*")
 	}
-
 	if(message.content.includes('pin ')){
 		var msgCollect = message.channel.messages;
 		var msgArray = Array.from(msgCollect.values());
@@ -60,6 +58,9 @@ client.on('message', async message => {
 	}
 	if(message.content.includes('bridget!')){
 		return note(message)
+	}
+	if(message.content.startsWith('ideas!')){
+		return read(message);
 	}
 	if(message.content.includes('mute!')){
 		return message.channel.send("mute")
