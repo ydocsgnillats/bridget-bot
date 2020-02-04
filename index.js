@@ -43,7 +43,14 @@ client.on('message', async message => {
 	if(message.content.includes('thanks')){
 		return message.channel.send("*UwU*")
 	}
-	if(message.content.includes('pin ')){
+	if(message.content.includes('pin!')){
+		var msgCollect = message.channel.messages;
+		var msgArray = Array.from(msgCollect.values());
+		var prevMsg = msgArray[msgArray.length -2];
+		prevMsg.pin();
+		return;
+	}
+	if(message.content.includes('Pin!')){
 		var msgCollect = message.channel.messages;
 		var msgArray = Array.from(msgCollect.values());
 		var prevMsg = msgArray[msgArray.length -2];
@@ -78,10 +85,12 @@ client.on('message', async message => {
 		.setTitle("Bridget:")
 		.setDescription("A secretary Bot")
 		.addField("**bridget!**", "writes things down", true)
-		.addField("**Pin!**", "pins the last message", true)
-		.addField("**Thanks**", "you're welcome", true)
+		.addField("**ideas!**", "recalls ideas by user", true)
+		.addField("**pin!**", "pins the last message", true)
+		.addField("**thanks**", "you're welcome", true)
 		.addField("**pay respect**", "to get an F in the chat", true)
 		.addField("**roll!**", "random roll between 1 and 100", true)
+		.addField("**schedule!**", "to schedule events/reminders", true)
 		.addField("**help!**", "sends this message", true)
 		.setFooter('BridgetBot2019', client.user.displayAvatarURL);
 		message.channel.send({embed: sEmbed});
