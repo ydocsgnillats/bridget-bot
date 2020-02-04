@@ -19,5 +19,5 @@ module.exports = message => {
     ideas[message.author].idea += msg;
     fs.writeFileSync("./ideas.json", JSON.stringify(ideas))
     //logFile(message.author, msg)
-    return message.channel.send("writing *" + msg + " down...*")
+    return message.channel.send("writing *" + msg + "* down...")
 } 
