@@ -7,11 +7,11 @@ module.exports = message => {
     var jsonText = fs.readFileSync("./ideas.json")
     var text = JSON.parse(ideas)
     var result = " "
-        for(let i = 0; i < text.author.length; i++){
-            let t = text.author[i]
+        for(var i = 0; i < text.author.length; i++){
+            var t = text.author[i]
             result += "\n" + i;
-            for(j = 0; j < text.author.idea.length; j++)
-                let s = text.author.idea[j];
+            for(var j = 0; j < text.author.idea.length; j++)
+                var s = text.author.idea[j];
                 result += "\n" + j;
         }
     //stringText = JSON.stringify(text)
