@@ -83,6 +83,7 @@ client.on('message', async message => {
 		//message.channel.send(sEmbed);
 	}
 	if (message.content.startsWith('schedule!')) {
+		message = message.substring(8)
 		return scheduler(message)
 	}
 
