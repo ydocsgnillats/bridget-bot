@@ -4,7 +4,7 @@ module.exports = message => {
     typeof ideas
 
     //ideas[message.author].idea += message;
-    var jsonText = fs.readFileSync("./ideas.json")
-    var text = JSON.stringify(ideas)
+    //var jsonText = fs.readFileSync("./ideas.json")
+    var text = JSON.parse(ideas)
     return message.channel.send("Current notes: " + text)
 }
