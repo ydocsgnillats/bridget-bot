@@ -83,8 +83,8 @@ client.on('message', async message => {
 		//message.channel.send(sEmbed);
 	}
 	if (message.content.startsWith('schedule!')) {
-		message = message.substring(8)
-		return scheduler(message)
+		var msgarray = message.content.split(" ").slice(1).join(" ");
+		return scheduler(msgarray)
 	}
 
 	if(message.content.includes('bclear!')){
