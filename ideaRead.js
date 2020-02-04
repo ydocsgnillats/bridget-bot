@@ -6,6 +6,5 @@ module.exports = message => {
     ideas[message.author].idea += msg;
     var jsonText = fs.readFileSync("./ideas.json")
     var text = JSON.parse(jsonText)
-    text = JSON.stringify(text)
     return message.channel.send("Current notes: " + text)
 }
