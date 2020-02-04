@@ -50,6 +50,13 @@ client.on('message', async message => {
 		prevMsg.pin();
 		return;
 	}
+	if(message.content.includes('unpin!')){
+		var msgCollect = message.channel.messages;
+		var msgArray = Array.from(msgCollect.values());
+		var prevMsg = msgArray[msgArray.length -2];
+		prevMsg.unpin();
+		return;
+	}
 	if(message.content.includes('Pin!')){
 		var msgCollect = message.channel.messages;
 		var msgArray = Array.from(msgCollect.values());
