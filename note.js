@@ -11,5 +11,5 @@ module.exports = message => {
     }
     ideas[message.author.tag].idea += "\n" + msg;
     fs.writeFileSync("./ideas.json", JSON.stringify(ideas))
-    return message.channel.send("*writing *" + msg + "*down...*")
+    return message.channel.send("*writing *" + msg + "* down...*")
 }
