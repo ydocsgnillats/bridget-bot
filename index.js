@@ -52,7 +52,7 @@ client.on('message', async message => {
 	}
 	if(message.content.includes('undo!')){
 		var channel = message.channel
-		var msg = channel.fetchPinnedMessages()
+		var msg[] = channel.fetchPinnedMessages()
 		msg[0].unpin()
 		return;
 	}
