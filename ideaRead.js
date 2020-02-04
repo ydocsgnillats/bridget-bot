@@ -6,10 +6,10 @@ module.exports = message => {
     var jsonText = fs.readFileSync("./ideas.json")
     var text = JSON.stringify(ideas)
     var result = " "
-        for(var i = 0; i < text.author.length(); i++){
+        for(var i = 0; i < 10; i++){
             var t = text.author[i]
             result += "\n" + i;
-            for(var j = 0; j < text.author.idea.length(); j++)
+            for(var j = 0; j < 10; j++)
                 var s = text.author.idea[j];
                 result += "\n" + j;
         }
