@@ -7,5 +7,4 @@ module.exports = message => {
 		msg.delete(); // Delete each message
 	});
 	return message.channel.send("When should I remind you about " + "*" + msgarray + "?*").catch(e => console.log(e));
-	}
 }
