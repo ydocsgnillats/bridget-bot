@@ -4,7 +4,8 @@ module.exports = message => {
     typeof ideas
     ideas[message.author].idea += message;
     var jsonText = fs.readFileSync("./ideas.json")
-    var text = JSON.stringify(ideas)
+    var text = ideas
+    // JSON.stringify(ideas)
     var result = " "
         for(var i = 0; i < 10; i++){
             var t = text.author[i]
