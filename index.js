@@ -88,11 +88,11 @@ client.on('message', async message => {
 		.addField("**ideas!**", "recalls ideas by user", true)
 		.addField("**pin!**", "pins the last message", true)
 		.addField("**thanks**", "you're welcome", true)
-		.addField("**pay respect**", "to get an F in the chat", true)
+		.addField("**pay respect**", "get an F in the chat", true)
 		.addField("**roll!**", "random roll between 1 and 100", true)
-		.addField("**schedule!**", "to schedule events/reminders", true)
+		.addField("**schedule!**", "schedule reminders", true)
 		.addField("**help!**", "sends this message", true)
-		.setFooter('BridgetBot2019', client.user.displayAvatarURL);
+		.setFooter('BridgetBot2020', client.user.displayAvatarURL);
 		message.channel.send({embed: sEmbed});
 		//message.channel.send(sEmbed);
 	}

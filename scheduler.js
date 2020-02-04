@@ -6,5 +6,5 @@ module.exports = message => {
 	//msgCollection.forEach((msg) => { // forEach on message collection
 	//	msg.delete())// Delete each message
 	
-	return message.channel.send("When should I remind you about " + "*" + msgarray + "?*").catch(e => console.log(e));
+	return message.channel.send("When should I remind you about " + "*" + msgarray + "?*" + "**UNDER CONSTRUCTION**").catch(e => console.log(e));
 }
