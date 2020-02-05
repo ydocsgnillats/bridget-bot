@@ -3,8 +3,8 @@ module.exports = message => {
         var channel = message.channel
         var msg = channel.fetchPinnedMessages()
         var msgArray = Array.from(msg);
-        msgArray[1].unpin()
-        return console.log(msg);
+        //msgArray.unpin()
+        return;//fix
     } 
     else{
         var msgCollect = message.channel.messages;
