@@ -1,5 +1,3 @@
-module.exports = message =>{
-
     const activities_list = [
         "your stupid ideas over in her head", 
         "goat simulator",
@@ -17,4 +15,5 @@ module.exports = message =>{
         "Nightmares of a forgotten past",
         "Nightcrawlers"
         ]; // creates an arraylist containing phrases you want your bot to switch through.
-}
+    const _activities_list = activities_list;
+export { _activities_list as activities_list };

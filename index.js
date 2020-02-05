@@ -19,8 +19,8 @@ client.on('ready', async () => {
   let date = new Date();
   client.user.setActivity("Initialization: " + (date.getSeconds()), {type: "PLAYING"});
   setInterval(() => {
-	const index = Math.floor(Math.random() * (activities.activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list.
-	client.user.setActivity(activities.activities_list[index], {type: "STREAMING"}); // sets bot's activities to stream one of the phrases in the arraylist.
+	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list.
+	client.user.setActivity(activities_list[index], {type: "STREAMING"}); // sets bot's activities to stream one of the phrases in the arraylist.
   }, 300000); // Runs this every 20 minutes.
 })
 
