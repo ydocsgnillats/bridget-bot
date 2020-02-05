@@ -12,5 +12,6 @@ module.exports = message =>{
     .addField("**schedule!**", "schedule reminders", true)
     .addField("**help!**", "sends this message", true)
     .setFooter('BridgetBot2020', client.user.displayAvatarURL);
-    message.channel.send({embed: sEmbed});
+    return message.channel.send({embed: sEmbed});
+
 }

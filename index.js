@@ -26,7 +26,7 @@ client.on('ready', async () => {
 
 client.on('message', async message => {
 	if(message.author.bot || message.channel.type === 'dm') return;
-	if(message.content.includes('btest')){
+	if(message.content.includes('test!')){
 		return message.channel.send("**BRIDGET**")
 	}
 	if(message.content.includes('thanks')){
