@@ -1,4 +1,4 @@
-module.exports = message =>{
+module.exports = message, Discord =>{
     let sEmbed = new Discord.RichEmbed()
     .setColor('#ffcba4')
     .setTitle("Bridget:")
@@ -13,5 +13,4 @@ module.exports = message =>{
     .addField("**help!**", "sends this message", true)
     .setFooter('BridgetBot2020', client.user.displayAvatarURL);
     return message.channel.send({embed: sEmbed});
-
 }
