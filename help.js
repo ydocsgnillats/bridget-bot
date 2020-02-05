@@ -1,4 +1,4 @@
-module.exports = message, Discord =>{
+module.exports = Discord =>{
     let sEmbed = new Discord.RichEmbed()
     .setColor('#ffcba4')
     .setTitle("Bridget:")
