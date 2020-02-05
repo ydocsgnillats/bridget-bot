@@ -1,5 +1,5 @@
  module.exports = activities_list =>{  
-   const activities_list = [
+   activities_list = [
         "your stupid ideas over in her head", 
         "goat simulator",
         "the BYAND",
