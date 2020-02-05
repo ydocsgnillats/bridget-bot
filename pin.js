@@ -1,4 +1,4 @@
-moodule.exports = message => {
+module.exports = message => {
     if (message === 'pin!'){
         var msgCollect = message.channel.messages;
         var msgArray = Array.from(msgCollect.values());
