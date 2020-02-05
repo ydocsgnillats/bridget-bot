@@ -73,4 +73,5 @@ client.on('message', async message => {
 	}
 })
 
+exports.client = client
 client.login(process.env.TOKEN)
