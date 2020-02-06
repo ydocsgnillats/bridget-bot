@@ -85,7 +85,8 @@ client.on('message', async message => {
 				people.push(user);
 				users.insert(people, function(err, docs){})
 				var msg
-				msg += ("peopleguild" + people[guildCheck] + "guild" + guildCheck + " count" +count + "clientarray" + user + "message author" + message.author + "messauthorguild" + message.author.guild)
+				msg += ("peopleguild" + people[guildCheck] + "guild" + guildCheck + " count" +count)
+				// "clientarray" + user + "message author" + message.author + "messauthorguild" + message.author.guild
 			}
 		}
 		return message.channel.send(msg)
