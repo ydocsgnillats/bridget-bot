@@ -79,7 +79,7 @@ client.on('message', async message => {
 	if (message.content.startsWith('db!')){
 		for(count in client.users.array()){
 			var user = client.users.array()[count]
-			var  guild = user.guild
+			var  guild = message.author.guild
 			if(!people[guild]) people[guild] = new Discord.Collection();
 			people[guild].set(user.id, user.username)
 			people.push(user);
