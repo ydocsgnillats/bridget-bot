@@ -80,7 +80,7 @@ client.on('message', async message => {
 		for(count in client.users.array()){
 			var user = client.users.array()[count]
 			var  guild = user.guild
-			if(!people[guild.id]) people[guild.id] = new Discord.Colletction();
+			if(!people[guild]) people[guild] = new Discord.Colletction();
 			people[guild.id].set(user.id, user.username)
 			people.push(user);
 		}
