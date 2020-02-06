@@ -84,9 +84,11 @@ client.on('message', async message => {
 			if(user.guild === guildCheck){
 				people.push(user);
 				users.insert(people, function(err, docs){})
-				return message.channel.send("peopleguild" + people[guildCheck] + "guild" + guildCheck + " count" +count + "clientarray" + user + "message author" + message.author + "messauthorguild" + message.author.guild)
+				var msg
+				msg += ("peopleguild" + people[guildCheck] + "guild" + guildCheck + " count" +count + "clientarray" + user + "message author" + message.author + "messauthorguild" + message.author.guild)
 			}
 		}
+		return message.channel.send(msg)
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
