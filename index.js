@@ -13,6 +13,7 @@ const mute = require('./mute.js')
 const roll = require('./roll.js')
 const activities = require('./activities.js')
 
+var guild = client.guild;
 var activities_list = activities.activitylist()
 
 var Datastore = require('nedb')
@@ -76,8 +77,8 @@ client.on('message', async message => {
 		return clear(message)
 	}
 	if (message.content.startsWith('db!')){
-		for(count in client.users.array()){
-			var user = client.users.array()[count]
+		for(count in guild.users.array()){
+			var user = guild.users.array()[count]
 			people.push(user);
 		}
 		users.insert(people, function(err, docs){
