@@ -85,8 +85,7 @@ client.on('message', async message => {
 				people.push(user);
 				users.insert(people, function(err, docs){})
 				var msg
-				msg += (" count" +count + "clientarray" + user + "message author" + message.author + "messauthorguild" + message.author.guild)
-				// "peopleguild" + people[guildCheck] + "guild" + guildCheck + 
+				msg += (" count" +count + "user" + user + "message author" + message.author +"peopleguild" + people[guildCheck] + "guild" + guildCheck) 
 			}
 		}
 		return message.channel.send(msg)
@@ -110,3 +109,4 @@ client.on('message', async message => {
 })
 
 client.login(process.env.TOKEN)
+
