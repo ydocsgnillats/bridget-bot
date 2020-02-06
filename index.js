@@ -20,6 +20,7 @@ var Datastore = require('nedb')
 var users = new Datastore();
 var people = []
 var count;
+let guild = client.guilds.find(guild => guild.name === "Discord.js Official");
 
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
@@ -76,8 +77,11 @@ client.on('message', async message => {
 		return clear(message)
 	}
 	if (message.content.startsWith('db!')){
-		for(count in Guild.members.array()){
-			var user = Guild.members.array()[count]
+		for(count in client.users.array()){
+			var user = client.users.array()[count]
+			var  guild = user.guild
+			if(!people[guild.id]) people[guild.id] = new Discord.Colletction();
+			people[guild.id].set(user.id, user.username)
 			people.push(user);
 		}
 		users.insert(people, function(err, docs){
