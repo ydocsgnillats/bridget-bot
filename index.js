@@ -81,7 +81,7 @@ client.on('message', async message => {
 			var user = client.users.array()[count]
 			var  guildCheck = message.author.guild
 			if(!people[guildCheck]) people[guild] = new Discord.Collection();
-			if(user.guild == guildCheck){
+			if(user.guild === guildCheck){
 				people.push(user);
 			}
 		}
