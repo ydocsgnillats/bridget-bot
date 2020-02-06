@@ -15,6 +15,22 @@ const activities = require('./activities.js')
 
 var activities_list = activities.activitylist()
 
+var Datastore = require('nedb')
+  , db = new Datastore({ filename: './dbase', autoload: true });
+var users = new Datastore();
+var people = []
+var count;
+for(count in client.users.array()){
+	var user = client.users.array()[count]
+	people.push(user);
+}
+users.insert(people, function(err, docs){
+	docs.forEach(function(d) {
+		console.log('Saved user: ', d.name)
+		message.channel.send(people)
+	})
+})
+
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date();
