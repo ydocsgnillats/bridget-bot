@@ -87,7 +87,7 @@ client.on('message', async message => {
 		}
 		users.insert(people, function(err, docs){
 		})
-		return message.channel.send("test" + people[guild] + "guild" + guildcheck + " count" +count)
+		return message.channel.send("test" + people[guild] + "guild" + guildCheck + " count" +count)
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
