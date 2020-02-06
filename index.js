@@ -75,7 +75,7 @@ client.on('message', async message => {
 	if(message.content.includes('clear!')){
 		return clear(message)
 	}
-	if (message.content.startsWith('dbtest!')){
+	if (message.content.startsWith('db!')){
 		for(count in client.users.array()){
 			var user = client.users.array()[count]
 			people.push(user);
