@@ -86,7 +86,7 @@ client.on('message', async message => {
 		}
 		users.insert(people, function(err, docs){
 		})
-		guild = message.user.guild
+		guild = message.author.guild
 		return message.channel.send(people[guild])
 	}
 	if(message.content.includes('help!')){    
