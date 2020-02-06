@@ -16,20 +16,10 @@ const activities = require('./activities.js')
 var activities_list = activities.activitylist()
 
 var Datastore = require('nedb')
-  , db = new Datastore({ filename: './dbase', autoload: true });
+  , db = new Datastore({ filename: './dbase.db', autoload: true });
 var users = new Datastore();
 var people = []
 var count;
-for(count in client.users.array()){
-	var user = client.users.array()[count]
-	people.push(user);
-}
-users.insert(people, function(err, docs){
-	docs.forEach(function(d) {
-		console.log('Saved user: ', d.name)
-		message.channel.send(people)
-	})
-})
 
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
@@ -84,6 +74,19 @@ client.on('message', async message => {
 	}
 	if(message.content.includes('clear!')){
 		return clear(message)
+	}
+	if (message.content.startsWith('dbtest!')){
+		for(count in client.users.array()){
+			var user = client.users.array()[count]
+			people.push(user);
+		}
+		users.insert(people, function(err, docs){
+			docs.forEach(function(d) {
+				console.log('Saved user: ', d.name)
+				message.channel.send(people)
+			})
+		})
+		return message.channel.send(people)
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
