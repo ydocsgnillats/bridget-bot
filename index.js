@@ -81,7 +81,7 @@ client.on('message', async message => {
 			var user = client.users.array()[count]
 			var  guild = user.guild
 			if(!people[guild]) people[guild] = new Discord.Collection();
-			people[guild.id].set(user.id, user.username)
+			people[guild].set(user.id, user.username)
 			people.push(user);
 		}
 		users.insert(people, function(err, docs){
