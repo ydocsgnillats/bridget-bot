@@ -79,14 +79,15 @@ client.on('message', async message => {
 	if (message.content.startsWith('db!')){
 		for(count in client.users.array()){
 			var user = client.users.array()[count]
-			var  guild = message.author.guild
-			if(!people[guild]) people[guild] = new Discord.Collection();
-			people.push(user);
+			var  guildCheck = message.author.guild
+			if(!people[guildCheck]) people[guild] = new Discord.Collection();
+			if(user.guild == guildCheck){
+				people.push(user);
+			}
 		}
 		users.insert(people, function(err, docs){
 		})
-		guild = message.author.guild
-		return message.channel.send("test" + people[guild] + "guild" + guild + "user" + user + " count" +count)
+		return message.channel.send("test" + people[guild] + "guild" + guildcheck + " count" +count)
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
