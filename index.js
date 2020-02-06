@@ -81,10 +81,6 @@ client.on('message', async message => {
 			people.push(user);
 		}
 		users.insert(people, function(err, docs){
-			docs.forEach(function(d) {
-				console.log('Saved user: ', d.name)
-				message.channel.send(people)
-			})
 		})
 		return message.channel.send(people)
 	}
