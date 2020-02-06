@@ -80,14 +80,13 @@ client.on('message', async message => {
 		for(count in client.users.array()){
 			var user = client.users.array()[count]
 			var  guildCheck = message.author.guild
-			if(!people[guildCheck]) people[guild] = new Discord.Collection();
+			if(!people[guildCheck]) people[guildCheck] = new Discord.Collection();
 			if(user.guild === guildCheck){
 				people.push(user);
+				users.insert(people, function(err, docs){})
+				return message.channel.send("peopleguild" + people[guildCheck] + "guild" + guildCheck + " count" +count + "clientarray" + user + "message author" + message.author + "messauthorguild" + message.author.guild)
 			}
 		}
-		users.insert(people, function(err, docs){
-		})
-		return message.channel.send("test" + people[guild] + "guild" + guildCheck + " count" +count)
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
