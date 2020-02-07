@@ -1,9 +1,6 @@
 # Bridget-Bot
 Discord Secretary Bot
 
-
-Instructions:
-
 ###Requirements:
   >.env file with 'BOT_TOKEN=YOUR_BOT_TOKEN'
   >discord.js
@@ -15,7 +12,10 @@ Instructions:
 ###Features:
 
   >Update the 'activities.js' file to change the statuses/activities that bridget cycles through!
+  
   >Additional words Bridget listens for: (thanks, pay respect, in the chat)
+  
+  
 
 | Command    | Description           |
 | :-------------: |:-------------:| 
