@@ -1,6 +1,5 @@
 exports.activitylist = function(){  
    activities_list = [
-        "your stupid ideas over in her head", 
         "goat simulator",
         "the BYAND",
         "planetary annihalation",
@@ -11,7 +10,7 @@ exports.activitylist = function(){
         "Halo MCCPC",
         "Destiny",
         "KFC dating simulator",
-        "Warcraft: Reforged",
+        "Warcraft: Refunded",
         "Battletoads 2",
         "Nightmares of a forgotten past",
         "Nightcrawlers"
