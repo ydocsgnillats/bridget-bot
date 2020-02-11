@@ -1,6 +1,6 @@
 async function doDatabaseStuff() {
     let DB = require('nedb')
-  , users = new DB({
+  , db = new DB({
      // these options are passed through to nedb.Datastore
 
      filename: './db.json',
@@ -8,16 +8,16 @@ async function doDatabaseStuff() {
      autoload: true // so that we don't have to call loadDatabase()
   })
 
-  await DB.insert([{
+  await db.insert([{
     num: 1, alpha: 'a'
   }, {
     num: 2, alpha: 'b'
   }])
 
-  let document = await DB.findOne({ num: 1 })
+  let document = await db.findOne({ num: 1 })
 
   // use NeDB cursors:
-  let documents = await DB.cfind({})
+  let documents = await db.cfind({})
     .projection({ num: 1, _id: 0 })
     .exec()
 }
