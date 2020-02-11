@@ -12,6 +12,7 @@ const clear = require('./commands/clear.js')
 const mute = require('./commands/mute.js')
 const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
+const dbase = require('./db.js')
 
 var activities_list = activities.activitylist()
 
@@ -20,33 +21,6 @@ var Datastore = require('nedb')
 var people = []
 var count
 var idea = "NONE"
-
-import datastore from 'nedb-promise'
-
-async function doDatabaseStuff() {
-  let DB = datastore({
-     // these options are passed through to nedb.Datastore
-
-     filename: './ideas.json',
-
-     autoload: true // so that we don't have to call loadDatabase()
-  })
-
-  await DB.insert([{
-    num: 1, alpha: 'a'
-  }, {
-    num: 2, alpha: 'b'
-  }])
-
-  let document = await DB.findOne({ num: 1 })
-
-  // use NeDB cursors:
-  let documents = await DB.cfind({})
-    .projection({ num: 1, _id: 0 })
-    .exec()
-}
-
-doDatabaseStuff()
 
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
@@ -120,7 +94,7 @@ client.on('message', async message => {
 		return message.channel.send(users.loadDatabase.toString)
 	}
 	if (message.content.startsWith('find!')){
-
+		return dbase()
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
