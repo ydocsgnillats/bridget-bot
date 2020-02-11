@@ -1,5 +1,6 @@
 async function doDatabaseStuff() {
-  let DB = datastore({
+    let DB = require('nedb')
+  , users = new DB({
      // these options are passed through to nedb.Datastore
 
      filename: './db.json',
