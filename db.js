@@ -20,6 +20,8 @@ async function doDatabaseStuff() {
   let documents = await db.find({})
     .projection({ num: 1, _id: 0 })
     .exec()
+
+  return console.log(db)
 }
 
 return doDatabaseStuff()
