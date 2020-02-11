@@ -90,7 +90,8 @@ client.on('message', async message => {
 			}	
 		}
 		users.insert({ Name: people[guildCheck], Idea: idea}, function(err, docs){}) 
-		return message.channel.send(users.find(Name))
+		console.log(users)
+		return message.channel.send(users.getAllData)
 	}
 	if (message.content.startsWith('find!')){
 			return dbase
