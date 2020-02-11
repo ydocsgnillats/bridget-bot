@@ -1,5 +1,3 @@
-module.exports = message =>{
-
 async function doDatabaseStuff() {
   let DB = datastore({
      // these options are passed through to nedb.Datastore

@@ -4,14 +4,15 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const fs = require('fs')
 
-const scheduler = require('./scheduler.js')
-const note = require('./note.js')
-const read = require('./ideaRead.js')
-const pin = require('./pin.js')
-const clear = require('./clear.js')
-const mute = require('./mute.js')
-const roll = require('./roll.js')
-const activities = require('./activities.js')
+const scheduler = require('./commands/scheduler.js')
+const note = require('./commands/note.js')
+const read = require('./commands/ideaRead.js')
+const pin = require('./commands/pin.js')
+const clear = require('./commands/clear.js')
+const mute = require('./commands/mute.js')
+const roll = require('./commands/roll.js')
+const activities = require('./commands/activities.js')
+const dbase = require('./db.js')
 
 var activities_list = activities.activitylist()
 
@@ -92,7 +93,7 @@ client.on('message', async message => {
 			return users
 	}
 	if (message.content.startsWith('find!')){
-
+			return dbase
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
