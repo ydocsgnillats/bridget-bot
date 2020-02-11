@@ -21,13 +21,6 @@ var people = []
 var count
 var idea = "NONE"
 
-var guildCheck = message.author.guild
-for(count in client.users.array()){
-	var user = client.users.array()[count]
-	if(user.guild === guildCheck){
-		people.push(user);
-	}
-}
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date();
@@ -85,11 +78,18 @@ client.on('message', async message => {
 		return clear(message)
 	}
 	if (message.content.startsWith('db!')){
-			if(!people[guildCheck]){
-				people[guildCheck] = new Discord.Collection();
-			}
-			users.insert({ Name: people[guildCheck], Idea: idea}, function(err, docs){}) 
-			return users
+		var guildCheck = message.author.guild
+		if(!people[guildCheck]){
+			people[guildCheck] = new Discord.Collection();
+		}
+		for(count in client.users.array()){
+				var user = client.users.array()[count]
+				if(user.guild === guildCheck){
+					people.push(user);
+				}
+		}
+		users.insert({ Name: people[guildCheck], Idea: idea}, function(err, docs){}) 
+		return users
 	}
 	if (message.content.startsWith('find!')){
 
