@@ -17,7 +17,7 @@ async function doDatabaseStuff() {
   let document = await db.findOne({ num: 1 })
 
   // use NeDB cursors:
-  let documents = await db.cfind({})
+  let documents = await db.find({})
     .projection({ num: 1, _id: 0 })
     .exec()
 }
