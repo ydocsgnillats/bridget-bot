@@ -1,4 +1,5 @@
-import datastore from 'nedb-promise'
+module.exports = message =>{
+    import datastore from 'nedb-promise'
 
 async function doDatabaseStuff() {
   let DB = datastore({
@@ -24,3 +25,4 @@ async function doDatabaseStuff() {
 }
 
 return doDatabaseStuff()
+}
