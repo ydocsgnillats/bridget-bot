@@ -89,7 +89,7 @@ client.on('message', async message => {
 				}
 		}
 		users.insert({ Name: people[guildCheck], Idea: idea}, function(err, docs){}) 
-		return message.channel.send(users.getAllData)
+		return message.channel.send(Datastore.getAllData(users))
 	}
 	if (message.content.startsWith('find!')){
 
