@@ -4,15 +4,14 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const fs = require('fs')
 
-const scheduler = require('./commands/scheduler.js')
-const note = require('./commands/note.js')
-const read = require('./commands/ideaRead.js')
-const pin = require('./commands/pin.js')
-const clear = require('./commands/clear.js')
-const mute = require('./commands/mute.js')
-const roll = require('./commands/roll.js')
-const activities = require('./commands/activities.js')
-const dbase = require('./db.js')
+const scheduler = require('./scheduler.js')
+const note = require('./note.js')
+const read = require('./ideaRead.js')
+const pin = require('./pin.js')
+const clear = require('./clear.js')
+const mute = require('./mute.js')
+const roll = require('./roll.js')
+const activities = require('./activities.js')
 
 var activities_list = activities.activitylist()
 
@@ -22,6 +21,13 @@ var people = []
 var count
 var idea = "NONE"
 
+var guildCheck = message.author.guild
+for(count in client.users.array()){
+	var user = client.users.array()[count]
+	if(user.guild === guildCheck){
+		people.push(user);
+	}
+}
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date();
@@ -79,22 +85,14 @@ client.on('message', async message => {
 		return clear(message)
 	}
 	if (message.content.startsWith('db!')){
-		var guildCheck = message.author.guild
-		if(!people[guildCheck]){
-			people[guildCheck] = new Discord.Collection();
-		}
-		for(count in client.users.array()){
-				var user = client.users.array()[count]
-				if(user.guild === guildCheck){
-					people.push(user);
-				}
-				people.push(user + "1")
-		}
-		users.insert({ Name: people[guildCheck], Idea: idea}, function(err, docs){}) 
-		return message.channel.send(users.loadDatabase.toString)
+			if(!people[guildCheck]){
+				people[guildCheck] = new Discord.Collection();
+			}
+			users.insert({ Name: people[guildCheck], Idea: idea}, function(err, docs){}) 
+			return users
 	}
 	if (message.content.startsWith('find!')){
-		return dbase()
+
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
