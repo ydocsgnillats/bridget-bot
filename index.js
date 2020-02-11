@@ -4,24 +4,30 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const fs = require('fs')
 
-const scheduler = require('./commands/scheduler.js')
-const note = require('./commands/note.js')
-const read = require('./commands/ideaRead.js')
-const pin = require('./commands/pin.js')
-const clear = require('./commands/clear.js')
-const mute = require('./commands/mute.js')
-const roll = require('./commands/roll.js')
-const activities = require('./commands/activities.js')
+const scheduler = require('./scheduler.js')
+const note = require('./note.js')
+const read = require('./ideaRead.js')
+const pin = require('./pin.js')
+const clear = require('./clear.js')
+const mute = require('./mute.js')
+const roll = require('./roll.js')
+const activities = require('./activities.js')
 
 var activities_list = activities.activitylist()
 
 var Datastore = require('nedb')
-  , db = new Datastore({ filename: './dbase.db', autoload: true });
-var users = new Datastore();
+  , users = new Datastore({ filename: './dbase.db', autoload: true });
 var people = []
-var count;
-let guild = client.guilds.find(guild => guild.name === "Discord.js Official");
+var count
+var idea = "NONE"
 
+var guildCheck = message.author.guild
+for(count in client.users.array()){
+	var user = client.users.array()[count]
+	if(user.guild === guildCheck){
+		people.push(user);
+	}
+}
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date();
@@ -56,9 +62,11 @@ client.on('message', async message => {
 		return pin(message)
 	}
 	if(message.content.includes('bridget!')){
+		idea = message
 		return note(message)
 	}
 	if(message.content.includes('Bridget!')){
+		idea = message
 		return note(message)
 	}
 	if(message.content.startsWith('ideas!')){
@@ -77,18 +85,14 @@ client.on('message', async message => {
 		return clear(message)
 	}
 	if (message.content.startsWith('db!')){
-		for(count in client.users.array()){
-			var user = client.users.array()[count]
-			var  guildCheck = message.author.guild
-			if(!people[guildCheck]) people[guildCheck] = new Discord.Collection();
-			if(user.guild === guildCheck){
-				people.push(user);
-				users.insert(people, function(err, docs){})
-				var msg
-				msg += (" count" +count + "user" + user + "message author" + message.author) 
+			if(!people[guildCheck]){
+				people[guildCheck] = new Discord.Collection();
 			}
-		}
-		return message.channel.send(msg)
+			users.insert({ Name: people[guildCheck], Idea: idea}, function(err, docs){}) 
+			return users
+	}
+	if (message.content.startsWith('find!')){
+
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
@@ -109,4 +113,3 @@ client.on('message', async message => {
 })
 
 client.login(process.env.TOKEN)
-
