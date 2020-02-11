@@ -90,7 +90,7 @@ client.on('message', async message => {
 				people.push(user + "1")
 		}
 		users.insert({ Name: people[guildCheck], Idea: idea}, function(err, docs){}) 
-		return message.channel.send(users.getAllData().toString())
+		return message.channel.send(users.getAllData(users).toString())
 	}
 	if (message.content.startsWith('find!')){
 
