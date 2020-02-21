@@ -98,10 +98,9 @@ client.on('message', async message => {
 	if(message.content.startsWith('dbFill!')){
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
-			var msg = "neeeeeeeeee"
 			const dbNote = await Ideabase.create({
 				name: 'namename',
-				description: msg,
+				description: "descriptiontest",
 				username: message.author.username,
 			});
 			return message.reply(`Test ${dbNote.name} added. Content = ${dbNote.description}. From ${dbNote.username}`);
@@ -116,7 +115,7 @@ client.on('message', async message => {
 			k.increment('idea_count')
 			return message.channel.send(k.get('description'))
 		}
-		return message.reply(`Could not find name`)
+		return message.channel.send(`Could not find name`)
 	}
 
 	if(message.content.includes('help!')){    
