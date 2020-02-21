@@ -46,7 +46,7 @@ client.on('ready', async () => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list.
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}); // sets bot's activities to stream one of the phrases in the arraylist.
   }, 300000); // Runs this every 5 minutes.
-  Ideabase.sync()
+  Ideabase.sync({ force: true })
 })
 
 client.on('message', async message => {
@@ -98,12 +98,13 @@ client.on('message', async message => {
 	if(message.content.startsWith('dbFill!')){
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
+			var msg = message.content.split(" ").slice(1).join(" ")
 			const dbNote = await Ideabase.create({
-				name: 'namename',
-				description: "descriptiontest",
+				name: 'name3name',
+				description: msg,
 				username: message.author.username,
 			});
-			return message.reply(`Test ${dbNote.name} added. Content = null. From ${dbNote.username}`);
+			return message.reply(`Test ${dbNote.name} added. Content = ${dbNote.description}. From ${dbNote.username}`);
 		}
 		catch (e) {
 			return message.reply('Something went wrong with adding this idea.');
@@ -113,7 +114,7 @@ client.on('message', async message => {
 		const k = await Ideabase.findOne({where: { username: message.author.username} })
 		if(k){
 			k.increment('idea_count')
-			return message.channel.send(k.get('username'))
+			return message.channel.send(k.get('description'))
 		}
 		return message.channel.send(`Could not find name`)
 	}
