@@ -103,7 +103,7 @@ client.on('message', async message => {
 				description: "descriptiontest",
 				username: message.author.username,
 			});
-			return message.reply(`Test ${dbNote.name} added. Content = ${dbNote.description}. From ${dbNote.username}`);
+			return message.reply(`Test ${dbNote.name} added. Content = null. From ${dbNote.username}`);
 		}
 		catch (e) {
 			return message.reply('Something went wrong with adding this idea.');
@@ -113,7 +113,7 @@ client.on('message', async message => {
 		const k = await Ideabase.findOne({where: { username: message.author.username} })
 		if(k){
 			k.increment('idea_count')
-			return message.channel.send(k.get('description'))
+			return message.channel.send(k.get('username'))
 		}
 		return message.channel.send(`Could not find name`)
 	}
