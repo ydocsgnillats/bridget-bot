@@ -24,7 +24,6 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 const Ideabase = sequelize.define('ideas', {
 	username: {
 		type: Sequelize.STRING,
-		unique: true,
 	},
 	name: Sequelize.STRING,
 	note: Sequelize.TEXT,
@@ -108,9 +107,6 @@ client.on('message', async message => {
 			return message.reply(`Test ${dbNote.name} added. Content = ${dbNote.description}. From ${dbNote.username}`);
 		}
 		catch (e) {
-			if (e.name === 'SequelizeUniqueConstraintError') {
-				return message.reply('That name already exists.');
-			}
 			return message.reply('Something went wrong with adding this idea.');
 		}
 	}
