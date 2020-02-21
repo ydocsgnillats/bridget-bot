@@ -100,7 +100,7 @@ client.on('message', async message => {
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
 			const dbNote = await Ideabase.create({
-				name: 'name3name',
+				name: message.author.id,
 				note: msg,
 				username: message.author.username,
 			});
@@ -111,7 +111,7 @@ client.on('message', async message => {
 		}
 	}
 	if(message.content.startsWith('dbFetch!')){
-		const k = await Ideabase.findOne({where: { username: message.author.username} })
+		const k = await Ideabase.findAll({where: { username: message.author.username} })
 		if(k){
 			k.increment('idea_count')
 			return message.channel.send(k.get('note'))
