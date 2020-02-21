@@ -3,15 +3,9 @@ Discord Secretary Bot
 
 ###Requirements:
   >.env file with 'BOT_TOKEN=YOUR_BOT_TOKEN'
-  
   >discord.js
-  
   >node.js
-  
   >npm
-  
-  >nedb
-  
   >pg
 
 ###Features:
