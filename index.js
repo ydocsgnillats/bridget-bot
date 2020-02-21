@@ -96,7 +96,7 @@ client.on('message', async message => {
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
 			const dbNote = await Ideabase.create({
-				name: message.author,
+				name: message.author.tag,
 				note: msg,
 				username: message.author.username,
 			});
