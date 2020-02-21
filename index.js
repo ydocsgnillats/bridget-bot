@@ -7,7 +7,6 @@ const fs = require('fs')
 
 const scheduler = require('./commands/scheduler.js')
 const pin = require('./commands/pin.js')
-const mute = require('./commands/mute.js')
 const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
 
@@ -69,9 +68,6 @@ client.on('message', async message => {
 	if(message.content.includes('undo!')){
 		return pin(message)
 	}
-	if(message.content.includes('mute!')){
-		return mute(message)
-	}
 	if(message.content.includes('roll!')){
 		return roll(message)
 	}
@@ -111,6 +107,7 @@ client.on('message', async message => {
 		.setDescription("A secretary Bot")
 		.addField("**bridget!**", "writes things down", true)
 		.addField("**ideas!**", "recalls ideas by user", true)
+		.addFiield("**clear!**", "clears user's ideas", true)
 		.addField("**pin!**", "pins the last message", true)
 		.addField("**thanks**", "you're welcome", true)
 		.addField("**pay respect**", "get an F in the chat", true)
