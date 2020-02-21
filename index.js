@@ -107,7 +107,7 @@ client.on('message', async message => {
 		.setDescription("A secretary Bot")
 		.addField("**bridget!**", "writes things down", true)
 		.addField("**ideas!**", "recalls ideas by user", true)
-		.addFiield("**clear!**", "clears user's ideas", true)
+		.addField("**clear!**", "clears user's ideas", true)
 		.addField("**pin!**", "pins the last message", true)
 		.addField("**thanks**", "you're welcome", true)
 		.addField("**pay respect**", "get an F in the chat", true)
