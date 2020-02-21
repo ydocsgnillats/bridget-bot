@@ -100,10 +100,10 @@ client.on('message', async message => {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
 			const dbNote = await Ideabase.create({
 				name: 'name3name',
-				description: message.content,
+				description: ('test: '+ message.content),
 				username: message.author.username,
 			});
-			return message.reply(`Test ${dbNote.name} added. Content = ${dbNote.description}. From ${dbNote.username}`);
+			return message.channel.send(`Test ${dbNote.name} added. Content = ${dbNote.description}. From ${dbNote.username}`);
 		}
 		catch (e) {
 			return message.reply('Something went wrong with adding this idea.');
