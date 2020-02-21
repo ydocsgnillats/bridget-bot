@@ -99,8 +99,8 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('ideas!')){
 		const ideaList = await Ideabase.findAll({ attributes: ['note'] });
-		const ideaString = ideaList.map(t => t.name).join(', ') || 'No ideas stored.';
-		return message.channel.send(`List of tags: ${ideaString}`);
+		const ideaString = ideaList.map(t => t.note).join(', ') || 'No ideas stored.';
+		return message.channel.send(`Ideas: ${ideaString}`);
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
