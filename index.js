@@ -71,14 +71,6 @@ client.on('message', async message => {
 	if(message.content.includes('undo!')){
 		return pin(message)
 	}
-	if(message.content.includes('bridget!')){
-		idea = message
-		return note(message)
-	}
-	if(message.content.includes('Bridget!')){
-		idea = message
-		return note(message)
-	}
 	if(message.content.includes('mute!')){
 		return mute(message)
 	}
@@ -91,7 +83,7 @@ client.on('message', async message => {
 	if(message.content.includes('clear!')){
 		return clear(message)
 	}
-	if(message.content.startsWith('dbFill!')){
+	if(message.content.startsWith('bridget!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
@@ -100,21 +92,17 @@ client.on('message', async message => {
 				note: msg,
 				username: message.author.username,
 			});
-			return message.channel.send(`Test ${dbNote.name} added. Content = ${dbNote.note}. From ${dbNote.username}`);
+			return message.channel.send(`Writing down: ${dbNote.note}`);
 		}
 		catch (e) {
 			return message.reply('Something went wrong with adding this idea.');
 		}
 	}
 	if(message.content.startsWith('ideas!')){
-		const k = await Ideabase.findOne({where: { username: message.author.username} })
-		if(k){
-			k.increment('idea_count')
-			return message.channel.send(k.get('note'))
-		}
-		return message.channel.send(`Could not find name`)
+		const ideaList = await Ideabase.findAll({ attributes: ['note'] });
+		const ideaString = ideaList.map(t => t.name).join(', ') || 'No ideas stored.';
+		return message.channel.send(`List of tags: ${ideaString}`);
 	}
-
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
 		.setColor('#ffcba4')
