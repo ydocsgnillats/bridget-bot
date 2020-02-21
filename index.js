@@ -7,7 +7,6 @@ const fs = require('fs')
 
 const scheduler = require('./commands/scheduler.js')
 const pin = require('./commands/pin.js')
-const clear = require('./commands/clear.js')
 const mute = require('./commands/mute.js')
 const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
@@ -80,7 +79,10 @@ client.on('message', async message => {
 		return scheduler(message)
 	}
 	if(message.content.includes('clear!')){
-		return clear(message)
+		const rowCount = await Ideabase.destroy({ where: { name: message.author.username } });
+		if (!rowCount) return message.reply('That person did not exist.');
+
+		return message.reply('ideas deleted.');
 	}
 	if(message.content.startsWith('bridget!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
@@ -98,7 +100,7 @@ client.on('message', async message => {
 		}
 	}
 	if(message.content.startsWith('ideas!')){
-		const ideaList = await Ideabase.findAll({ attributes: ['note'] });
+		const ideaList = await Ideabase.findAll({ where: {username: message.author.username}}, { attributes: ['note'] });
 		const ideaString = ideaList.map(t => t.note).join(', ') || 'No ideas stored.';
 		return message.channel.send(`Ideas: ${ideaString}`);
 	}
