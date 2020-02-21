@@ -26,6 +26,7 @@ const Ideabase = sequelize.define('ideas', {
 		type: Sequelize.STRING,
 		unique: true,
 	},
+	name: Sequelize.STRING,
 	note: Sequelize.TEXT,
 	guild: Sequelize.STRING,
 	date: Sequelize.DATE,
@@ -98,9 +99,10 @@ client.on('message', async message => {
 	if(message.content.startsWith('dbFill!')){
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
+			var msg = message.content.split(" ").slice(1).join(" ")
 			const dbNote = await Ideabase.create({
-				name: 'Testname',
-				description: 'REEEEEEEEEE REEEEE reeeeee REreeeeee',
+				name: 'namename',
+				description: msg,
 				username: message.author.username,
 			});
 			return message.reply(`Test ${dbNote.name} added. Content = ${dbNote.description}. From ${dbNote.username}`);
@@ -113,7 +115,7 @@ client.on('message', async message => {
 		}
 	}
 	if(message.content.startsWith('dbFetch!')){
-		const k = await Ideabase.findOne({where: { name: 'Testname'} })
+		const k = await Ideabase.findOne({where: { username: message.author.username} })
 		if(k){
 			k.increment('idea_count')
 			return message.channel.send(k.get('description'))
