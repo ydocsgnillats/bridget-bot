@@ -98,7 +98,7 @@ client.on('message', async message => {
 	if(message.content.startsWith('dbFill!')){
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
-			var msg = message.content.split(" ").slice(1).join(" ")
+			var msg = "neeeeeeeeee"
 			const dbNote = await Ideabase.create({
 				name: 'namename',
 				description: msg,
