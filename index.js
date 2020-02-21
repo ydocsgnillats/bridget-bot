@@ -96,14 +96,15 @@ client.on('message', async message => {
 		return clear(message)
 	}
 	if(message.content.startsWith('dbFill!')){
+		var msg = message.content.split(" ").slice(1).join(" ")
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
 			const dbNote = await Ideabase.create({
 				name: 'name3name',
-				description: ('test: '+ message.content),
+				note: msg,
 				username: message.author.username,
 			});
-			return message.channel.send(`Test ${dbNote.name} added. Content = ${dbNote.description}. From ${dbNote.username}`);
+			return message.channel.send(`Test ${dbNote.name} added. Content = ${dbNote.note}. From ${dbNote.username}`);
 		}
 		catch (e) {
 			return message.reply('Something went wrong with adding this idea.');
@@ -113,7 +114,7 @@ client.on('message', async message => {
 		const k = await Ideabase.findOne({where: { username: message.author.username} })
 		if(k){
 			k.increment('idea_count')
-			return message.channel.send(k.get('description'))
+			return message.channel.send(k.get('note'))
 		}
 		return message.channel.send(`Could not find name`)
 	}
