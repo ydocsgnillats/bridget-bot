@@ -80,9 +80,6 @@ client.on('message', async message => {
 		idea = message
 		return note(message)
 	}
-	if(message.content.startsWith('ideas!')){
-		return read(message)
-	}
 	if(message.content.includes('mute!')){
 		return mute(message)
 	}
@@ -100,7 +97,7 @@ client.on('message', async message => {
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
 			const dbNote = await Ideabase.create({
-				name: message.author.id,
+				name: message.author,
 				note: msg,
 				username: message.author.username,
 			});
@@ -110,8 +107,8 @@ client.on('message', async message => {
 			return message.reply('Something went wrong with adding this idea.');
 		}
 	}
-	if(message.content.startsWith('dbFetch!')){
-		const k = await Ideabase.findAll({where: { username: message.author.username} })
+	if(message.content.startsWith('ideas!')){
+		const k = await Ideabase.findOne({where: { username: message.author.username} })
 		if(k){
 			k.increment('idea_count')
 			return message.channel.send(k.get('note'))
