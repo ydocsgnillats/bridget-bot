@@ -6,7 +6,6 @@ const client = new Discord.Client()
 const fs = require('fs')
 
 const scheduler = require('./commands/scheduler.js')
-const note = require('./commands/note.js')
 const pin = require('./commands/pin.js')
 const clear = require('./commands/clear.js')
 const mute = require('./commands/mute.js')
