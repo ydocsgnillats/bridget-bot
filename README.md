@@ -25,7 +25,7 @@ Discord Secretary Bot
 | undo! | Unpins the previous message |
 | roll! | Rolls a number between 1 and 100 |
 | schedule! | Schedules an event, event name is whatever follows 'schedule!' |
-| clear! | Clears her own recent messages from the channel |
+| clear! | Clears ideas from the channel |
 | help! | Returns a list of possible commands to the discord channel itself |
 
 
