@@ -88,6 +88,7 @@ client.on('message', async message => {
 				name: message.author.tag,
 				note: msg,
 				username: message.author.username,
+				guild: message.channel.guild
 			});
 			return message.channel.send(`Writing down: ${dbNote.note}`);
 		}
@@ -96,7 +97,7 @@ client.on('message', async message => {
 		}
 	}
 	if(message.content.startsWith('ideas!')){
-		const ideaList = await Ideabase.findAll({ where: {username: message.author.username}}, { attributes: ['note'] });
+		const ideaList = await Ideabase.findAll({ where: {guild: message.channel.guild}}, { attributes: ['note'] });
 		const ideaString = ideaList.map(t => t.note).join(', ') || 'No ideas stored.';
 		return message.channel.send(`Ideas: ${ideaString}`);
 	}
