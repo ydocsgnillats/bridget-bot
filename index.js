@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const Discord = require('discord.js')
+const Sequelize = require('sequelize')
 const client = new Discord.Client()
 const fs = require('fs')
 
@@ -13,6 +14,28 @@ const mute = require('./commands/mute.js')
 const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
 
+const sequelize = new Sequelize('database', 'user', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	storage: 'database.sqlite',
+})
+
+const Ideabase = sequelize.define('ideas', {
+	username: {
+		type: Sequelize.STRING,
+		unique: true,
+	},
+	note: Sequelize.TEXT,
+	guild: Sequelize.STRING,
+	date: Sequelize.DATE,
+	idea_count: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	},
+})
+
 var activities_list = activities.activitylist()
 
 client.on('ready', async () => {
@@ -23,6 +46,7 @@ client.on('ready', async () => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list.
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}); // sets bot's activities to stream one of the phrases in the arraylist.
   }, 300000); // Runs this every 5 minutes.
+  Ideabase.sync()
 })
 
 client.on('message', async message => {
@@ -65,12 +89,38 @@ client.on('message', async message => {
 	if(message.content.includes('roll!')){
 		return roll(message)
 	}
-	if (message.content.startsWith('schedule!')) {
+	if (message.content.startsWith('schedule!')){
 		return scheduler(message)
 	}
 	if(message.content.includes('clear!')){
 		return clear(message)
 	}
+	if(message.content.startsWith('dbFill!')){
+		try {
+			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
+			const dbNote = await Ideabase.create({
+				name: 'Testname',
+				description: 'REEEEEEEEEE REEEEE reeeeee REreeeeee',
+				username: message.author.username,
+			});
+			return message.reply(`Test ${dbNote.name} added. Content = ${dbNote.description}. From ${dbNote.username}`);
+		}
+		catch (e) {
+			if (e.name === 'SequelizeUniqueConstraintError') {
+				return message.reply('That name already exists.');
+			}
+			return message.reply('Something went wrong with adding this idea.');
+		}
+	}
+	if(message.content.startsWith('dbFetch!')){
+		const k = await Ideabase.findOne({where: { name: 'Testname'} })
+		if(k){
+			k.increment('idea_count')
+			return message.channel.send(k.get('description'))
+		}
+		return message.reply(`Could not find name`)
+	}
+
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
 		.setColor('#ffcba4')
