@@ -81,8 +81,8 @@ client.on('message', async message => {
 		return scheduler(message)
 	}
 	if(message.content.includes('clear!')){
-		const rowCount = await Ideabase.destroy({ where: { username: message.author.username } });
-		if (!rowCount) return message.reply('That person did not exist.');
+		const rowCount = await Ideabase.destroy({ where: { username: message.author.username, guild: message.guild.name} });
+		if (!rowCount) return message.reply('That person did not have any ideas.');
 
 		return message.reply('ideas deleted.');
 	}
