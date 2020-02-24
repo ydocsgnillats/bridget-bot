@@ -27,7 +27,7 @@ const sequelize = new Sequelize(databaseName, databaseUser, databasePassword, {
 	port: databasePort
 });
 
-const Ideabase = sequelize.define('mainbase', {
+const Ideabase = sequelize.define('ideas', {
 	username: {
 		type: Sequelize.STRING,
 	},
