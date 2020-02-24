@@ -9,24 +9,15 @@ const pin = require('./commands/pin.js')
 const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
 
-if (!global.hasOwnProperty('db')) {
-	var Sequelize = require('sequelize')
+var Sequelize = require('sequelize')
 	
-    const sequelize = new Sequelize('database', 'user', 'password', {
-    	host: 'process.env.DATABASE_URL',
-        dialect:  'postgres',
-        protocol: 'postgres',
-        logging:  true //false
-    })
-  
-    global.db = {
-      Sequelize: Sequelize,
-      sequelize: sequelize,
-      //User:      sequelize.import(__dirname + '/user') 
-      // add your other models here
-    }
-}
-    
+const sequelize = new Sequelize('database', 'user', 'password', {
+    host: 'process.env.DATABASE_URL',
+    dialect:  'postgres',
+    protocol: 'postgres',
+    logging:  true //false
+})
+
 const Ideabase = sequelize.define('ideas', {
 	username: {
 		type: Sequelize.STRING,
