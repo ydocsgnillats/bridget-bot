@@ -10,27 +10,12 @@ const pin = require('./commands/pin.js')
 const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
 
-const sequelize = new Sequelize('database', 'user', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	logging: false,
-	storage: 'database.sqlite',
-})
-
-const Ideabase = sequelize.define('ideas', {
-	username: {
-		type: Sequelize.STRING,
-	},
-	name: Sequelize.STRING,
-	note: Sequelize.TEXT,
-	guild: Sequelize.STRING,
-	date: Sequelize.DATE,
-	idea_count: {
-		type: Sequelize.INTEGER,
-		defaultValue: 0,
-		allowNull: false,
-	},
-})
+//const sequelize = new Sequelize('database', 'user', 'password', {
+//	host: 'process.env.DATABASE_URL',
+//	dialect: 'sqlite',
+//	logging: false,
+//	storage: 'database.sqlite',
+//})
 
 var activities_list = activities.activitylist()
 
