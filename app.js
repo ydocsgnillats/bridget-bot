@@ -3,23 +3,21 @@ require('dotenv').config()
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const fs = require('fs')
-
-const scheduler = require('./commands/scheduler.js')
 const pin = require('./commands/pin.js')
 const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
+const Sequelize = require('sequelize')
 
 const date = require('date-and-time')
 const now = new Date()
 date.format(now, 'YYYY/MM/DD HH:mm:ss')
+const activities_list = activities.activitylist()
 
 const databaseName = process.env.DATABASE_NAME
 const databaseHost = process.env.DATABASE_HOST
 const databaseUser = process.env.DATABASE_USER
 const databasePort = process.env.DATABASE_PORT
 const databasePassword = process.env.DATABASE_PASSWORD
-
-var Sequelize = require('sequelize')
 
 const sequelize = new Sequelize(databaseName, databaseUser, databasePassword, {
 	dialect: 'postgres',
@@ -46,6 +44,7 @@ const Ideabase = sequelize.define('ideas', {
 		defaultValue: 0,
 	},
 })  
+
 const Schedulebase = sequelize.define('schedule', {
 	username: {
 		type: Sequelize.STRING,
@@ -55,12 +54,10 @@ const Schedulebase = sequelize.define('schedule', {
 	date: Sequelize.DATE,
 })  
 
-var activities_list = activities.activitylist()
-
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date()
-  client.user.setActivity("Initialization: " + (date.getSeconds()), {type: "PLAYING"})
+  client.user.setActivity("Initialization: " + (date.getSeconds()), {type: "PLAYING"}) //need fix
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1) // generates a random number between 1 and the length of the activities array list.
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}) // sets bot's activities to stream one of the phrases in the arraylist.
@@ -73,7 +70,7 @@ client.on('message', async message => {
 	if(message.content.includes('test!')){
 		return message.channel.send("**BRIDGET**")
 	}
-	if(message.content.includes('thanks')){
+	if(message.content.startsWith('thanks')){
 		return message.channel.send("*UwU*")
 	}
 	if(message.content.includes('pay respect')){
@@ -82,14 +79,14 @@ client.on('message', async message => {
 	if(message.content.includes('in the chat')){
 		return message.channel.send("F.")
 	}
-	if(message.content.includes('pin!')){
+	if(message.content.startsWith('pin!')){
 		return pin(message)
 	}
-	if(message.content.includes('Pin!')){
+	if(message.content.startsWith('Pin!')){
 		return pin(message)
 	}
 	if(message.content.includes('undo!')){
-		return pin(message)
+		return pin(message) //need fix
 	}
 	if(message.content.includes('roll!')){
 		return roll(message)
@@ -113,7 +110,7 @@ client.on('message', async message => {
 		var msg = message.content.split(" ").slice(1).join(" ")
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
-			//Ideabase.increment({kill_count: 1}, {where: {username = msg}})
+			Ideabase.update({kill_count: +1}, {where: {username = msg}})
 			const killGet = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['kill_count'] })
 			const killString = killGet.map(t => t.kill_count).join(', \n ') || 'No kills stored'
 			return message.channel.send(`Killing: ` + msg + '\n' + "Kill Count: " + killString)
@@ -126,7 +123,7 @@ client.on('message', async message => {
 		const rowCount = await Ideabase.destroy({ where: { username: message.author.username, guild: message.guild.name} })
 		if (!rowCount) return message.reply('That person did not have any ideas.')
 
-		return message.reply('ideas deleted.')
+		return message.reply('Deleted ' + message.author.username + '\'s notes')
 	}
 	if(message.content.startsWith('bridget!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
@@ -138,12 +135,12 @@ client.on('message', async message => {
 				username: message.author.username,
 				guild: message.guild.name,
 				date: now,
-			});
+			})
 			//await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
-			return message.channel.send(`Writing down: ${dbNote.note}`);
+			return message.channel.send(`Writing down: ${dbNote.note}`)
 		}
 		catch (e) {
-			return message.reply(e);
+			return message.channel.send("There was a problem with this note")
 		}
 	}
 	if(message.content.startsWith('ideas!')){
@@ -173,7 +170,6 @@ client.on('message', async message => {
 
 client.off('shutdown', async () => {
 	console.log(`${client.user.tag} is shutting down...`)
-
 })
 
 client.login(process.env.TOKEN)
