@@ -111,8 +111,10 @@ client.on('message', async message => {
 		var msg = message.content.split(" ").slice(1).join(" ")
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
-			const killCount = await Ideabase.increment({kill_count: 1}, {where: {username = msg}})
-			return message.channel.send(`Killing: ` + msg)
+			await Ideabase.increment({kill_count: 1}, {where: {username = msg}})
+			const killGet = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['username', 'kill_count'] })
+			const killString = killGet.map(t => t.kill_count).join(', \n ') || 'No ideas stored.'
+			return message.channel.send(`Killing: ` + msg + '\n' + "Kill Count: " + killString)
 		}
 		catch (e) {
 			return message.reply('This user does not exist')
@@ -143,7 +145,7 @@ client.on('message', async message => {
 		}
 	}
 	if(message.content.startsWith('ideas!')){
-		const ideaList = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['note', 'date'] });
+		const ideaList = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['note', 'date'] })
 		const ideaString = ideaList.map(t => t.note).join(', \n ') || 'No ideas stored.'
 		return message.channel.send(`Ideas: ${ideaString}`)
 	}
