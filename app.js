@@ -39,11 +39,11 @@ const Ideabase = sequelize.define('ideas', {
 		type: Sequelize.INTEGER,
 		allowNull: false,
 	},
-	kill_count: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
-		defaultValue: 0,
-	},
+	//kill_count: {
+	//	type: Sequelize.INTEGER,
+	//	allowNull: false,
+	//	defaultValue: 0,
+	//},
 })  
 const Schedulebase = sequelize.define('schedule', {
 	username: {
@@ -146,7 +146,7 @@ client.on('message', async message => {
 		}
 	}
 	if(message.content.startsWith('ideas!')){
-		const ideaList = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['note', 'date'] })
+		const ideaList = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['note'] })
 		const ideaString = ideaList.map(t => t.note).join(', \n ') || 'No ideas stored.'
 		return message.channel.send(`Ideas: ${ideaString}`)
 	}
