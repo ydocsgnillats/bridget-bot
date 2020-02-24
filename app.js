@@ -9,6 +9,10 @@ const pin = require('./commands/pin.js')
 const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
 
+const date = require('date-and-time')
+const now = new Date()
+date.format(now, 'YYYY/MM/DD HH:mm:ss')
+
 const databaseName = process.env.DATABASE_NAME
 const databaseHost = process.env.DATABASE_HOST
 const databaseUser = process.env.DATABASE_USER
@@ -33,20 +37,31 @@ const Ideabase = sequelize.define('ideas', {
 	date: Sequelize.DATE,
 	idea_count: {
 		type: Sequelize.INTEGER,
-		defaultValue: 0,
 		allowNull: false,
 	},
+	kill_count: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+	}
+})  
+const Schedulebase = sequelize.define('schedule', {
+	username: {
+		type: Sequelize.STRING,
+	},
+	event: Sequelize.TEXT,
+	guild: Sequelize.STRING,
+	date: Sequelize.DATE,
 })  
 
 var activities_list = activities.activitylist()
 
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
-  let date = new Date();
-  client.user.setActivity("Initialization: " + (date.getSeconds()), {type: "PLAYING"});
+  let date = new Date()
+  client.user.setActivity("Initialization: " + (date.getSeconds()), {type: "PLAYING"})
   setInterval(() => {
-	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); // generates a random number between 1 and the length of the activities array list.
-	client.user.setActivity(activities_list[index], {type: "STREAMING"}); // sets bot's activities to stream one of the phrases in the arraylist.
+	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1) // generates a random number between 1 and the length of the activities array list.
+	client.user.setActivity(activities_list[index], {type: "STREAMING"}) // sets bot's activities to stream one of the phrases in the arraylist.
   }, 300000); // Runs this every 5 minutes.
   await sequelize.sync()
 })
@@ -78,13 +93,36 @@ client.on('message', async message => {
 		return roll(message)
 	}
 	if (message.content.startsWith('schedule!')){
-		return scheduler(message)
+		var msgarray = message.content.split(" ").slice(1).join(" ")
+		try{
+			const sched = await Schedulebase.create({
+				username: message.author.username,
+				event: msgarray,
+				guild: message.guild.name,
+				date: now,
+			})
+			return message.channel.send("When should I remind you about " + "*" + msgarray + "?*" + "**UNDER CONSTRUCTION**").catch(e => console.log(e))
+		}
+		catch (e) {
+			return message.reply('Something went wrong with this event')
+		}
+	}
+	if (message.content.startsWith('kill!')){
+		var msg = message.content.split(" ").slice(1).join(" ")
+		try {
+			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
+			const killCount = await Ideabase.increment({kill_count: 1}, {where: {username = msg}})
+			return message.channel.send(`Killing: ` + msg)
+		}
+		catch (e) {
+			return message.reply('This user does not exist')
+		}
 	}
 	if(message.content.includes('clear!')){
-		const rowCount = await Ideabase.destroy({ where: { username: message.author.username, guild: message.guild.name} });
-		if (!rowCount) return message.reply('That person did not have any ideas.');
+		const rowCount = await Ideabase.destroy({ where: { username: message.author.username, guild: message.guild.name} })
+		if (!rowCount) return message.reply('That person did not have any ideas.')
 
-		return message.reply('ideas deleted.');
+		return message.reply('ideas deleted.')
 	}
 	if(message.content.startsWith('bridget!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
@@ -94,18 +132,20 @@ client.on('message', async message => {
 				name: message.author.tag,
 				note: msg,
 				username: message.author.username,
-				guild: message.guild.name
-			});
-			return message.channel.send(`Writing down: ${dbNote.note}`);
+				guild: message.guild.name,
+				date: now,
+			})
+			const ideaCount = await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
+			return message.channel.send(`Writing down: ${dbNote.note}`)
 		}
 		catch (e) {
-			return message.reply('Something went wrong with adding this idea.');
+			return message.reply('Something went wrong with adding this idea.')
 		}
 	}
 	if(message.content.startsWith('ideas!')){
-		const ideaList = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['note'] });
-		const ideaString = ideaList.map(t => t.note).join(', ') || 'No ideas stored.';
-		return message.channel.send(`Ideas: ${ideaString}`);
+		const ideaList = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['note', 'date'] });
+		const ideaString = ideaList.map(t => t.note).join(', \n ') || 'No ideas stored.'
+		return message.channel.send(`Ideas: ${ideaString}`)
 	}
 	if(message.content.includes('help!')){    
 		let sEmbed = new Discord.RichEmbed()
