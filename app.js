@@ -4,7 +4,7 @@ const Discord = require('discord.js')
 const Sequelize = require('sequelize')
 const client = new Discord.Client()
 const fs = require('fs')
-const Ideabase = require('./models/dbsetup')
+const Ideabase = require('./models/index')
 
 const scheduler = require('./commands/scheduler.js')
 const pin = require('./commands/pin.js')
