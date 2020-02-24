@@ -137,7 +137,7 @@ client.on('message', async message => {
 				guild: message.guild.name,
 				date: now,
 			})
-			await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
+			//await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
 			return message.channel.send(`Writing down: ${dbNote.note}`)
 		}
 		catch (e) {
