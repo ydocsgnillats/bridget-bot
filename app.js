@@ -39,11 +39,11 @@ const Ideabase = sequelize.define('ideas', {
 		type: Sequelize.INTEGER,
 		allowNull: false,
 	},
-	//kill_count: {
-	//	type: Sequelize.INTEGER,
-	//	allowNull: false,
-	//	defaultValue: 0,
-	//},
+	kill_count: {
+		type: Sequelize.INTEGER,
+		allowNull: false,
+		defaultValue: 0,
+	},
 })  
 const Schedulebase = sequelize.define('schedule', {
 	username: {
@@ -113,7 +113,7 @@ client.on('message', async message => {
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
 			//Ideabase.increment({kill_count: 1}, {where: {username = msg}})
-			const killGet = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['username', 'kill_count'] })
+			const killGet = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['kill_count'] })
 			const killString = killGet.map(t => t.kill_count).join(', \n ') || 'No kills stored'
 			return message.channel.send(`Killing: ` + msg + '\n' + "Kill Count: " + killString)
 		}
