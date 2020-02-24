@@ -111,7 +111,7 @@ client.on('message', async message => {
 		var msg = message.content.split(" ").slice(1).join(" ")
 		try {
 			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
-			Ideabase.increment({kill_count: 1}, {where: {username = msg}})
+			//Ideabase.increment({kill_count: 1}, {where: {username = msg}})
 			const killGet = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['username', 'kill_count'] })
 			const killString = killGet.map(t => t.kill_count).join(', \n ') || 'No ideas stored.'
 			return message.channel.send(`Killing: ` + msg + '\n' + "Kill Count: " + killString)
