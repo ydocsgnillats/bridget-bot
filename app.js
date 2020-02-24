@@ -42,7 +42,7 @@ const Ideabase = sequelize.define('ideas', {
 	kill_count: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
-	}
+	},
 })  
 const Schedulebase = sequelize.define('schedule', {
 	username: {
