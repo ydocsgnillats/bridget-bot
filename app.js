@@ -10,21 +10,14 @@ const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
 
 if (!global.hasOwnProperty('db')) {
-    var Sequelize = require('sequelize')
-      , sequelize = null
-  
-    if (process.env.DATABASE_URL) {
-      // the application is executed on Heroku ... use the postgres database
-      const sequelize = new Sequelize('database', 'user', 'password', {
+	var Sequelize = require('sequelize')
+	
+    const sequelize = new Sequelize('database', 'user', 'password', {
     	host: 'process.env.DATABASE_URL',
         dialect:  'postgres',
         protocol: 'postgres',
         logging:  true //false
-      })
-    } else {
-      // the application is executed on the local machine ... use mysql
-      sequelize = new Sequelize('bridget-sec-bot-db', 'root', null)
-    }
+    })
   
     global.db = {
       Sequelize: Sequelize,
