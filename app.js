@@ -11,11 +11,10 @@ const activities = require('./commands/activities.js')
 
 var Sequelize = require('sequelize')
 	
-const sequelize = new Sequelize('database', 'user', 'password', {
-    host: 'process.env.DATABASE_URL',
+const sequelize = new Sequelize('process.env.DATABASE_URL', {
+    host: localhost,
     dialect:  'postgres',
     protocol: 'postgres',
-    logging:  true //false
 })
 
 const Ideabase = sequelize.define('ideas', {
