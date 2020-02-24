@@ -9,14 +9,16 @@ const pin = require('./commands/pin.js')
 const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
 
+const databaseName = process.env.DATABASE_NAME
+const databaseHost = process.env.DATABASE_HOST
+const databaseUser = process.env.DATABASE_USER
+const databasePort = process.env.DATABASE_PORT
+const databasePassword = process.env.DATABASE_PASSWORD
+
 var Sequelize = require('sequelize')
 
-const sequelize = new Sequelize('process.env.DATABASE_URL', 'username', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	logging: false,
-	// SQLite only
-	storage: 'database.sqlite',
+const sequelize = new Sequelize(databaseName, databaseUser, databasePassword, {
+	dialect: 'postgres',
 });
 
 const Ideabase = sequelize.define('ideas', {
