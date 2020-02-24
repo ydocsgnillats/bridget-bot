@@ -137,7 +137,7 @@ client.on('message', async message => {
 				guild: message.guild.name,
 				date: now,
 			})
-			const ideaCount = await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
+			await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
 			return message.channel.send(`Writing down: ${dbNote.note}`)
 		}
 		catch (e) {
@@ -162,6 +162,7 @@ client.on('message', async message => {
 		.addField("**pay respect**", "get an F in the chat", true)
 		.addField("**roll!**", "random roll between 1 and 100", true)
 		.addField("**schedule!**", "schedule reminders", true)
+		.addField("**kill!**", "kills a user", true)
 		.addField("**help!**", "sends this message", true)
 		.setFooter('BridgetBot2020', client.user.displayAvatarURL);
 		return message.channel.send({embed: sEmbed});
