@@ -19,6 +19,8 @@ var Sequelize = require('sequelize')
 
 const sequelize = new Sequelize(databaseName, databaseUser, databasePassword, {
 	dialect: 'postgres',
+	host: databaseHost,
+	port: databasePort
 });
 
 const Ideabase = sequelize.define('ideas', {
