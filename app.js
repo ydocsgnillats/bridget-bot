@@ -10,8 +10,14 @@ const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
 
 var Sequelize = require('sequelize')
-	
-const sequelize = new Sequelize('process.env.DATABASE_URL')
+
+const sequelize = new Sequelize('process.env.DATABASE_URL', 'username', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	// SQLite only
+	storage: 'database.sqlite',
+});
 
 const Ideabase = sequelize.define('ideas', {
 	username: {
