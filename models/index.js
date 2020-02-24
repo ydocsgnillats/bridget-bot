@@ -4,11 +4,10 @@ if (!global.hasOwnProperty('db')) {
   
     if (process.env.DATABASE_URL) {
       // the application is executed on Heroku ... use the postgres database
-      sequelize = new Sequelize(process.env.DATABASE_URL, {
+      const sequelize = new Sequelize('database', 'user', 'password', {
+    	host: 'process.env.DATABASE_URL',
         dialect:  'postgres',
         protocol: 'postgres',
-        port:     match[4],
-        host:     match[3],
         logging:  true //false
       })
     } else {
@@ -22,6 +21,22 @@ if (!global.hasOwnProperty('db')) {
       User:      sequelize.import(__dirname + '/user') 
       // add your other models here
     }
+
+    
+const Ideabase = sequelize.define('ideas', {
+	username: {
+		type: Sequelize.STRING,
+	},
+	name: Sequelize.STRING,
+	note: Sequelize.TEXT,
+	guild: Sequelize.STRING,
+	date: Sequelize.DATE,
+	idea_count: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	},
+})
   
     /*
       Associations can be defined here. E.g. like this:
@@ -29,4 +44,4 @@ if (!global.hasOwnProperty('db')) {
     */
   }
   
-  module.exports = global.db
+  module.exports = global.db, Ideabase
