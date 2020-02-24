@@ -37,6 +37,7 @@ const Ideabase = sequelize.define('ideas', {
 	date: Sequelize.DATE,
 	idea_count: {
 		type: Sequelize.INTEGER,
+		defaultValue: 0,
 		allowNull: false,
 	},
 	kill_count: {
@@ -137,12 +138,12 @@ client.on('message', async message => {
 				username: message.author.username,
 				guild: message.guild.name,
 				date: now,
-			})
+			});
 			//await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
-			return message.channel.send(`Writing down: ${dbNote.note}`)
+			return message.channel.send(`Writing down: ${dbNote.note}`);
 		}
 		catch (e) {
-			return message.reply(e)
+			return message.reply(e);
 		}
 	}
 	if(message.content.startsWith('ideas!')){
