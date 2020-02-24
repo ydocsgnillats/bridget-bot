@@ -32,7 +32,7 @@ if (!global.hasOwnProperty('db')) {
       //User:      sequelize.import(__dirname + '/user') 
       // add your other models here
     }
-
+}
     
 const Ideabase = sequelize.define('ideas', {
 	username: {
