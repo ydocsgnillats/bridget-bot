@@ -107,7 +107,7 @@ client.on('message', async message => {
 		message.channel.send("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(() => {
 		if(message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})){
 			try{
-				const dbNote = await Motionbase.create({
+				const dbMotion = await Motionbase.create({
 					name: message.author.tag,
 					motion: msg,
 					username: message.author.username,
