@@ -94,10 +94,12 @@ client.on('message', async message => {
 	if(message.content.startsWith('motion!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
 		message.reply("Motion " + msg + " initiated. \n Does anyone second the motion?")
-		const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 10000 })
+		const collector = new Discord.MessageCollector(message.channel, { time: 1000 })
 		var decision = " "
-        console.log(collector)
-        collector.on('collect', message => {
+		console.log(collector)
+		
+    	try {
+			collector.on('collect', message => {
             if (message.content == "no") {
 				message.channel.send("Motion denied.")
 				decision = ("MOTION " + msg + ": DENIED")
@@ -108,8 +110,13 @@ client.on('message', async message => {
 			else {
 				decision = ("MOTION TIMED OUT")
 			}
-		})
-		return message.channel.send(decision)
+			return message.channel.send(decision)
+			})
+		}
+		catch(e){
+			decision = ("MOTION ERROR: " + e)
+			return message.channel.send(decision)
+		}
 	}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
