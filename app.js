@@ -109,7 +109,7 @@ client.on('message', async message => {
 				try{
 					const dbNote = await Motionbase.create({
 						name: message.author.tag,
-						note: msg,
+						motion: msg,
 						username: message.author.username,
 						guild: message.guild.name,
 						date: now,
