@@ -91,6 +91,23 @@ client.on('message', async message => {
 	if(message.content.includes('roll!')){
 		return roll(message)
 	}
+	if(message.content.startsWith('motion!')){
+		var msg = message.content.split(" ").slice(1).join(" ")
+		message.reply("Motion to" + msg + "initiated. \n Does anyone second the motion?")
+		const collector = new Discord.MessageCollector(message.channel, m => m.author.id === !message.author.id, { time: 10000 })
+		var decision = ""
+        console.log(collector)
+        collector.on('collect', message => {
+            if (message.content == "no") {
+				message.channel.send("Motion denied.")
+				decision = ("MOTION " + msg + ": DENIED")
+            } else {
+				message.channel.send("Motion seconded \n All in favor?")
+				decision = ("MOTION " + msg + ": GRANTED")
+            }
+		})
+		return message.channel.send(decision)
+	}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
 		try{
