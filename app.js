@@ -102,10 +102,9 @@ client.on('message', async message => {
 	if(message.content.startsWith('motion!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
 		var outcome = "Try again later."
-		const filter = m => m.content.includes('yes')
-
+		
 		message.channel.send("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(() => {
-			message.channel.awaitMessages(filter, {maxMatches:5, time: 10000, errors: ['time']})
+			message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})
 				.then(collected => {
 					message.channel.send(`${collected.first().author} seconded.`)
 					outcome = "MOTION GRANTED"
