@@ -93,31 +93,17 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
-		message.reply("Motion " + msg + " initiated. \n Does anyone second the motion?")
-		const collector = new Discord.MessageCollector(message.channel, { time: 1000 })
-		var decision = " "
-		console.log(collector)
-		
-    	try {
-			collector.on('collect', message => {
-            if (message.content == "no") {
-				message.channel.send("Motion denied.")
-				decision = ("MOTION " + msg + ": DENIED")
-            } else if (message.content== "yes"){
-				message.channel.send("Motion seconded \n All in favor?")
-				decision = ("MOTION " + msg + ": GRANTED")
-			}
-			else {
-				decision = ("MOTION TIMED OUT")
-			}
-			return message.channel.send(decision)
-			})
-		}
-		catch(e){
-			decision = ("MOTION ERROR: " + e)
-			return message.channel.send(decision)
-		}
-	}
+		const filter = m => m.author.id === !message.author.id && m.content.includes('yes')
+
+		message.channel.send("Motion " + msg + " initiated. \n Does anyone second the motion?").then(() => {
+			message.channel.awaitMessages(filter, {maxMatches:5, time: 1000, errors: ['time']})
+				.then(collected => {
+					message.channel.send(`${collected.first().author} seconded.`)
+				})
+				.catch(collected => {
+					message.channel.send('Motion Denied: Out of time.')
+				})
+		})
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
 		try{
