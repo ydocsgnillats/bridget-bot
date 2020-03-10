@@ -93,18 +93,21 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
-		message.reply("Motion to" + msg + "initiated. \n Does anyone second the motion?")
-		const collector = new Discord.MessageCollector(message.channel, m => m.author.id === !message.author.id, { time: 10000 })
-		var decision = ""
+		message.reply("Motion " + msg + " initiated. \n Does anyone second the motion?")
+		const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 10000 })
+		var decision = " "
         console.log(collector)
         collector.on('collect', message => {
             if (message.content == "no") {
 				message.channel.send("Motion denied.")
 				decision = ("MOTION " + msg + ": DENIED")
-            } else {
+            } else if (message.content== "yes"){
 				message.channel.send("Motion seconded \n All in favor?")
 				decision = ("MOTION " + msg + ": GRANTED")
-            }
+			}
+			else {
+				decision = ("MOTION TIMED OUT")
+			}
 		})
 		return message.channel.send(decision)
 	}
