@@ -95,8 +95,8 @@ client.on('message', async message => {
 		var msg = message.content.split(" ").slice(1).join(" ")
 		const filter = m => m.author.id === !message.author.id && m.content.includes('yes')
 
-		message.channel.send("Motion " + msg + " initiated. \n Does anyone second the motion?").then(() => {
-			message.channel.awaitMessages(filter, {maxMatches:5, time: 1000, errors: ['time']})
+		message.channel.send("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(() => {
+			message.channel.awaitMessages(filter, {maxMatches:5, time: 10000, errors: ['time']})
 				.then(collected => {
 					message.channel.send(`${collected.first().author} seconded.`)
 				})
