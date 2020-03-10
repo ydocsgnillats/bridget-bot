@@ -100,36 +100,36 @@ client.on('message', async message => {
 	if(message.content.includes('roll!')){
 		return roll(message)
 	}
-	if(message.content.startsWith('motion!')){
-		var msg = message.content.split(" ").slice(1).join(" ")
-		var outcome = "Try again later."
+	// if(message.content.startsWith('motion!')){
+	// 	var msg = message.content.split(" ").slice(1).join(" ")
+	// 	var outcome = "Try again later."
 
-		message.channel.send("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(() => {
-		if(message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})){
-			try{
-				const dbMotion = await Motionbase.create({
-					name: message.author.tag,
-					motion: msg,
-					username: message.author.username,
-					guild: message.guild.name,
-					date: now,
-				})
-				outcome = "MOTION GRANTED"
-				return message.channel.send(outcome)
-			}
-			catch{
-				outcome = "Motion Denied: ERROR."
-				return message.channel.send(outcome)
-			}
-		}
-		else return message.channel.send("Motion DENIED: Out of Time")
-		}
-	)}
-	if(message.content.startsWith('motions!')){
-		const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
-		const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
-		return message.channel.send(`Motions: ${motionString}`)
-	}
+	// 	message.channel.send("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(() => {
+	// 	if(message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})){
+	// 		try{
+	// 			const dbMotion = await Motionbase.create({
+	// 				name: message.author.tag,
+	// 				motion: msg,
+	// 				username: message.author.username,
+	// 				guild: message.guild.name,
+	// 				date: now,
+	// 			})
+	// 			outcome = "MOTION GRANTED"
+	// 			return message.channel.send(outcome)
+	// 		}
+	// 		catch{
+	// 			outcome = "Motion Denied: ERROR."
+	// 			return message.channel.send(outcome)
+	// 		}
+	// 	}
+	// 	else return message.channel.send("Motion DENIED: Out of Time")
+	// 	}
+	// )}
+	// if(message.content.startsWith('motions!')){
+	// 	const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
+	// 	const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
+	// 	return message.channel.send(`Motions: ${motionString}`)
+	// }
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
 		try{
