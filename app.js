@@ -54,6 +54,14 @@ const Schedulebase = sequelize.define('schedule', {
 	date: Sequelize.DATE,
 })  
 
+const Motionbase = sequelize.define('motions', {
+	username: {
+		type: Sequelize.STRING,
+	},
+	motion: Sequelize.TEXT,
+	date: Sequelize.DATE,
+})  
+
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date()
@@ -93,7 +101,7 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
-		const filter = m => m.author.id === message.author.id && m.content.includes('yes')
+		const filter = message.content.includes('yes')
 
 		message.channel.send("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(() => {
 			message.channel.awaitMessages(filter, {maxMatches:5, time: 10000, errors: ['time']})
@@ -105,6 +113,11 @@ client.on('message', async message => {
 				})
 		}
 	)}
+	if(message.content.startsWith('motions!')){
+		const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
+		const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
+		return message.channel.send(`Motions: ${motionString}`)
+	}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
 		try{
