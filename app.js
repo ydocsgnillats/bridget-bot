@@ -105,22 +105,24 @@ client.on('message', async message => {
 		var outcome = "Try again later."
 
 		message.channel.send("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(() => {
-			message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})
-				try{
-					const dbNote = await Motionbase.create({
-						name: message.author.tag,
-						motion: msg,
-						username: message.author.username,
-						guild: message.guild.name,
-						date: now,
-					})
-					outcome = "MOTION GRANTED"
-					return message.channel.send(outcome)
-				}
-				catch{
-					outcome = "Motion Denied: Out of time."
-					return message.channel.send(outcome)
-				}
+		if(message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})){
+			try{
+				const dbNote = await Motionbase.create({
+					name: message.author.tag,
+					motion: msg,
+					username: message.author.username,
+					guild: message.guild.name,
+					date: now,
+				})
+				outcome = "MOTION GRANTED"
+				return message.channel.send(outcome)
+			}
+			catch{
+				outcome = "Motion Denied: ERROR."
+				return message.channel.send(outcome)
+			}
+		}
+		else return message.channel.send("Motion DENIED: Out of Time")
 		}
 	)}
 	if(message.content.startsWith('motions!')){
