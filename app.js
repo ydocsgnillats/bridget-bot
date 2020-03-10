@@ -107,9 +107,6 @@ client.on('message', async message => {
 		message.channel.send("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(() => {
 			message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})
 				try{
-					message.channel.send(`${collected.first().author} seconded.`)
-					outcome = "MOTION GRANTED"
-					message.channel.send(outcome)
 					const dbNote = await Motionbase.create({
 						name: message.author.tag,
 						note: msg,
@@ -117,10 +114,12 @@ client.on('message', async message => {
 						guild: message.guild.name,
 						date: now,
 					})
+					outcome = "MOTION GRANTED"
+					return message.channel.send(outcome)
 				}
 				catch{
 					outcome = "Motion Denied: Out of time."
-					message.channel.send(outcome)
+					return message.channel.send(outcome)
 				}
 		}
 	)}
