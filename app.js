@@ -103,7 +103,8 @@ client.on('message', async message => {
 				.catch(collected => {
 					message.channel.send('Motion Denied: Out of time.')
 				})
-		})
+		}
+	)}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
 		try{
