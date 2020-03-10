@@ -54,12 +54,13 @@ const Schedulebase = sequelize.define('schedule', {
 	date: Sequelize.DATE,
 })  
 
-const Motionbase = sequelize.define('motions', {
+const Motionbase = sequelize.define('motion', {
 	username: {
 		type: Sequelize.STRING,
 	},
 	motion: Sequelize.TEXT,
 	date: Sequelize.DATE,
+	guild: Sequelize.STRING
 })  
 
 client.on('ready', async () => {
@@ -102,18 +103,25 @@ client.on('message', async message => {
 	if(message.content.startsWith('motion!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
 		var outcome = "Try again later."
-		
+
 		message.channel.send("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(() => {
 			message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})
-				.then(collected => {
+				try{
 					message.channel.send(`${collected.first().author} seconded.`)
 					outcome = "MOTION GRANTED"
 					message.channel.send(outcome)
-				})
-				.catch(collected => {
+					const dbNote = await Motionbase.create({
+						name: message.author.tag,
+						note: msg,
+						username: message.author.username,
+						guild: message.guild.name,
+						date: now,
+					})
+				}
+				catch{
 					outcome = "Motion Denied: Out of time."
 					message.channel.send(outcome)
-				})
+				}
 		}
 	)}
 	if(message.content.startsWith('motions!')){
@@ -152,7 +160,7 @@ client.on('message', async message => {
 	if(message.content.includes('clear!')){
 		const rowCount = await Ideabase.destroy({ where: { username: message.author.username, guild: message.guild.name} })
 		if (!rowCount) return message.reply('That person did not have any ideas.')
-
+		
 		return message.reply('Deleted ' + message.author.username + '\'s notes')
 	}
 	if(message.content.startsWith('bridget!')){
