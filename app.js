@@ -164,12 +164,6 @@ client.on('message', async message => {
 		
 		return message.reply('Deleted ' + message.author.username + '\'s notes')
 	}
-	if(message.content.includes('~selfdestruct!')){
-		const id = await Ideabase.destroy()
-		const sched = await Schedulebase.destroy()
-		const mot = await Motionbase.destroy()
-		return message.channel.send("Databases Destroyed.")
-	}
 	if(message.content.startsWith('bridget!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
 		try {
