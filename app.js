@@ -100,31 +100,31 @@ client.on('message', async message => {
 	if(message.content.includes('roll!')){
 		return roll(message)
 	}
-	// if(message.content.startsWith('motion!')){
-	// 	var msg = message.content.split(" ").slice(1).join(" ")
-	// 	var outcome = "Try again later."
-
-	// 	message.channel.send("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(() => {
-	// 	if(message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})){
-	// 		try{
-	// 			const dbMotion = await Motionbase.create({
-	// 				name: message.author.tag,
-	// 				motion: msg,
-	// 				username: message.author.username,
-	// 				guild: message.guild.name,
-	// 				date: now,
-	// 			})
-	// 			outcome = "MOTION GRANTED"
-	// 			return message.channel.send(outcome)
-	// 		}
-	// 		catch{
-	// 			outcome = "Motion Denied: ERROR."
-	// 			return message.channel.send(outcome)
-	// 		}
-	// 	}
-	// 	else return message.channel.send("Motion DENIED: Out of Time")
-	// 	}
-	// )}
+	if(message.content.startsWith('motion!')){
+	 	var msg = message.content.split(" ").slice(1).join(" ")
+		var outcome = "Try again later."
+		try{
+			const dbMotion = await Motionbase.create({
+			motion: msg,
+			username: message.author.username,
+			guild: message.guild.name,
+			date: now,
+			})
+			outcome = "Motion **" + msg + "** initiated. \nDoes anyone second the motion?"
+			message.channel.send(outcome).then(() => {
+				if(message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})){		
+					message.channel.send("Motion Seconded.")
+				}
+				else {
+					return message.channel.send("Motion DENIED: Out of Time")
+				}
+			})
+		}
+		catch{
+			outcome = "Motion Denied: ERROR."
+			return message.channel.send(outcome)
+		}
+	}
 	if(message.content.startsWith('motions!')){
 	 	const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
 	 	const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
@@ -170,9 +170,9 @@ client.on('message', async message => {
 		return message.reply('Deleted ' + message.author.username + '\'s notes')
 	}
 	if(message.content.includes('~selfdestruct!')){
-		Ideabase.destroy()
-		Schedulebase.destroy()
-		Motionbase.destroy()
+		const id = await Ideabase.destroy()
+		const sched = await Schedulebase.destroy()
+		const mot = await Motionbase.destroy()
 		return message.channel.send("Databases Destroyed.")
 	}
 	if(message.content.startsWith('bridget!')){
