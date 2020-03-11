@@ -125,11 +125,16 @@ client.on('message', async message => {
 	// 	else return message.channel.send("Motion DENIED: Out of Time")
 	// 	}
 	// )}
-	// if(message.content.startsWith('motions!')){
-	// 	const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
-	// 	const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
-	// 	return message.channel.send(`Motions: ${motionString}`)
-	// }
+	if(message.content.startsWith('motions!')){
+	 	const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
+	 	const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
+	 	try{
+			 return message.channel.send(`Motions: ${motionString}`)
+		}
+		catch{
+			return message.channel.send("No motions found for this server.")
+		}
+	}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
 		try{
@@ -163,6 +168,12 @@ client.on('message', async message => {
 		if (!rowCount) return message.reply('That person did not have any ideas.')
 		
 		return message.reply('Deleted ' + message.author.username + '\'s notes')
+	}
+	if(message.content.includes('~selfdestruct!')){
+		Ideabase.destroy()
+		Schedulebase.destroy()
+		Motionbase.destroy()
+		return message.channel.send("Databases Destroyed.")
 	}
 	if(message.content.startsWith('bridget!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
