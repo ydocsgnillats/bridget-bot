@@ -112,7 +112,8 @@ client.on('message', async message => {
 			})
 			outcome = "Motion **" + msg + "** initiated. \nDoes anyone second the motion?"
 			message.channel.send(outcome).then(() => {
-				if(message.channel.awaitMessages(message.content.startsWith('yes'), {maxMatches:5, time: 10000, errors: ['time']})){		
+				ans = message.channel.awaitMessages({maxMatches:5, time: 10000, errors: ['time']})
+				if (ans == "yes"){		
 					message.channel.send("Motion Seconded.")
 				}
 				else {
