@@ -1,6 +1,5 @@
 exports.activitylist = function(){  
    activities_list = [
-        "your stupid ideas over in her head", 
         "goat simulator",
         "the BYAND",
         "planetary annihalation",
@@ -14,7 +13,16 @@ exports.activitylist = function(){
         "Warcraft: Reforged",
         "Battletoads 2",
         "Nightmares of a forgotten past",
-        "Nightcrawlers"
+        "Nightcrawlers",
+        "Lo-fi HipHop Beats to Study to",
+        "the harpsichord",
+        "nu-wave jazz-grunge",
+        "alternative polka",
+        "rollercoaster tycoon 3",
+        "minecraft",
+        "the stock market",
+        "the slots in vegas",
+        "Destroy All Humans"
         ]; // creates an arraylist containing phrases you want your bot to switch through.
         return activities_list
 }
