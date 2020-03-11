@@ -112,7 +112,7 @@ client.on('message', async message => {
 			})
 			outcome = "Motion **" + msg + "** initiated. \nDoes anyone second the motion?"
 			message.channel.send(outcome).then(() => {
-				ans = message.channel.awaitMessages({maxMatches:5, time: 10000, errors: ['time']})
+				ans => message.channel.awaitMessages({maxMatches:5, time: 10000, errors: ['time']})
 				if (ans == "yes"){		
 					message.channel.send("Motion Seconded.")
 				}
@@ -129,12 +129,7 @@ client.on('message', async message => {
 	if(message.content.startsWith('motions!')){
 	 	const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
 	 	const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
-	 	try{
-			 return message.channel.send(`Motions: ${motionString}`)
-		}
-		catch{
-			return message.channel.send("No motions found for this server.")
-		}
+		return message.channel.send(`Ideas: ${motionString}`)
 	}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
