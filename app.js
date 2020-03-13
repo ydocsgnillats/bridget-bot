@@ -102,9 +102,24 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
-		//const filter = m => m.content
+		const filter1 = response1 => {
+			return response1.author.id === Authorid;
+		}
+			message.channel.awaitMessages(filter1, { max: 1 })
+			.then(collected1 => {
+			const response1 = collected1.first();
+			
+			const filter2 = response2 => {
+			return response2.author.id === Authorid;
+			}
+			
+			message.channel.awaitMessages(filter2, { max: 1 })
+			.then(collected2 => {
+			const response2 = collected2.first();
+		});
+		});
 		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY yes or no)").then(r => r.delete(30000));
-		message.channel.awaitMessages(null, {max: 1, time: 30000}).then(collected =>{
+		message.channel.awaitMessages(filter1, {max: 1, time: 30000}).then(collected =>{
 			if (collected.first().content === "yes"){
 				let embed = new Discord.RichEmbed()
 					.setTitle("MOTION: ")
