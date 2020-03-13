@@ -102,27 +102,29 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motes!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
-		const filter = m => m.author.id === message.author.id
-		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY yes IF SO)").then(r => r.delete(30000))
+		const filter = m => m.author.id === message.author.id;
+		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY yes IF SO)").then(r => r.delete(30000));
 		message.channel.awaitMessages(filter, {max: 1, time: 30000}).then(collected =>{
-		let response = collected
-			if (collected == "yes"){
+			if (collected.first().content === "yes"){
 				let embed = new Discord.RichEmbed()
 					.setTitle("Decision in Progress: ")
 					.setColor("BLURPLE")
 					.setDescription("**Motion to " + msg + "**")
 					.setThumbnail(client.user.displayAvatarURL)
 					.addField("Author: ", message.author, true)
-					.addField("Seconded: ", collected.user, true)
+					.addField("Seconded: ", collected.first().author, true)
 				return message.channel.send(embed)
 			}
-			else if (collected == "no"){
+			else if (collected.first().content === 'no'){
 				return message.channel.send("MOTION DENIED")
 			}
+			else if (collected.first().content === 'cancel'){
+				return message.reply("Motion Canceled.")
+			}
 
-		}).catch(err =>{ 
-			message.reply("Motion " + msg + " denied due to error or timeout.")
-		})
+			}).catch(err =>{ 
+				message.reply("Motion " + msg + " denied due to error or timeout.").then(r => r.delete(5000));
+			});
 	}
 	if(message.content.startsWith('motion!')){
 	 	var msg = message.content.split(" ").slice(1).join(" ")
