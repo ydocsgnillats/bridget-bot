@@ -100,7 +100,7 @@ client.on('message', async message => {
 	if(message.content.includes('roll!')){
 		return roll(message)
 	}
-	if(message.content.includes('motest!')){
+	if(message.content.startsWith('motes!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
 		const filter = m => m.author.id === !message.author.id
 		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(r => r.delete(30000))
