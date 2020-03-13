@@ -100,6 +100,24 @@ client.on('message', async message => {
 	if(message.content.includes('roll!')){
 		return roll(message)
 	}
+	if(message.content.includes('motest!')){
+		var msg = message.content.split(" ").slice(1).join(" ")
+		const filter = m => m.author.id === !message.author.id
+		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?").then(r => r.delete(30000))
+		message.channel.awaitMessages(filter, {max: 1, time: 30000}).then(collected =>{
+		let response = args[0]
+			let embed = new Discord.RichEmbed()
+				.setTitle("Decision in Progress: ")
+				.setColor("BLURPLE")
+				.setDescription("**Motion to " + msg + "**")
+				.setThumbnail(client.user.displayAvatarURL)
+				.addField("Author: ", message.author, true)
+				.addField("Seconded: ", collected.user, true)
+			return message.channel.send(embed)
+		}).catch(err =>{ 
+			message.reply("Motion Denied due to error or timeout.")
+		})
+	}
 	if(message.content.startsWith('motion!')){
 	 	var msg = message.content.split(" ").slice(1).join(" ")
 		var outcome = "Try again later."
