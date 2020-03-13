@@ -114,12 +114,17 @@ client.on('message', async message => {
 					.addField("Author: ", message.author, true)
 					.addField("Seconded: ", collected.first().author, true)
 					.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
-				const dbMotion = await Motionbase.create({
+				try{
+					const dbMotion = await Motionbase.create({
 					motion: msg,
 					username: message.author.username,
 					guild: message.guild.name,
 					date: now,
-				})
+					})
+				}
+				catch(e) {
+					message.reply("Failed to Update Motion Database")
+				}
 				return message.channel.send(embed)
 			}
 			else if (collected.first().content === 'no'){
