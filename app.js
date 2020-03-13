@@ -113,22 +113,22 @@ client.on('message', async message => {
 					errors: ['time'],
 				}).then(async collected =>{
 				if (collected.first().content === 'yes'){
-					let Membed = new Discord.RichEmbed()
-						.setTitle("MOTION: ")
-						.setColor("BLURPLE")
-						.setDescription(msg)
-						.setThumbnail(message.user.displayAvatarURL)
-						.addField("Author: ", message.author, true)
-						.addField("Seconded: ", collected.first().author, true)
-						.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
-						//  const dbMotion = Motionbase.create({
-						//  motion: msg,
-						//  username: message.author.username,
-						//  guild: message.guild.name,
-						//  date: now,
-						//  })
-						//  dbMotion;
-					return message.channel.send({embed: Membed});
+					//let Membed = new Discord.RichEmbed()
+						// .setTitle("MOTION: ")
+						// .setColor("BLURPLE")
+						// .setDescription(msg)
+						// .setThumbnail(message.user.displayAvatarURL)
+						// .addField("Author: ", message.author, true)
+						// .addField("Seconded: ", collected.first().author, true)
+						// .setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
+						 const dbMotion = Motionbase.create({
+						 motion: msg,
+						 username: message.author.username,
+						 guild: message.guild.name,
+						 date: now,
+						 })
+						 return dbMotion;
+					//return message.channel.send({embed: Membed})
 				}
 				else if (collected.first().content === 'no'){
 					const r = await message.channel.send("MOTION DENIED")
