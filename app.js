@@ -121,13 +121,13 @@ client.on('message', async message => {
 						})
 					dbMotion;
 					var Membed = new Discord.RichEmbed()
-					 	.setTitle("MOTION: ")
-					 	.setColor("BLURPLE")
-					 	.setDescription(msg)
-					 	.setThumbnail(message.user.displayAvatarURL)
-					 	.addField("Author: ", message.author, true)
-					 	.addField("Seconded: ", collected.first().author, true)
-					 	.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
+					 	Membed.setTitle("MOTION: ")
+					 	Membed.setColor("BLURPLE")
+					 	Membed.setDescription(msg)
+					 	Membed.setThumbnail(message.user.displayAvatarURL)
+					 	Membed.addField("Author: ", message.author, true)
+					 	Membed.addField("Seconded: ", collected.first().author, true)
+					 	Membed.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
 					return message.channel.send({embed: Membed})
 					//return message.channel.send("MOTION " + msg + " GRANTED")
 				}
