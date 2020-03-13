@@ -111,7 +111,7 @@ client.on('message', async message => {
 					max: 1, 
 					time: 30000,
 					errors: ['time'],
-				}).then(collected =>{
+				}).then(async collected =>{
 				if (collected.first().content === "yes"){
 					let embed = new Discord.RichEmbed()
 						.setTitle("MOTION: ")
