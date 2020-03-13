@@ -136,7 +136,7 @@ client.on('message', async message => {
 			}
 
 			}).catch(err =>{ 
-				message.reply("Motion " + msg + " denied due timeout.").then(r => r.delete(5000));
+				message.reply("Motion " + msg + " denied due to timeout.").then(r => r.delete(5000));
 			});
 	}
 	if(message.content.startsWith('motions!')){
