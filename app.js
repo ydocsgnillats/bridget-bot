@@ -77,7 +77,7 @@ client.on('ready', async () => {
 client.on('message', async message => {
 	if(message.author.bot || message.channel.type === 'dm') return;
 	if(message.content.includes('test!')){
-		return message.channel.send("**BRIDGET**")
+		return message.channel.send("**BRIDGET**").then(r => r.delete(5000));
 	}
 	if(message.content.startsWith('thanks')){
 		return message.channel.send("*UwU*")
@@ -193,10 +193,10 @@ client.on('message', async message => {
 				date: now,
 			})
 			//await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
-			return message.channel.send(`Writing down: ${dbNote.note}`)
+			return message.channel.send(`Writing down: ${dbNote.note}`).then(r => r.delete(5000));
 		}
 		catch (e) {
-			return message.channel.send("There was a problem with this note")
+			return message.channel.send("There was a problem with this note").then(r => r.delete(5000));
 		}
 	}
 	if(message.content.startsWith('ideas!')){
