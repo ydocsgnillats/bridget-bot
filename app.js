@@ -120,16 +120,16 @@ client.on('message', async message => {
 						date: now,
 						})
 					dbMotion;
-					var Membed = new Discord.RichEmbed()
-					 	Membed.setTitle("MOTION: ")
-					 	Membed.setColor("BLURPLE")
-					 	Membed.setDescription(msg)
-					 	Membed.setThumbnail(message.user.displayAvatarURL)
-					 	Membed.addField("Author: ", message.author, true)
-					 	Membed.addField("Seconded: ", collected.first().author, true)
-					 	Membed.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
-					return message.channel.send({embed: Membed})
-					//return message.channel.send("MOTION " + msg + " GRANTED")
+					// var Membed = new Discord.RichEmbed()
+					//  	Membed.setTitle("MOTION: ")
+					//  	Membed.setColor("BLURPLE")
+					//  	Membed.setDescription(msg)
+					//  	Membed.setThumbnail(message.user.displayAvatarURL)
+					//  	Membed.addField("Author: ", message.author, true)
+					//  	Membed.addField("Seconded: ", collected.first().author, true)
+					//  	Membed.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
+					// return message.channel.send({embed: Membed})
+					return message.channel.send("MOTION " + msg + " GRANTED")
 				}
 				else if (collected.first().content === 'no'){
 					const r = await message.channel.send("MOTION DENIED")
