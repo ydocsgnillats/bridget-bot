@@ -103,14 +103,14 @@ client.on('message', async message => {
 	if(message.content.startsWith('motion!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
 		const filter1 = response1 => {
-			return response1.author.id === Authorid;
+			return response1.author.id === message.author.id;
 		}
 			message.channel.awaitMessages(filter1, { max: 1 })
 			.then(collected1 => {
 			const response1 = collected1.first();
 			
 			const filter2 = response2 => {
-			return response2.author.id === Authorid;
+			return response2.author.id === message.user.guild;
 			}
 			
 			message.channel.awaitMessages(filter2, { max: 1 })
