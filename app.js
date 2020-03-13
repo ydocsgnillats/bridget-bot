@@ -102,9 +102,9 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
-		const filter = m => m.author.id === message.author.id;
+		//const filter = m => m.author.id === message.author.id;
 		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY yes or no)").then(r => r.delete(30000));
-		message.channel.awaitMessages(filter, {max: 1, time: 30000}).then(collected =>{
+		message.channel.awaitMessages({max: 1, time: 30000}).then(collected =>{
 			if (collected.first().content === "yes"){
 				let embed = new Discord.RichEmbed()
 					.setTitle("MOTION: ")
@@ -114,18 +114,13 @@ client.on('message', async message => {
 					.addField("Author: ", message.author, true)
 					.addField("Seconded: ", collected.first().author, true)
 					.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
-				try{
 					const dbMotion = Motionbase.create({
 					motion: msg,
 					username: message.author.username,
 					guild: message.guild.name,
 					date: now,
 					})
-					return dbMotion;
-				}
-				catch(e) {
-					message.reply("Failed to Update Motion Database")
-				}
+					dbMotion;
 				return message.channel.send(embed)
 			}
 			else if (collected.first().content === 'no'){
