@@ -102,7 +102,7 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
-		const filter = m => m.content.first()
+		const filter = m => m.content
 		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY yes or no)").then(r => r.delete(30000));
 		message.channel.awaitMessages(filter, {max: 1, time: 30000}).then(collected =>{
 			if (collected.first().content === "yes"){
