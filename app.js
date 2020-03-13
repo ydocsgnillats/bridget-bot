@@ -100,11 +100,12 @@ client.on('message', async message => {
 	if(message.content.includes('roll!')){
 		return roll(message)
 	}
-	if(message.content.startsWith('motion!')){
+	if(message.content.startsWith('motion!'))
+	{
 		var msg = message.content.split(" ").slice(1).join(" ")
 		const filter = m => m.author.id !== message.author.id;
-		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY yes or no)").then(r => r.delete(30000));
-		message.channel.awaitMessages(filter, {max: 1, time: 30000}).then(collected =>{
+		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY yes or no)")
+		.then(message.channel.awaitMessages(filter, {max: 1, time: 30000})).then(async collected =>{
 			if (collected.first().content === "yes"){
 				let embed = new Discord.RichEmbed()
 					.setTitle("MOTION: ")
@@ -124,15 +125,16 @@ client.on('message', async message => {
 				return message.channel.send(embed)
 			}
 			else if (collected.first().content === 'no'){
-				return message.channel.send("MOTION DENIED").then(r => r.delete(5000));
+				const r = await message.channel.send("MOTION DENIED")
+				return r.delete(5000)
 			}
 			else if (collected.first().content === 'cancel'){
-				return message.reply("Motion Canceled.").then(r => r.delete(5000));
+				const r_1 = await message.reply("Motion Canceled.")
+				return r_1.delete(5000)
 			}
-
 			}).catch(err =>{ 
 				message.reply("Motion " + msg + " denied due to timeout.").then(r => r.delete(5000));
-			});
+			})
 	}
 	if(message.content.startsWith('motions!')){
 	 	const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
