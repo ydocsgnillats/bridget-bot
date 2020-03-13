@@ -219,6 +219,7 @@ client.on('message', async message => {
 		.addField("**schedule!**", "schedule reminders", true)
 		.addField("**kill!**", "kills a user", true)
 		.addField("**help!**", "sends this message", true)
+		.addField("**JLB**", "Joey likes boys", true)
 		.setFooter('BridgetBot2020', client.user.displayAvatarURL);
 		return message.channel.send({embed: sEmbed});
 	}
