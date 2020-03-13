@@ -105,37 +105,43 @@ client.on('message', async message => {
 		var msg = message.content.split(" ").slice(1).join(" ")
 		const filter = m => m.author.id !== message.author.id;
 		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY yes or no)")
-		.then(message.channel.awaitMessages(filter, {max: 1, time: 30000})).then(async collected =>{
-			if (collected.first().content === "yes"){
-				let embed = new Discord.RichEmbed()
-					.setTitle("MOTION: ")
-					.setColor("BLURPLE")
-					.setDescription(msg)
-					.setThumbnail(message.user.displayAvatarURL)
-					.addField("Author: ", message.author, true)
-					.addField("Seconded: ", collected.first().author, true)
-					.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
-					const dbMotion = Motionbase.create({
-					motion: msg,
-					username: message.author.username,
-					guild: message.guild.name,
-					date: now,
-					})
-					dbMotion;
-				return message.channel.send(embed)
-			}
-			else if (collected.first().content === 'no'){
-				const r = await message.channel.send("MOTION DENIED")
-				return r.delete(5000)
-			}
-			else if (collected.first().content === 'cancel'){
-				const r_1 = await message.reply("Motion Canceled.")
-				return r_1.delete(5000)
-			}
-			}).catch(err =>{ 
-				message.reply("Motion " + msg + " denied due to timeout.").then(r => r.delete(5000));
-			})
-	}
+		.then(function(){
+			message.channel.awaitMessages(response=>message.content, 
+				{
+					max: 1, 
+					time: 30000,
+					errors: ['time'],
+				}).then(collected =>{
+				if (collected.first().content === "yes"){
+					let embed = new Discord.RichEmbed()
+						.setTitle("MOTION: ")
+						.setColor("BLURPLE")
+						.setDescription(msg)
+						.setThumbnail(message.user.displayAvatarURL)
+						.addField("Author: ", message.author, true)
+						.addField("Seconded: ", collected.first().author, true)
+						.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
+						const dbMotion = Motionbase.create({
+						motion: msg,
+						username: message.author.username,
+						guild: message.guild.name,
+						date: now,
+						})
+						dbMotion;
+					return message.channel.send(embed)
+				}
+				else if (collected.first().content === 'no'){
+					const r = await message.channel.send("MOTION DENIED")
+					return r.delete(5000)
+				}
+				else if (collected.first().content === 'cancel'){
+					const r_1 = await message.reply("Motion Canceled.")
+					return r_1.delete(5000)
+				}
+				}).catch(err =>{ 
+					message.reply("Motion " + msg + " denied due to timeout.").then(r => r.delete(5000));
+				})
+	})}
 	if(message.content.startsWith('motions!')){
 	 	const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
 	 	const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
