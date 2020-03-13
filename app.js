@@ -121,13 +121,13 @@ client.on('message', async message => {
 						.addField("Author: ", message.author, true)
 						.addField("Seconded: ", collected.first().author, true)
 						.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
-						 const dbMotion = Motionbase.create({
-						 motion: msg,
-						 username: message.author.username,
-						 guild: message.guild.name,
-						 date: now,
-						 })
-						 dbMotion;
+						//  const dbMotion = Motionbase.create({
+						//  motion: msg,
+						//  username: message.author.username,
+						//  guild: message.guild.name,
+						//  date: now,
+						//  })
+						//  dbMotion;
 					return message.channel.send({embed: Membed});
 				}
 				else if (collected.first().content === 'no'){
