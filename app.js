@@ -11,6 +11,19 @@ const config = require('./config.json')
 const date = require('date-and-time')
 const now = new Date()
 date.format(now, 'YYYY/MM/DD HH:mm:ss')
+
+//Express
+let express = require('express');
+
+let app = express();
+
+app.use(express.static('web'))
+
+app.get('/', function(req, res){
+  res.sendFile('web/index.html', { root : __dirname});
+});
+
+app.listen(process.env.PORT || 9000);
 const activities_list = activities.activitylist()
 
 const databaseName = process.env.DATABASE_NAME
