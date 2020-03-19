@@ -7,7 +7,7 @@ const pin = require('./commands/pin.js')
 const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
 const Sequelize = require('sequelize')
-
+const config = require('./config.json')
 const date = require('date-and-time')
 const now = new Date()
 date.format(now, 'YYYY/MM/DD HH:mm:ss')
@@ -66,7 +66,7 @@ const Motionbase = sequelize.define('motion', {
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date()
-  client.user.setActivity("Initialization: " + (date.getSeconds()), {type: "PLAYING"}) //need fix
+  client.user.setActivity("Initialization: " + config.startup, {type: "PLAYING"}) //need fix
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1) // generates a random number between 1 and the length of the activities array list.
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}) // sets bot's activities to stream one of the phrases in the arraylist.
