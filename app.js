@@ -120,16 +120,16 @@ client.on('message', async message => {
 						date: now,
 						})
 					dbMotion;
-					// var Membed = new Discord.RichEmbed()
-					//  	Membed.setTitle("MOTION: ")
-					//  	Membed.setColor("BLURPLE")
-					//  	Membed.setDescription(msg)
-					//  	Membed.setThumbnail(message.user.displayAvatarURL)
-					//  	Membed.addField("Author: ", message.author, true)
-					//  	Membed.addField("Seconded: ", collected.first().author, true)
-					//  	Membed.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
-					// return message.channel.send({embed: Membed})
-					return message.channel.send("MOTION " + msg + " GRANTED")
+					let Membed = new Discord.RichEmbed()
+					.setTitle("MOTION: ")
+					.setColor("BLURPLE")
+					.setDescription(msg)
+					.setThumbnail(message.user.displayAvatarURL)
+					.addField("Author: ", message.author, true)
+					.addField("Seconded: ", collected.first().author, true)
+					.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
+					return message.channel.send({embed: Membed});
+					// return message.channel.send("MOTION " + msg + " GRANTED")
 				}
 				else if (collected.first().content === 'no'){
 					const r = await message.channel.send("MOTION DENIED")
@@ -219,6 +219,7 @@ client.on('message', async message => {
 		.addField("**schedule!**", "schedule reminders", true)
 		.addField("**kill!**", "kills a user", true)
 		.addField("**help!**", "sends this message", true)
+		.addField("**JLB**", "Joey likes boys", true)
 		.setFooter('BridgetBot2020', client.user.displayAvatarURL);
 		return message.channel.send({embed: sEmbed});
 	}
