@@ -8,24 +8,23 @@ const roll = require('./commands/roll.js')
 const activities = require('./commands/activities.js')
 const Sequelize = require('sequelize')
 const config = require('./config.json')
+const activities_list = activities.activitylist()
+
+
 const date = require('date-and-time')
 const now = new Date()
 date.format(now, 'YYYY/MM/DD HH:mm:ss')
 
+
 var startup = config.startup
-//Express
 let express = require('express');
-
 let app = express();
-
 app.use(express.static('web'))
-
 app.get('/', function(req, res){
   res.sendFile('web/index.html', { root : __dirname});
 });
-
 app.listen(process.env.PORT || 9000);
-const activities_list = activities.activitylist()
+
 
 const databaseName = process.env.DATABASE_NAME
 const databaseHost = process.env.DATABASE_HOST
@@ -77,6 +76,7 @@ const Motionbase = sequelize.define('motion', {
 	guild: Sequelize.STRING
 })  
 
+
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date()
@@ -119,7 +119,7 @@ client.on('message', async message => {
 	{
 		var msg = message.content.split(" ").slice(1).join(" ")
 		const filter = m => m.author.id !== message.author.id;
-		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY yes or no)")
+		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY second)")
 		.then(function(){
 			message.channel.awaitMessages(response=>message.content, 
 				{
@@ -127,7 +127,7 @@ client.on('message', async message => {
 					time: 30000,
 					errors: ['time'],
 				}).then(async collected =>{
-				if (collected.first().content === 'yes'){
+				if (collected.first().content === 'second'){
 					const dbMotion = Motionbase.create({
 						motion: msg,
 						username: message.author.username,
