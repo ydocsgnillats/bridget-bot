@@ -5,6 +5,7 @@ const client = new Discord.Client()
 const fs = require('fs')
 const pin = require('./commands/pin.js')
 const roll = require('./commands/roll.js')
+const motion = require('./commands/motions.js')
 const activities = require('./commands/activities.js')
 const Sequelize = require('sequelize')
 const config = require('./config.json')
@@ -91,6 +92,7 @@ client.on('ready', async () => {
 
 client.on('message', async message => {
 	if(message.author.bot || message.channel.type === 'dm') return;
+
 	if(message.content.includes('test!')){
 		return message.channel.send("**BRIDGET**").then(r => r.delete(5000));
 	}
@@ -117,51 +119,10 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!'))
 	{
-		var msg = message.content.split(" ").slice(1).join(" ")
-		const filter = m => m.author.id !== message.author.id;
-		message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY second)")
-		.then(function(){
-			message.channel.awaitMessages(response=>message.content, 
-				{
-					max: 1, 
-					time: 30000,
-					errors: ['time'],
-				}).then(async collected =>{
-				if (collected.first().content === 'second'){
-					const dbMotion = Motionbase.create({
-						motion: msg,
-						username: message.author.username,
-						guild: message.guild.name,
-						date: now,
-						})
-					dbMotion;
-					// var Membed = new Discord.RichEmbed()
-					//  	Membed.setTitle("MOTION: ")
-					//  	Membed.setColor("BLURPLE")
-					//  	Membed.setDescription(msg)
-					//  	Membed.setThumbnail(message.user.displayAvatarURL)
-					//  	Membed.addField("Author: ", message.author, true)
-					//  	Membed.addField("Seconded: ", collected.first().author, true)
-					//  	Membed.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
-					// return message.channel.send({embed: Membed})
-					return message.channel.send("MOTION " + msg + " GRANTED")
-				}
-				else if (collected.first().content === 'no'){
-					const r = await message.channel.send("MOTION DENIED")
-					return r.delete(5000)
-				}
-				else if (collected.first().content === 'cancel'){
-					const r_1 = await message.reply("Motion Canceled.")
-					return r_1.delete(5000)
-				}
-				}).catch(err =>{ 
-					message.reply("Motion " + msg + " denied due to timeout.").then(r => r.delete(5000));
-				})
-	})}
+		return motion(message)
+	}
 	if(message.content.startsWith('motions!')){
-	 	const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
-	 	const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
-		return message.channel.send(`Motions: ${motionString}`)
+		return motion(message)
 	}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
