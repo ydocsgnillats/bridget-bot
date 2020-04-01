@@ -1,4 +1,5 @@
 module.exports = message => {
+    motionbase = app.Motionbase
     var msg = message.content.split(" ").slice(1).join(" ")
     const filter = m => m.author.id !== message.author.id
     if (msg === 'motion!')
@@ -11,7 +12,7 @@ module.exports = message => {
 				    errors: ['time'],
 			    }).then(async collected =>{
 			    if (collected.first().content === 'second'){
-				    const dbMotion = Motionbase.create({
+				    const dbMotion = motionbase.create({
 					    motion: msg,
 					    username: message.author.username,
 					    guild: message.guild.name,
@@ -42,7 +43,7 @@ module.exports = message => {
 			    })
 	    })
 	if (msg === 'motions!'){
-	 	const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
+	 	const motionList = await motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
 	 	const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
 		return message.channel.send(`Motions: ${motionString}`)
     }   
