@@ -8,25 +8,18 @@ const roll = require('./commands/roll.js')
 const motion = require('./commands/motions.js')
 const activities = require('./commands/activities.js')
 const Sequelize = require('sequelize')
-const config = require('./config.json')
 const activities_list = activities.activitylist()
 
-
-const date = require('date-and-time')
-const now = new Date()
-date.format(now, 'YYYY/MM/DD HH:mm:ss')
-
-
-var startup = config.startup
-let express = require('express');
-let app = express();
+//setting up the app website
+let express = require('express')
+let app = express()
 app.use(express.static('web'))
 app.get('/', function(req, res){
-  res.sendFile('web/index.html', { root : __dirname});
-});
-app.listen(process.env.PORT || 9000);
+  res.sendFile('web/index.html', { root : __dirname})
+})
+app.listen(process.env.PORT || 9000)
 
-
+//setting up postgres databases using sequelize 
 const databaseName = process.env.DATABASE_NAME
 const databaseHost = process.env.DATABASE_HOST
 const databaseUser = process.env.DATABASE_USER
@@ -37,7 +30,7 @@ const sequelize = new Sequelize(databaseName, databaseUser, databasePassword, {
 	dialect: 'postgres',
 	host: databaseHost,
 	port: databasePort
-});
+})
 
 const Ideabase = sequelize.define('ideas', {
 	username: {
@@ -77,24 +70,28 @@ const Motionbase = sequelize.define('motion', {
 	guild: Sequelize.STRING
 })  
 
+// setting up the bot, syncing databases, setting activity
+const date = require('date-and-time')
+const now = new Date()
+date.format(now, 'YYYY/MM/DD HH:mm:ss')
 
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date()
-  client.user.setActivity("Initialization: " + startup, {type: "PLAYING"}) //need fix
+  client.user.setActivity("Initialization: " + startup, {type: "PLAYING"}) 
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1) // generates a random number between 1 and the length of the activities array list.
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}) // sets bot's activities to stream one of the phrases in the arraylist.
-  }, 300000); // Runs this every 5 minutes.
+  }, 300000) // Runs this every 5 minutes.
   await sequelize.sync()
-  config.startup = config.startup+1
 })
 
+// listens for a message in the discord server
 client.on('message', async message => {
-	if(message.author.bot || message.channel.type === 'dm') return;
+	if(message.author.bot || message.channel.type === 'dm') return
 
 	if(message.content.includes('test!')){
-		return message.channel.send("**BRIDGET**").then(r => r.delete(5000));
+		return message.channel.send("**BRIDGET**").then(r => r.delete(5000))
 	}
 	if(message.content.startsWith('thanks')){
 		return message.channel.send("*UwU*")
@@ -119,10 +116,10 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!'))
 	{
-		return motion(message)
+		return motion(message) //need fix
 	}
 	if(message.content.startsWith('motions!')){
-		return motion(message)
+		return motion(message) //need fix
 	}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
@@ -139,14 +136,14 @@ client.on('message', async message => {
 			return message.reply('Something went wrong with this event')
 		}
 	}
-	if (message.content.startsWith('kill!')){
+	if (message.content.startsWith('kill!')){ //need fix
 		var msg = message.content.split(" ").slice(1).join(" ")
 		if (!message.mentions.users.size) {
-			return message.reply('you need to tag a user in order to kick them!');
+			return message.reply('you need to tag a user in order to kick them!')
 		}
 		try {
 			const taggedUser = message.mentions.users.first()
-			const killSet = await Ideabase.update({ kill_count: sequelize.literal('kill_count+1') }, { where: {username: taggedUser} });
+			const killSet = await Ideabase.update({ kill_count: sequelize.literal('kill_count+1') }, { where: {username: taggedUser} })
 			const killGet = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['kill_count'] })
 			const killString = killGet.map(t => t.kill_count).join(', \n ') || 'No kills stored'
 			return message.channel.send(`Killing: ` + taggedUser + '\n' + "Kill Count: " + killString)
@@ -164,7 +161,7 @@ client.on('message', async message => {
 	if(message.content.startsWith('bridget!')){
 		var msg = message.content.split(" ").slice(1).join(" ")
 		try {
-			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
+			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?)
 			const dbNote = await Ideabase.create({
 				name: message.author.tag,
 				note: msg,
@@ -173,13 +170,13 @@ client.on('message', async message => {
 				date: now,
 			})
 			//await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
-			return message.channel.send(`Writing down: ${dbNote.note}`).then(r => r.delete(5000));
+			return message.channel.send(`Writing down: ${dbNote.note}`).then(r => r.delete(5000))
 		}
 		catch (e) {
-			return message.channel.send("There was a problem with this note").then(r => r.delete(5000));
+			return message.channel.send("There was a problem with this note").then(r => r.delete(5000))
 		}
 	}
-	if(message.content.startsWith('ideas!')){
+	if(message.content.startsWith('ideas!')){ //change to embed response
 		const ideaList = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['note'] })
 		const ideaString = ideaList.map(t => t.note).join(', \n ') || 'No ideas stored.'
 		return message.channel.send(`Ideas: ${ideaString}`)
@@ -199,8 +196,8 @@ client.on('message', async message => {
 		.addField("**schedule!**", "schedule reminders", true)
 		.addField("**kill!**", "kills a user", true)
 		.addField("**help!**", "sends this message", true)
-		.setFooter('BridgetBot2020', client.user.displayAvatarURL);
-		return message.channel.send({embed: sEmbed});
+		.setFooter('BridgetBot2020', client.user.displayAvatarURL)
+		return message.channel.send({embed: sEmbed})
 	}
 })
 
