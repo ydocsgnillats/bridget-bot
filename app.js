@@ -6,11 +6,11 @@ const fs = require('fs')
 const pin = require('./commands/pin.js')
 const roll = require('./commands/roll.js')
 const motions = require('./commands/motions.js')
+const motionFunc = motions.motionFunc()
 const help = require('./commands/help.js')
 const activities = require('./commands/activities.js')
 const Sequelize = require('sequelize')
 const activities_list = activities.activitylist()
-
 //setting up the app website
 let express = require('express')
 let app = express()
@@ -124,7 +124,7 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!'))
 	{
-		return motions.motionFunc(message) //need fix
+		return motionFunc(message) //need fix
 	}
 	if(message.content.startsWith('motions!'))
 	{
