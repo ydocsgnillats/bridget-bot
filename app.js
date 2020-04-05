@@ -29,7 +29,8 @@ const databasePassword = process.env.DATABASE_PASSWORD
 const sequelize = new Sequelize(databaseName, databaseUser, databasePassword, {
 	dialect: 'postgres',
 	host: databaseHost,
-	port: databasePort
+	port: databasePort,
+	logging: off,
 })
 
 const Ideabase = sequelize.define('ideas', {
