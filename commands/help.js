@@ -1,7 +1,5 @@
-const Discord = app.Discord
-
 module.exports = message => {
-    let sEmbed = new Discord.RichEmbed()
+    let sEmbed = new app.RichEmbed()
 		.setColor('#ffcba4')
 		.setTitle("Bridget:")
 		.setDescription("A secretary Bot")
