@@ -1,5 +1,10 @@
 require('dotenv').config()
 
+module.exports = {
+	Discord: Discord,
+	client : client,
+	Motionbase: Motionbase
+}
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const fs = require('fs')
@@ -118,10 +123,11 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!'))
 	{
-		return motion(message) //need fix
+		return motion.motionFunc(message) //need fix
 	}
-	if(message.content.startsWith('motions!')){
-		return motion(message) //need fix
+	if(message.content.startsWith('motions!'))
+	{
+		return motion.motionFunc(message) //need fix
 	}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
