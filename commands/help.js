@@ -1,5 +1,8 @@
+const discord = require(app.js)
+const Discord = discord.Discord
+
 module.exports = message => {
-    let sEmbed = new app.Discord.RichEmbed()
+    let sEmbed = new Discord.RichEmbed()
 		.setColor('#ffcba4')
 		.setTitle("Bridget:")
 		.setDescription("A secretary Bot")

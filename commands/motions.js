@@ -1,3 +1,4 @@
+
 module.exports = message => {
     var msg = message.content.split(" ").slice(1).join(" ")
     const filter = m => m.author.id !== message.author.id || 'don\'t vote on your own motion'
