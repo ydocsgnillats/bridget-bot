@@ -48,5 +48,5 @@ module.exports = message => {
             return message.channel.send(`Motions: ${motionString}`)
         }  
     } 
-    motionFunc(msg)
+    return motionFunc(msg)
 }
