@@ -30,7 +30,7 @@ const sequelize = new Sequelize(databaseName, databaseUser, databasePassword, {
 	dialect: 'postgres',
 	host: databaseHost,
 	port: databasePort,
-	logging: off,
+	logging: false,
 })
 
 const Ideabase = sequelize.define('ideas', {
