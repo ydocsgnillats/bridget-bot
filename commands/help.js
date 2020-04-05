@@ -1,4 +1,4 @@
-const discord = require('__dirname/app.js')
+const discord = require(path.resolve(app.js));
 const Discord = discord.Discord
 
 module.exports = message => {
