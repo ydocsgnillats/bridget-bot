@@ -2,19 +2,10 @@ require('dotenv').config()
 
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const activities = require('./commands/activities.js')
+const activities = require('./activities.js')
 const Sequelize = require('sequelize')
 const activities_list = activities.activitylist()
 const response = require('./interface.js')
-
-//setting up the app website
-let express = require('express')
-let app = express()
-app.use(express.static('web'))
-app.get('/', function(req, res){
-  res.sendFile('web/index.html', { root : __dirname})
-})
-app.listen(process.env.PORT || 9000)
 
 //setting up postgres databases using sequelize 
 const databaseName = process.env.DATABASE_NAME
