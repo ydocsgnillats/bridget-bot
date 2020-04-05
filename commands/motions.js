@@ -53,6 +53,7 @@ module.exports = message => {
         catch (e) {
             return message.channel.send("There was a problem with this motion.").then(r => r.delete(5000))
         }
+    }
     module.exports = {motionFunc: motionFunc}
     return motionFunc(message)
 }
