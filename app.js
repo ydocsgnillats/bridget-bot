@@ -5,7 +5,7 @@ const client = new Discord.Client()
 const fs = require('fs')
 const pin = require('./commands/pin.js')
 const roll = require('./commands/roll.js')
-const motion = require('./commands/motions.js')
+const motions = require('./commands/motions.js')
 const help = require('./commands/help.js')
 const activities = require('./commands/activities.js')
 const Sequelize = require('sequelize')
@@ -124,11 +124,11 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!'))
 	{
-		return motion.motionFunc(message) //need fix
+		return motions.motionFunc(message) //need fix
 	}
 	if(message.content.startsWith('motions!'))
 	{
-		return motion.motionFunc(message) //need fix
+		return motionFunc(message) //need fix
 	}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
