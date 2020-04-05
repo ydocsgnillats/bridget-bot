@@ -1,5 +1,4 @@
-const discord = require('./')
-const Discord = discord.Discord
+const Discord = app.Discord
 
 module.exports = message => {
     let sEmbed = new Discord.RichEmbed()
