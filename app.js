@@ -1,10 +1,5 @@
 require('dotenv').config()
 
-module.exports = {
-	Discord: Discord,
-	client : client,
-	Motionbase: Motionbase
-}
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const fs = require('fs')
@@ -76,6 +71,12 @@ const Motionbase = sequelize.define('motion', {
 	date: Sequelize.DATE,
 	guild: Sequelize.STRING
 })  
+
+module.exports = {
+	Discord: Discord,
+	client : client,
+	Motionbase: Motionbase
+}
 
 // setting up the bot, syncing databases, setting activity
 const date = require('date-and-time')
