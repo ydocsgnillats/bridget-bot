@@ -2,7 +2,7 @@ module.exports = message => {
     var msg = message.content.split(" ").slice(1).join(" ")
     const filter = m => m.author.id !== message.author.id
     async function motionFunc(msg){
-        if (msg === 'motion!')
+        //if (msg === 'motion!')
             message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY  *yes* or *no*)")
             .then(function(){
                 message.channel.awaitMessages(response=>message.content, 
@@ -42,10 +42,10 @@ module.exports = message => {
                         message.reply("Motion " + msg + " denied due to timeout.").then(r => r.delete(5000));
                     })
             })
-        if (msg === 'motions!'){
-            const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
-            const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
-            return message.channel.send(`Motions: ${motionString}`)
-        }  
+        //if (msg === 'motions!'){
+        //    const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
+        //   const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
+        //    return message.channel.send(`Motions: ${motionString}`)
+        //}  
     } 
 }
