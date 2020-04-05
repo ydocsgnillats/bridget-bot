@@ -50,4 +50,5 @@ module.exports = message => {
         }  
     } 
     module.exports = {motionFunc: motionFunc}
+    return motionFunc(message)
 }
