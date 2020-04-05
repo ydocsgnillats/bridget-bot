@@ -3,7 +3,7 @@ module.exports = message => {
     const filter = m => m.author.id !== message.author.id || 'don\'t vote on your own motion'
     async function motionFunc(m){
         if (m === 'motion!')
-            message.reply("Motion **" + m + "** initiated. \nDoes anyone second the motion?\n(REPLY  *yes* or *no*)")
+            message.reply("Motion **" + msg + "** initiated. \nDoes anyone second the motion?\n(REPLY  *yes* or *no*)")
             .then(function(){
                 message.channel.awaitMessages(response=>message.content, 
                     {
@@ -12,7 +12,7 @@ module.exports = message => {
                         errors: ['time'],
                     }).then(async collected =>{
                     if (collected.first().content === 'second'){
-                        const dbMotion = Motionbase.create({
+                        const dbMotion = app.Motionbase.create({
                             motion: m,
                             username: message.author.username,
                             guild: message.guild.name,
@@ -28,7 +28,7 @@ module.exports = message => {
                         //  	Membed.addField("Seconded: ", collected.first().author, true)
                         //  	Membed.setFooter('**MOTION GRANTED**', client.user.displayAvatarURL);
                         // return message.channel.send({embed: Membed})
-                        return message.channel.send("MOTION " + m + " GRANTED")
+                        return message.channel.send("MOTION " + msg + " GRANTED")
                     }
                     else if (collected.first().content === 'no'){
                         const r = await message.channel.send("MOTION DENIED")
@@ -43,10 +43,10 @@ module.exports = message => {
                     })
             })
         else if (m === 'motions!'){
-            const motionList = await Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
+            const motionList = await app.Motionbase.findAll({ where: {guild: message.guild.name}}, { attributes: ['motion'] })
             const motionString = motionList.map(t => t.motion).join(', \n ') || 'No motions stored.'
             return message.channel.send(`Motions: ${motionString}`)
         }  
     } 
-    return motionFunc(msg)
+    module.exports = {motionFunc: motionFunc()}
 }

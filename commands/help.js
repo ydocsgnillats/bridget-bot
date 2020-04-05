@@ -1,7 +1,3 @@
-const Discord = require('discord.js')
-Discord = app.Discord
-client = app.client
-
 module.exports = message => {
     let sEmbed = new Discord.RichEmbed()
 		.setColor('#ffcba4')
