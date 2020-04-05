@@ -123,11 +123,11 @@ client.on('message', async message => {
 	}
 	if(message.content.startsWith('motion!'))
 	{
-		return motions.motionFunc(message) //need fix
+		return motions(message) //need fix
 	}
 	if(message.content.startsWith('motions!'))
 	{
-		return motions.motionFunc(message) //need fix
+		return motions(message) //need fix
 	}
 	if (message.content.startsWith('schedule!')){
 		var msgarray = message.content.split(" ").slice(1).join(" ")
