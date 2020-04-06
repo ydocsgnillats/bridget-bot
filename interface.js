@@ -118,31 +118,31 @@ function response(message){
         'pay respect': 'F.',
         'in the chat': 'F.',
     }
-    var funcDict = {
-        'pin!': pin(message),
-        'unpin!': unPin(message),
-        'roll!': roll(message),
-        'motion!': motion(message),
-        'motions!': motions(message),
-        'schedule!': schedule(message),
-        'kill!': kill(message),
-        'clear!': clear(message),
-        'bridget!': note(message),
-        'ideas!': notes(message),
-        'help!': help(message),
+    // var funcDict = {
+    //     'pin!': pin(message),
+    //     'unpin!': unPin(message),
+    //     'roll!': roll(message),
+    //     'motion!': motion(message),
+    //     'motions!': motions(message),
+    //     'schedule!': schedule(message),
+    //     'kill!': kill(message),
+    //     'clear!': clear(message),
+    //     'bridget!': note(message),
+    //     'ideas!': notes(message),
+    //     'help!': help(message),
 
-    }
+    // }
     for (var key in msgDict){
         if (msgDict[message])
         {
             response = sendMsg(msgDict[key])
         }
     }
-    for (var key in funcDict){
-        if(funcDict[message])
-        {
-            response = funcDict[key]
-        }
-    }
+    // for (var key in funcDict){
+    //     if(funcDict[message])
+    //     {
+    //         response = funcDict[key]
+    //     }
+    // }
     return response
 }
