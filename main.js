@@ -114,6 +114,15 @@ client.on('message', async message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return
 	const args = message.content.slice(prefix.length).split(/ +/)
 	const command = args.shift().toLowerCase()
+	if(message.content.startsWith('test!')){
+		message.channel.send("**B R I D G E T**")
+	}
+	if(message.content.includes('pay respects')){
+		message.channel.send("F.")
+	}
+	if(message.content.includes('thanks')){
+		message.channel.send("*UwU*")
+	}
 	if (!client.commands.has(command)) return
 
 	try {
