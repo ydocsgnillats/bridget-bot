@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const Discord = require('discord.js')
 const client = new Discord.Client()
+const http = require('http');
 const activities = require('./activities.js')
 const Sequelize = require('sequelize')
 const activities_list = activities.activitylist()
@@ -64,6 +65,31 @@ module.exports = {
 	client:client,
 	Sequelize:Sequelize
 }
+
+// ping the bot periodically to keep it from idling
+function noIdle() {
+    setInterval(function() {
+        var options = {
+            host: 'bridget-sec-bot.herokuapp.com',
+            port: 80,
+            path: '/'
+        };
+        http.get(options, function(res) {
+            res.on('data', function(chunk) {
+                try {
+                    // optional logging... disable after it's working
+                    console.log("Bridget RESPONSE: " + chunk);
+                } catch (err) {
+                    console.log(err.message);
+                }
+            });
+        }).on('error', function(err) {
+            console.log("Error: " + err.message);
+        });
+    }, 20 * 60 * 1000); // load every 20 minutes
+}
+
+noIdle();
 // setting up the bot, syncing databases, setting activity
 const date = require('date-and-time')
 const now = new Date()
