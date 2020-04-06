@@ -126,6 +126,7 @@ client.on('message', async message => {
 		.addField("**pay respects**", "get an F in the chat", true)
 		.addField("**!roll**", "random roll between 1 and 100", true)
 		.addField("**!help**", "sends this message", true)
+		.addField("*website: *", "https://bridget-sec-bot.herokuapp.com", true)
 		.setFooter('BridgetBot2020', avatar)
 		return message.channel.send({embed: sEmbed})
 	}
