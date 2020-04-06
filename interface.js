@@ -49,12 +49,12 @@ function unPin(message){
 // 		}
 // }
 
-function clear(message){
-    const rowCount = await Ideabase.destroy({ where: { username: message.author.username, guild: message.guild.name} })
-		if (!rowCount) return message.reply('That person did not have any ideas.')
+// function clear(message){
+//     const rowCount = await Ideabase.destroy({ where: { username: message.author.username, guild: message.guild.name} })
+// 		if (!rowCount) return message.reply('That person did not have any ideas.')
 		
-		return message.reply('Deleted ' + message.author.username + '\'s notes')
-}
+// 		return message.reply('Deleted ' + message.author.username + '\'s notes')
+// }
 
 // function note(message){
 //     var msg = message.content.split(" ").slice(1).join(" ")
