@@ -1,3 +1,6 @@
+main = require('./main.js')
+client = main.client
+
 module.exports = {
 	name: 'test',
 	description: 'test!',
