@@ -140,7 +140,7 @@ client.on('message', async message => {
 		message.channel.send("*UwU*")
 	}
 	if (!message.content.startsWith(prefix) || message.author.bot) return
-	if (!client.commands.has(command)) return
+	if (!client.commands.has(command)) return message.channel.send('Command Does Not Exist')
 
 	try {
 		client.commands.get(command).execute(message, args)
