@@ -7,14 +7,15 @@ const Sequelize = require('sequelize')
 const prefix = process.env.PREFIX
 const activities = require('./activities.js')
 const activities_list = activities.activitylist()
-
+var avatar = client.user.displayAvatarURL
 const client = new Discord.Client()
 client.commands = new Discord.Collection()
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 
 module.exports = {
 client:client,
-Discord:Discord
+Discord:Discord,
+avatar:avatar
 }
 
 for (const file of commandFiles) {
