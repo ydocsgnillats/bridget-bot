@@ -135,7 +135,7 @@ function response(message){
     for (var key in msgDict){
         if (msgDict[message])
         {
-            response = sendMsg(msgDict[key])
+            response = sendMsg(msgDict[message])
         }
     }
     // for (var key in funcDict){
