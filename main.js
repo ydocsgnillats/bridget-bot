@@ -8,6 +8,7 @@ const prefix = process.env.PREFIX
 const activities = require('./activities.js')
 const activities_list = activities.activitylist()
 const client = new Discord.Client()
+client.commands = new Discord.Collection()
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 
 for (const file of commandFiles) {
@@ -107,7 +108,6 @@ client.on('ready', async () => {
   await sequelize.sync()
 })
 
-client.commands = new Discord.Collection()
 var avatar = client.user.displayAvatarURL
 
 // listens for a message in the discord server
