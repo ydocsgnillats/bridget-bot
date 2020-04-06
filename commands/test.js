@@ -1,5 +1,5 @@
-main = require('main.js')
-client = main.client
+const main = require('main.js')
+const client = main.client
 
 module.exports = {
 	name: 'test',
