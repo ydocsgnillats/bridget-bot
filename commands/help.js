@@ -2,7 +2,7 @@ module.exports = {
 	name: 'help',
 	description: 'help!',
 	execute(message, args) {
-        let sEmbed = new main.Discord.RichEmbed()
+        let sEmbed = new Discord.RichEmbed()
 		.setColor('#ffcba4')
 		.setTitle("Bridget:")
 		.setDescription("A secretary Bot")
