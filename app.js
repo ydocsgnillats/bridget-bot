@@ -206,7 +206,7 @@ client.on('message', async message => {
 		.setFooter('BridgetBot2020', client.user.displayAvatarURL)
 		return message.channel.send({embed: sEmbed})
 	}
-})
+})//test 
 
 client.off('shutdown', async () => {
 	console.log(`${client.user.tag} is shutting down...`)
