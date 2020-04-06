@@ -1,7 +1,5 @@
-const main = require('./main.js')
-const Discord = main.Discord
-const client = main.client
-const Sequelize = main.Sequelize
+require('./main.js')
+require('dotenv').config()
 
 module.exports = {response:response}
 
