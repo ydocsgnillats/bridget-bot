@@ -8,15 +8,7 @@ const prefix = process.env.PREFIX
 const activities = require('./activities.js')
 const activities_list = activities.activitylist()
 const client = new Discord.Client()
-client.commands = new Discord.Collection()
-var avatar = client.user.displayAvatarURL
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
-
-module.exports = {
-client:client,
-Discord:Discord,
-avatar:avatar
-}
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -115,6 +107,9 @@ client.on('ready', async () => {
   await sequelize.sync()
 })
 
+client.commands = new Discord.Collection()
+var avatar = client.user.displayAvatarURL
+
 // listens for a message in the discord server
 client.on('message', async message => {
 	const args = message.content.slice(prefix.length).split(/ +/)
@@ -160,3 +155,10 @@ client.off('shutdown', async () => {
 })
 
 client.login(process.env.TOKEN)
+
+
+module.exports = {
+	client:client,
+	Discord:Discord,
+	avatar:avatar
+}
