@@ -1,3 +1,4 @@
+main = require('./main.js')
 Discord = main.Discord
 
 module.exports = {response:response}
