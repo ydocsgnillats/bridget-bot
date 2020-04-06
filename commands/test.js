@@ -1,6 +1,3 @@
-const main = require('./main.js')
-const avatar = main.avatar
-
 module.exports = {
 	name: 'test',
 	description: 'test!',
