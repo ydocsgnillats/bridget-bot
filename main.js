@@ -115,7 +115,7 @@ client.on('message', async message => {
 	const args = message.content.slice(prefix.length).split(/ +/)
 	const command = args.shift().toLowerCase()
 	avatar = client.user.displayAvatarURL
-	if(message.content.includes('help!')){
+	if(message.content.includes('!help')){
 		let sEmbed = new Discord.RichEmbed()
 		.setColor('#ffcba4')
 		.setTitle("Bridget:")

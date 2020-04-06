@@ -23,10 +23,10 @@ Discord Secretary Bot
 | Command    | Description           |
 | :-------------: |:-------------:| 
 | !test | Replies with her name in all caps |
-| pin! | Pins the previous message in the channel |
-| undo! | Unpins the latest pinned message in the channel |
-| roll! | Rolls a number between 1 and 100 |
-| help! | Returns a list of possible commands to the discord channel itself |
+| !pin | Pins the previous message in the channel |
+| !undo | Unpins the latest pinned message in the channel |
+| !roll | Rolls a number between 1 and 100 |
+| !help | Returns a list of possible commands to the discord channel itself |
 
 
 
