@@ -1,4 +1,4 @@
-main = require('./main.js')
+main = require('main.js')
 client = main.client
 
 module.exports = {
