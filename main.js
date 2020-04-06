@@ -108,8 +108,6 @@ client.on('ready', async () => {
   await sequelize.sync()
 })
 
-var avatar = client.user.displayAvatarURL
-
 // listens for a message in the discord server
 client.on('message', async message => {
 	const args = message.content.slice(prefix.length).split(/ +/)
@@ -156,7 +154,7 @@ client.off('shutdown', async () => {
 
 client.login(process.env.TOKEN)
 
-
+var avatar = client.user.displayAvatarURL
 module.exports = {
 	client:client,
 	Discord:Discord,
