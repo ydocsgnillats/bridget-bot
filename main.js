@@ -10,6 +10,7 @@ const activities_list = activities.activitylist()
 const client = new Discord.Client()
 client.commands = new Discord.Collection()
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
+var avatar = "https://imgur.com/gallery/owhqJuC"
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -112,6 +113,7 @@ client.on('ready', async () => {
 client.on('message', async message => {
 	const args = message.content.slice(prefix.length).split(/ +/)
 	const command = args.shift().toLowerCase()
+	avatar = client.user.displayAvatarURL
 	if(message.content.includes('help!')){
 		let sEmbed = new Discord.RichEmbed()
 		.setColor('#ffcba4')
@@ -127,7 +129,7 @@ client.on('message', async message => {
 		.addField("**schedule!**", "schedule reminders", true)
 		.addField("**kill!**", "kills a user", true)
 		.addField("**help!**", "sends this message", true)
-		.setFooter('BridgetBot2020', client.user.displayAvatarURL)
+		.setFooter('BridgetBot2020', avatar)
 		return message.channel.send({embed: sEmbed})
 	}
 	if(message.content.includes('pay respects')){
@@ -154,9 +156,9 @@ client.off('shutdown', async () => {
 
 client.login(process.env.TOKEN)
 
-var avatar = client.user.displayAvatarURL
-module.exports = {
-	client:client,
-	Discord:Discord,
-	avatar:avatar
-}
+// var avatar = client.user.displayAvatarURL
+// module.exports = {
+// 	client:client,
+// 	Discord:Discord,
+// 	avatar:avatar
+// }
