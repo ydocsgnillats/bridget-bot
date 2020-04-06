@@ -86,7 +86,7 @@ module.exports = {response:response}
 // }
 
 function help(){
-    let sEmbed = new Discord.RichEmbed()
+    let sEmbed = new main.Discord.RichEmbed()
 		.setColor('#ffcba4')
 		.setTitle("Bridget:")
 		.setDescription("A secretary Bot")
