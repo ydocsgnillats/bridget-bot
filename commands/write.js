@@ -11,7 +11,7 @@ module.exports = {
                 guild: message.guild.name,
                 date: now,
             })
-            await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
+            Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
             return message.channel.send(`Writing down: ${dbNote.note}`).then(r => r.delete(5000))
         }
         catch (e) {
