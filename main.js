@@ -82,7 +82,7 @@ client.on('ready', async () => {
 
 // listens for a message in the discord server
 client.on('message', async message => {
-    return response.response(message)
+    return message.channel.send(response.response(message))
 })
 
 client.off('shutdown', async () => {

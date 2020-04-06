@@ -102,7 +102,7 @@ function help(){
 }
 
 function sendMsg(msg){
-    return message.channel.send(msg)
+    return msg
 }
 
 function embedMsg(message){
