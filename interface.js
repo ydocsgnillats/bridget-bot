@@ -1,3 +1,5 @@
+Discord = main.Discord
+
 module.exports = {response:response}
 
 // function pin(message){
