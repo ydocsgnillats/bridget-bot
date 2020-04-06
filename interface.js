@@ -32,22 +32,22 @@ function unPin(message){
 //     }
 // }
 
-function kill(message){
-    var msg = message.content.split(" ").slice(1).join(" ")
-		if (!message.mentions.users.size) {
-			return message.reply('you need to tag a user in order to kick them!')
-		}
-		try {
-			const taggedUser = message.mentions.users.first()
-			const killSet = await Ideabase.update({ kill_count: sequelize.literal('kill_count+1') }, { where: {username: taggedUser} })
-			const killGet = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['kill_count'] })
-			const killString = killGet.map(t => t.kill_count).join(', \n ') || 'No kills stored'
-			return message.channel.send(`Killing: ` + taggedUser + '\n' + "Kill Count: " + killString)
-		}
-		catch (e) {
-			return message.reply('This user does not exist')
-		}
-}
+// function kill(message){
+//     var msg = message.content.split(" ").slice(1).join(" ")
+// 		if (!message.mentions.users.size) {
+// 			return message.reply('you need to tag a user in order to kick them!')
+// 		}
+// 		try {
+// 			const taggedUser = message.mentions.users.first()
+// 			const killSet = await Ideabase.update({ kill_count: sequelize.literal('kill_count+1') }, { where: {username: taggedUser} })
+// 			const killGet = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['kill_count'] })
+// 			const killString = killGet.map(t => t.kill_count).join(', \n ') || 'No kills stored'
+// 			return message.channel.send(`Killing: ` + taggedUser + '\n' + "Kill Count: " + killString)
+// 		}
+// 		catch (e) {
+// 			return message.reply('This user does not exist')
+// 		}
+// }
 
 function clear(message){
     const rowCount = await Ideabase.destroy({ where: { username: message.author.username, guild: message.guild.name} })
@@ -56,31 +56,31 @@ function clear(message){
 		return message.reply('Deleted ' + message.author.username + '\'s notes')
 }
 
-function note(message){
-    var msg = message.content.split(" ").slice(1).join(" ")
-    try {
-        // equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?)
-        const dbNote = await Ideabase.create({
-            name: message.author.tag,
-            note: msg,
-            username: message.author.username,
-            guild: message.guild.name,
-            date: now,
-        })
-        //await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
-        return message.channel.send(`Writing down: ${dbNote.note}`).then(r => r.delete(5000))
-    }
-    catch (e) {
-        return message.channel.send("There was a problem with this note").then(r => r.delete(5000))
-    }
-}
+// function note(message){
+//     var msg = message.content.split(" ").slice(1).join(" ")
+//     try {
+//         // equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?)
+//         const dbNote = await Ideabase.create({
+//             name: message.author.tag,
+//             note: msg,
+//             username: message.author.username,
+//             guild: message.guild.name,
+//             date: now,
+//         })
+//         //await Ideabase.increment({idea_count: 1}, {where: {username = message.author.username}})
+//         return message.channel.send(`Writing down: ${dbNote.note}`).then(r => r.delete(5000))
+//     }
+//     catch (e) {
+//         return message.channel.send("There was a problem with this note").then(r => r.delete(5000))
+//     }
+// }
 
-function notes(message){
-	//change to embed response?
-	const ideaList = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['note'] })
-	const ideaString = ideaList.map(t => t.note).join(', \n ') || 'No ideas stored.'
-	return message.channel.send(`Ideas: ${ideaString}`)
-}
+// function notes(message){
+// 	//change to embed response?
+// 	const ideaList = await Ideabase.findAll({ where: {guild: message.guild.name}}, { attributes: ['note'] })
+// 	const ideaString = ideaList.map(t => t.note).join(', \n ') || 'No ideas stored.'
+// 	return message.channel.send(`Ideas: ${ideaString}`)
+// }
 
 function help(){
     let sEmbed = new Discord.RichEmbed()
