@@ -4,7 +4,7 @@ module.exports = {
 	execute(message, args) {
         var msg = message.content.split(" ").slice(1).join(" ")
         try {
-            const dbNote = await Ideabase.create({
+            const dbNote = Ideabase.create({
                 name: message.author.tag,
                 note: msg,
                 username: message.author.username,

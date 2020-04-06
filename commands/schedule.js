@@ -4,7 +4,7 @@ module.exports = {
 	execute(message, args) {
         var msgarray = message.content.split(" ").slice(1).join(" ")
         try{
-            const sched = await Schedulebase.create({
+            const sched = Schedulebase.create({
                 username: message.author.username,
                 event: msgarray,
                 guild: message.guild.name,
