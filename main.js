@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('./commands/pin.js')
 
 const Discord = require('discord.js')
 const fs = require('fs')
