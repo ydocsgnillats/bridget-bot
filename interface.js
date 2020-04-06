@@ -1,3 +1,8 @@
+const main = require('./main.js')
+const Discord = main.Discord
+const client = main.client
+const Sequelize = main.Sequelize
+
 module.exports = {response:response}
 
 function pin(message){

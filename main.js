@@ -59,6 +59,11 @@ const Motionbase = sequelize.define('motion', {
 	guild: Sequelize.STRING
 })  
 
+module.exports = {
+	Discord:Discord,
+	client:client,
+	Sequelize:Sequelize
+}
 // setting up the bot, syncing databases, setting activity
 const date = require('date-and-time')
 const now = new Date()
