@@ -28,5 +28,6 @@ Discord Secretary Bot
 | !roll | Rolls a number between 1 and 100 |
 | !help | Returns a list of possible commands to the discord channel itself |
 
+[![Run on Repl.it](https://repl.it/badge/github/ydocsgnillats/bridget-bot)](https://repl.it/github/ydocsgnillats/bridget-bot)
 
 
