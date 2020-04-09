@@ -1,72 +1,21 @@
 require('dotenv').config()
+require('./commands/pin.js')
 
 const Discord = require('discord.js')
 const fs = require('fs')
-const http = require('http')
-const Sequelize = require('sequelize')
-const prefix = process.env.PREFIX
+const web = require("./web/website.js")
+const prefix = "!"
 const activities = require('./activities.js')
 const activities_list = activities.activitylist()
 const client = new Discord.Client()
 client.commands = new Discord.Collection()
-
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
+var avatar = "https://imgur.com/gallery/owhqJuC"
+
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
-
-//setting up postgres databases using sequelize 
-const databaseName = process.env.DATABASE_NAME
-const databaseHost = process.env.DATABASE_HOST
-const databaseUser = process.env.DATABASE_USER
-const databasePort = process.env.DATABASE_PORT
-const databasePassword = process.env.DATABASE_PASSWORD
-
-const sequelize = new Sequelize(databaseName, databaseUser, databasePassword, {
-	dialect: 'postgres',
-	host: databaseHost,
-	port: databasePort,
-	logging: false,
-})
-
-const Ideabase = sequelize.define('ideas', {
-	username: {
-		type: Sequelize.STRING,
-	},
-	name: Sequelize.STRING,
-	note: Sequelize.TEXT,
-	guild: Sequelize.STRING,
-	date: Sequelize.DATE,
-	idea_count: {
-		type: Sequelize.INTEGER,
-		defaultValue: 0,
-		allowNull: false,
-	},
-	kill_count: {
-		type: Sequelize.INTEGER,
-		allowNull: false,
-		defaultValue: 0,
-	},
-})  
-
-const Schedulebase = sequelize.define('schedule', {
-	username: {
-		type: Sequelize.STRING,
-	},
-	event: Sequelize.TEXT,
-	guild: Sequelize.STRING,
-	date: Sequelize.DATE,
-})  
-
-const Motionbase = sequelize.define('motion', {
-	username: {
-		type: Sequelize.STRING,
-	},
-	motion: Sequelize.TEXT,
-	date: Sequelize.DATE,
-	guild: Sequelize.STRING
-})  
 
 // ping the bot periodically to keep it from idling
 function noIdle() {
@@ -105,7 +54,6 @@ client.on('ready', async () => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1) // generates a random number between 1 and the length of the activities array list.
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}) // sets bot's activities to stream one of the phrases in the arraylist.
   }, 300000) // Runs this every 5 minutes.
-  await sequelize.sync()
 })
 
 // listens for a message in the discord server
@@ -124,7 +72,7 @@ client.on('message', async message => {
 		.addField("**pay respects**", "get an F in the chat", true)
 		.addField("**!roll**", "random roll between 1 and 100", true)
 		.addField("**!help**", "sends this message", true)
-		.addField("*website: *", "https://bridget-sec-bot.herokuapp.com", true)
+		.addField("website: ", "https://Bridget-Bot--ydocsgnillats.repl.co", true)
 		.setFooter('BridgetBot2020', avatar)
 		return message.channel.send({embed: sEmbed})
 	}
@@ -150,11 +98,4 @@ client.off('shutdown', async () => {
 	console.log(`${client.user.tag} is shutting down...`)
 })
 
-client.login(process.env.TOKEN)
-
-// var avatar = client.user.displayAvatarURL
-// module.exports = {
-// 	client:client,
-// 	Discord:Discord,
-// 	avatar:avatar
-// }
+client.login("NTU5MDY5NTQ0NzA2OTk4Mjcy.XYD4-w.vfwW7nO3COis2Hl_Fkz18k4vIqU")
