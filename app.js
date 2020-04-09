@@ -5,10 +5,11 @@ const client = new Discord.Client()
 const fs = require('fs')
 const pin = require('./commands/pin.js')
 const roll = require('./commands/roll.js')
-const motion = require('./commands/motion.js')
+const motion = require('./commands/motions.js')
 const activities = require('./commands/activities.js')
 const Sequelize = require('sequelize')
 const activities_list = activities.activitylist()
+
 //setting up the app website
 let express = require('express')
 let app = express()
@@ -28,8 +29,7 @@ const databasePassword = process.env.DATABASE_PASSWORD
 const sequelize = new Sequelize(databaseName, databaseUser, databasePassword, {
 	dialect: 'postgres',
 	host: databaseHost,
-	port: databasePort,
-	logging: false,
+	port: databasePort
 })
 
 const Ideabase = sequelize.define('ideas', {
@@ -70,12 +70,6 @@ const Motionbase = sequelize.define('motion', {
 	guild: Sequelize.STRING
 })  
 
-module.exports = {
-	Discord: Discord,
-	client : client,
-	Motionbase: Motionbase
-}
-
 // setting up the bot, syncing databases, setting activity
 const date = require('date-and-time')
 const now = new Date()
@@ -84,7 +78,7 @@ date.format(now, 'YYYY/MM/DD HH:mm:ss')
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`)
   let date = new Date()
-  client.user.setActivity("Initialization: " + (date.getSeconds()), {type: "PLAYING"}) 
+  client.user.setActivity("Initialization: " + startup, {type: "PLAYING"}) 
   setInterval(() => {
 	const index = Math.floor(Math.random() * (activities_list.length - 1) + 1) // generates a random number between 1 and the length of the activities array list.
 	client.user.setActivity(activities_list[index], {type: "STREAMING"}) // sets bot's activities to stream one of the phrases in the arraylist.
@@ -124,8 +118,7 @@ client.on('message', async message => {
 	{
 		return motion(message) //need fix
 	}
-	if(message.content.startsWith('motions!'))
-	{
+	if(message.content.startsWith('motions!')){
 		return motion(message) //need fix
 	}
 	if (message.content.startsWith('schedule!')){
@@ -206,7 +199,7 @@ client.on('message', async message => {
 		.setFooter('BridgetBot2020', client.user.displayAvatarURL)
 		return message.channel.send({embed: sEmbed})
 	}
-})//test 
+})
 
 client.off('shutdown', async () => {
 	console.log(`${client.user.tag} is shutting down...`)
