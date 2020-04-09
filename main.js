@@ -1,5 +1,4 @@
 require('dotenv').config()
-require('./commands/pin.js')
 
 const Discord = require('discord.js')
 const fs = require('fs')
@@ -10,9 +9,8 @@ const activities = require('./activities.js')
 const activities_list = activities.activitylist()
 const client = new Discord.Client()
 client.commands = new Discord.Collection()
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
-var avatar = "https://imgur.com/gallery/owhqJuC"
 
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
