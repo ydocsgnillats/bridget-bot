@@ -1,5 +1,4 @@
 require('dotenv').config()
-require('./commands/pin.js')
 
 const Discord = require('discord.js')
 const fs = require('fs')
@@ -10,36 +9,11 @@ const activities_list = activities.activitylist()
 const client = new Discord.Client()
 client.commands = new Discord.Collection()
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
-var avatar = "https://imgur.com/gallery/owhqJuC"
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
-
-// ping the bot periodically to keep it from idling
-function noIdle() {
-    setInterval(function() {
-        var options = {
-            host: 'bridget-sec-bot.herokuapp.com',
-            port: 80,
-            path: '/'
-        };
-        http.get(options, function(res) {
-            res.on('data', function(chunk) {
-                try {
-                    // optional logging... disable after it's working
-                    console.log("Bridget RESPONSE: " + chunk);
-                } catch (err) {
-                    console.log(err.message);
-                }
-            });
-        }).on('error', function(err) {
-            console.log("Error: " + err.message);
-        });
-    }, 20 * 60 * 1000); // load every 20 minutes
-}
-noIdle();
 
 // setting up the bot, syncing databases, setting activity
 const date = require('date-and-time')
@@ -98,4 +72,4 @@ client.off('shutdown', async () => {
 	console.log(`${client.user.tag} is shutting down...`)
 })
 
-client.login("NTU5MDY5NTQ0NzA2OTk4Mjcy.XYD4-w.vfwW7nO3COis2Hl_Fkz18k4vIqU")
+client.login(BOT_TOKEN_HERE)
