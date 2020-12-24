@@ -13,7 +13,7 @@
   "author": "Cody Stallings",
   "license": "ISC",
   "dependencies": {
-    "date-and-time": "^0.12.0",
+    "date-and-time": "^0.14.2",
     "discord.js": "^11.5.1",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
